@@ -392,6 +392,102 @@ body.is-ready .scroll-hint { opacity: 1; }
   .ticket { flex: 0 0 min(64vw, 240px); scroll-snap-align: center; }
 }
 
+/* ---------- меню запуску ---------- */
+.services {
+  position: relative;
+  padding: clamp(90px, 11vw, 170px) var(--gutter);
+  background:
+    radial-gradient(70% 50% at 50% 30%, rgba(255, 194, 122, .1), transparent 70%),
+    #1a1411;
+  color: var(--cream);
+}
+.services-intro { max-width: 1180px; margin: 0 auto clamp(44px, 5vw, 72px); display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+.services-title { max-width: 11ch; font-size: clamp(40px, 5.2vw, 88px); font-weight: 700; line-height: .95; letter-spacing: -.05em; }
+.services-lead { max-width: 34ch; font-size: 17px; color: rgba(233, 223, 207, .72); }
+
+.menu-card {
+  position: relative;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(32px, 5vw, 80px) clamp(22px, 5vw, 84px);
+  border-radius: 6px;
+  background: #f3ebdd;
+  color: var(--ink);
+  box-shadow: 0 60px 120px -40px rgba(0, 0, 0, .8), 0 2px 0 rgba(255, 255, 255, .5) inset;
+  transform: perspective(1600px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform .9s var(--ease-out);
+}
+.menu-card::before {
+  content: "";
+  position: absolute; inset: 14px;
+  border: 1px solid rgba(21, 17, 14, .22);
+  border-radius: 3px;
+  pointer-events: none;
+}
+.menu-card-head { text-align: center; margin-bottom: clamp(36px, 5vw, 70px); }
+.menu-card-name { font-family: var(--script); font-size: clamp(44px, 5.4vw, 84px); line-height: 1; color: var(--sign); }
+.menu-card-note { margin-top: 10px; font-size: 14px; color: rgba(21, 17, 14, .55); }
+
+.courses { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 5vw, 70px) clamp(36px, 6vw, 96px); }
+.course-name { font-size: clamp(26px, 2.4vw, 36px); font-weight: 700; letter-spacing: -.035em; line-height: 1; }
+.course-sub { margin: 6px 0 22px; font-family: var(--script); font-size: 22px; color: var(--sign); }
+.dishes { list-style: none; display: grid; }
+.dish {
+  position: relative;
+  display: grid; gap: 4px;
+  padding: 14px 0 15px;
+  border-top: 1px dashed rgba(21, 17, 14, .22);
+  cursor: default;
+  transition: padding .45s var(--ease-out);
+}
+.dish b { font-size: 18px; font-weight: 600; letter-spacing: -.015em; transition: color .3s; }
+.dish span { font-size: 14.5px; line-height: 1.45; color: rgba(21, 17, 14, .64); }
+.dish::before {
+  content: "";
+  position: absolute; left: 0; top: 23px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--sign);
+  transform: scale(0);
+  transition: transform .4s var(--ease-out);
+}
+@media (hover: hover) {
+  .dish:hover { padding-left: 20px; }
+  .dish:hover::before { transform: scale(1); }
+  .dish:hover b { color: #b8470a; }
+}
+
+.menu-card-foot {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px clamp(36px, 6vw, 96px);
+  margin-top: clamp(40px, 5vw, 70px);
+  padding-top: 26px;
+  border-top: 1.5px solid rgba(21, 17, 14, .8);
+  font-size: 14.5px; line-height: 1.55;
+  color: rgba(21, 17, 14, .72);
+}
+.menu-card-foot b { color: var(--ink); font-weight: 650; }
+
+.dish-preview {
+  position: fixed; left: 0; top: 0; z-index: 40;
+  width: clamp(200px, 17vw, 270px); aspect-ratio: 4 / 5;
+  margin: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  box-shadow: 0 40px 70px -24px rgba(0, 0, 0, .6);
+  transition: opacity .35s, scale .5s var(--ease-out);
+  scale: .7;
+}
+.dish-preview.is-on { opacity: 1; scale: 1; }
+.dish-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (hover: none), (pointer: coarse) { .dish-preview { display: none; } }
+
+@media (max-width: 760px) {
+  .courses, .menu-card-foot { grid-template-columns: 1fr; }
+  .menu-card { transform: none; }
+  .menu-card::before { inset: 8px; }
+}
+
 /* ---------- заглушка наступного блоку ---------- */
 .next {
   min-height: 100vh;
