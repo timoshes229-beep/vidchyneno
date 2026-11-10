@@ -37,7 +37,7 @@
     <span class="brand-sign">ВІДЧИНЕНО</span>
   </a>
   <nav class="header-actions">
-    <a class="header-link" href="https://t.me/" target="_blank" rel="noopener">Telegram</a>
+    <a class="header-link" data-contact="telegram" href="#contact" target="_blank" rel="noopener">Telegram</a>
     <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="menu">
       <span class="menu-toggle-text">Меню</span>
       <span class="menu-toggle-icon" aria-hidden="true"></span>
@@ -327,9 +327,83 @@
     </div>
   </section>
 
-  <section class="next" id="contact">
-    <p>Тут буде наступний блок: контакти та заявка.</p>
+  <section class="contact" id="contact">
+    <div class="contact-grid">
+      <div class="contact-left">
+        <h2 class="contact-title">Повісимо табличку «Відчинено» на ваші двері?</h2>
+        <p class="contact-lead">Залиште заявку. Дмитро зателефонує, розпитає про ідею і безкоштовно зробить первинний прорахунок.</p>
+
+        <div class="contact-links">
+          <a class="contact-link" data-contact="phone" href="#"><small>Телефон</small><span data-contact-text="phone">Передзвонимо вам</span></a>
+          <a class="contact-link" data-contact="telegram" href="#" target="_blank" rel="noopener"><small>Telegram</small><span data-contact-text="telegram">Написати Дмитру</span></a>
+        </div>
+
+        <button class="final-sign" id="finalSign" type="button" aria-label="Перевернути табличку">
+          <span class="final-sign-cord" aria-hidden="true"></span>
+          <span class="final-sign-inner">
+            <span class="final-face final-face-closed"><b>ЗАЧИНЕНО</b><small>поки що</small></span>
+            <span class="final-face final-face-open"><b>ВІДЧИНЕНО</b><small>від ідеї до першого гостя</small></span>
+          </span>
+        </button>
+      </div>
+
+      <form class="booking" id="booking" novalidate>
+        <p class="booking-head">Заявка на запуск</p>
+        <div class="booking-fields">
+          <label class="field">
+            <span>Ваше ім'я</span>
+            <input name="name" autocomplete="name" required>
+          </label>
+          <label class="field">
+            <span>Телефон або Telegram</span>
+            <input name="phone" autocomplete="tel" required>
+          </label>
+          <label class="field">
+            <span>Який заклад плануєте</span>
+            <select name="format">
+              <option value="">Ще не визначився</option>
+              <option>Кав'ярня</option>
+              <option>Стрітфуд або шаурма</option>
+              <option>Піцерія, суші чи бургерна</option>
+              <option>Кафе або ресторан</option>
+              <option>Пекарня чи кондитерська</option>
+              <option>Dark kitchen</option>
+              <option>Перезапуск закладу, що вже працює</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Площа</span>
+            <input name="area" id="bookingArea" placeholder="Наприклад, 35 м²">
+          </label>
+          <fieldset class="field field-choice">
+            <legend>Приміщення</legend>
+            <label><input type="radio" name="premises" value="Є" checked><span>Вже є</span></label>
+            <label><input type="radio" name="premises" value="Шукаємо"><span>Треба знайти</span></label>
+          </fieldset>
+          <label class="field field-wide">
+            <span>Коментар</span>
+            <textarea name="comment" rows="3" placeholder="Місто, бюджет, ідея, усе що вважаєте важливим"></textarea>
+          </label>
+        </div>
+        <p class="booking-error" id="bookingError" role="alert"></p>
+        <button class="btn btn-sign booking-submit" type="submit"><span>Надіслати заявку</span></button>
+        <div class="booking-done" id="bookingDone" hidden>
+          <p class="booking-done-title">Заявку прийнято</p>
+          <p class="booking-done-text" id="bookingDoneText">Дмитро зв'яжеться з вами найближчим часом.</p>
+        </div>
+      </form>
+    </div>
   </section>
+
+  <footer class="site-footer">
+    <a class="brand" href="#top"><span class="brand-sign">ВІДЧИНЕНО</span></a>
+    <p>Власник: Дмитро Барсук. Запуск закладів під ключ по всій Україні.</p>
+    <nav class="footer-social">
+      <a data-contact="instagram" href="#" target="_blank" rel="noopener" hidden>Instagram</a>
+      <a data-contact="tiktok" href="#" target="_blank" rel="noopener" hidden>TikTok</a>
+      <a href="#top">На початок</a>
+    </nav>
+  </footer>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>

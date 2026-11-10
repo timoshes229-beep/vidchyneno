@@ -4,6 +4,7 @@ import { initMenu } from './menu.js';
 import { initProcess } from './process.js';
 import { initCases } from './cases.js';
 import { initPricing } from './pricing.js';
+import { initContact } from './contact.js';
 
 const $ = (s) => document.querySelector(s);
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -109,6 +110,7 @@ const updateAbout = initAbout();
 const updateProcess = initProcess();
 const updateCases = initCases();
 initPricing();
+initContact();
 initMenu(finePointer && !reduceMotion);
 
 function raf(t) {
