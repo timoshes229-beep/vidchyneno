@@ -582,7 +582,7 @@ body.is-ready .scroll-hint { opacity: 1; }
 
 @media (max-width: 900px) {
   .build { grid-template-columns: 1fr; }
-  .build-steps { grid-template-columns: repeat(7, minmax(92px, 1fr)); overflow-x: auto; scrollbar-width: none; margin-left: calc(var(--gutter) * -1); margin-right: calc(var(--gutter) * -1); padding-left: var(--gutter); padding-right: var(--gutter); }
+  .build-steps { grid-template-columns: repeat(7, minmax(128px, 1fr)); overflow-x: auto; scrollbar-width: none; margin-left: calc(var(--gutter) * -1); margin-right: calc(var(--gutter) * -1); padding-left: var(--gutter); padding-right: var(--gutter); }
   .build-steps::before, .build-steps::after { left: var(--gutter); }
   .build-steps::before { right: var(--gutter); }
 }
@@ -662,7 +662,9 @@ body.is-ready .scroll-hint { opacity: 1; }
 
 @media (max-width: 760px) {
   .cases-track { padding-top: 80px; padding-bottom: 60px; gap: 16px; }
-  .cases-intro { flex-basis: 78vw; }
+  .cases-intro { flex-basis: 64vw; }
+  .cases-title { font-size: 32px; }
+  .cases-lead { font-size: 15px; }
   .case, .case-tall, .case-yours { height: auto; width: 80vw; aspect-ratio: 3 / 4; }
 }
 
@@ -943,13 +945,12 @@ body.is-ready .scroll-hint { opacity: 1; }
 .pricing-lead, .contact-lead { margin-bottom: clamp(36px, 5vw, 64px); }
 
 @media (min-width: 901px) {
-  .about-title, .services-title, .process-title, .cases-title, .pricing-title, .contact-title { white-space: nowrap; max-width: none; }
+  .about-title, .services-title, .process-title, .pricing-title, .contact-title { white-space: nowrap; max-width: none; }
   .about-title { font-size: min(68px, 3.9vw); }
   .services-title { font-size: min(80px, 7.2vw); }
   .process-title { font-size: min(76px, 9.4vw); }
   .pricing-title { font-size: min(72px, 4.6vw); }
   .contact-title { font-size: min(58px, 3.2vw); }
-  .cases-intro { flex: 0 0 auto; }
   .services-intro { flex-direction: column; align-items: flex-start; gap: 16px; }
 }
 @media (min-width: 1200px) {
@@ -1060,3 +1061,16 @@ body.is-ready .scroll-hint { opacity: 1; }
 .header-cta { min-height: 42px; padding: 0 18px; font-size: 14px; }
 .btn:disabled { opacity: .35; cursor: default; }
 @media (max-width: 900px) { .header-cta { display: none; } }
+
+/* ---------- 3D-макет закладу в «Як ми працюємо» ---------- */
+.build-3d { display: none; width: 100%; aspect-ratio: 800 / 560; }
+.build-art.has-3d { padding: 0; background-image: radial-gradient(80% 70% at 50% 40%, #fbf6ec, #efe5d4); }
+.build-art.has-3d .build-3d { display: block; }
+.build-art.has-3d .build-svg { display: none; }
+.build-steps.is-playing .build-step.is-active::after {
+  content: ""; display: block; height: 2px; margin-top: 6px; border-radius: 2px;
+  background: var(--sign);
+  transform-origin: left;
+  animation: step-timer var(--step-ms, 3200ms) linear both;
+}
+@keyframes step-timer { from { transform: scaleX(0); } to { transform: scaleX(1); } }

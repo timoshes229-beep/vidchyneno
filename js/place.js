@@ -46,6 +46,7 @@ export function initPlace(hero) {
     if (bookingPlace && !bookingPlace.dataset.touched) bookingPlace.value = name;
     if (bookingFormat && !bookingFormat.dataset.touched) bookingFormat.value = SELECT_BY_FORMAT[place.format];
     save();
+    dispatchEvent(new CustomEvent('place:change', { detail: { name, format: place.format } }));
   }
 
   load();
