@@ -319,16 +319,16 @@ export async function createHero(canvasEl) {
   const sconces = [];
   for (const s of [-1, 1]) {
     const bar = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.62, 0.05), glow(COL.lamp, 0));
-    bar.position.set(s * 1.42, 2.25, 0.05);
+    bar.position.set(s * 1.24, 2.25, 0.05);
     scene.add(bar);
     const plate = new THREE.Mesh(new THREE.BoxGeometry(0.11, 0.7, 0.03), metal);
-    plate.position.set(s * 1.42, 2.25, 0.015);
+    plate.position.set(s * 1.24, 2.25, 0.015);
     scene.add(plate);
     const halo = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 2.6), additive(radialTex(), COL.lamp, 0));
-    halo.position.set(s * 1.42, 2.25, 0.03);
+    halo.position.set(s * 1.24, 2.25, 0.03);
     scene.add(halo);
     const light = new THREE.PointLight(COL.lamp, 0, 5, 2);
-    light.position.set(s * 1.42, 2.25, 0.35);
+    light.position.set(s * 1.24, 2.25, 0.35);
     scene.add(light);
     sconces.push({ bar, halo, light });
   }
@@ -605,9 +605,9 @@ export async function createHero(canvasEl) {
 
     for (const s of sconces) {
       const v = L * flicker;
-      s.bar.material.color.copy(s.bar.material.userData.base).multiplyScalar(v * 3.2);
-      s.halo.material.opacity = v * 0.55;
-      s.light.intensity = v * 3.2;
+      s.bar.material.color.copy(s.bar.material.userData.base).multiplyScalar(v * 1.5);
+      s.halo.material.opacity = v * 0.2;
+      s.light.intensity = v * 2.2;
     }
     led.material.color.copy(led.material.userData.base).multiplyScalar(L * 3);
     wash.material.opacity = L * 0.42;

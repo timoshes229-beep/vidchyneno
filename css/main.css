@@ -193,6 +193,7 @@ body.is-loading .site-header { opacity: 0; transform: translateY(-20px); }
   line-height: .9;
   letter-spacing: -.05em;
   color: var(--cream);
+  text-shadow: 0 2px 34px rgba(10, 12, 18, .65), 0 0 2px rgba(10, 12, 18, .3);
 }
 .hero-word { position: absolute; top: var(--door-mid); transform: translateY(-50%); }
 .hero-word-left { right: calc(100% - var(--door-l) + 3.2vw); text-align: right; }
