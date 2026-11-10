@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ВІДЧИНЕНО — варіанти логотипа</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Manrope:wght@500;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Rubik+Mono+One&family=Neucha&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#141110;--card:#1d1916;--line:#3a322b;--cream:#f4ead9;--muted:#b3a693;--ember:#ff5a1f;--ember2:#ffb23f;--ink:#141110}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--cream);font-family:Manrope,system-ui,sans-serif;padding:60px 24px 80px}
+.wrap{max-width:1200px;margin:0 auto}
+h1{font-family:Unbounded;font-weight:800;font-size:clamp(28px,4vw,48px);margin-bottom:10px}
+.sub{color:var(--muted);margin-bottom:46px;font-size:17px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden;display:flex;flex-direction:column}
+.stage{min-height:300px;display:flex;align-items:center;justify-content:center;padding:40px 24px;position:relative}
+.minis{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--line)}
+.mini{height:96px;display:flex;align-items:center;justify-content:center;gap:10px}
+.mini+.mini{border-left:1px solid var(--line)}
+.meta{padding:20px 24px;border-top:1px solid var(--line)}
+.meta b{font-family:Unbounded;font-size:15px;letter-spacing:.04em}
+.meta b span{color:var(--ember)}
+.meta p{color:var(--muted);font-size:14.5px;margin-top:6px;line-height:1.5}
+.tag{font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:700}
+
+/* 1 — key mark */
+.v1{display:flex;align-items:center;gap:18px}
+.v1 .w{font-family:Unbounded;font-weight:800;font-size:clamp(30px,4vw,44px);line-height:1}
+.v1 .tag{color:var(--muted);margin-top:10px;display:block}
+
+/* 2 — door sign */
+.v2{display:flex;flex-direction:column;align-items:center}
+.v2 .board{background:var(--ember);color:var(--ink);border-radius:20px;padding:22px 34px;text-align:center;box-shadow:inset 0 0 0 5px var(--ink),inset 0 0 0 8px var(--ember)}
+.v2 .w{font-family:Unbounded;font-weight:900;font-size:clamp(26px,3.4vw,36px);line-height:1}
+.v2 .tag{display:block;margin-top:8px;font-size:10px}
+
+/* 3 — stamp */
+.v3 svg text{font-family:Unbounded;font-weight:600}
+
+/* 4 — neon */
+.v4{text-align:center}
+.v4 .w{font-family:Neucha,cursive;font-size:clamp(48px,6vw,72px);color:#fff4e6;line-height:1;
+  text-shadow:0 0 6px #fff,0 0 14px var(--ember),0 0 30px var(--ember),0 0 60px var(--ember);animation:flick 5s infinite}
+.v4 .tag{color:var(--ember2);margin-top:16px;display:block;text-shadow:0 0 10px rgba(255,178,63,.6)}
+@keyframes flick{0%,92%,100%{opacity:1}93%{opacity:.4}95%{opacity:1}96%{opacity:.55}}
+
+/* 5 — key in word */
+.v5{text-align:center}
+.v5 .w{font-family:Rubik Mono One,sans-serif;font-size:clamp(28px,3.8vw,42px);line-height:1;display:inline-flex;align-items:center;letter-spacing:-.01em}
+.v5 .w svg{height:.95em;width:auto;margin-left:.08em}
+.v5 .tag{color:var(--muted);margin-top:14px;display:block}
+
+/* 6 — serif editorial */
+.v6{text-align:center}
+.v6 .w{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(40px,5.4vw,62px);line-height:1;letter-spacing:-.01em}
+.v6 .w i{color:var(--ember);font-style:italic}
+.v6 .rule{display:flex;align-items:center;gap:14px;justify-content:center;margin-top:14px;color:var(--muted)}
+.v6 .rule::before,.v6 .rule::after{content:"";height:1px;width:40px;background:var(--line)}
+.v6 .tag{font-family:'Playfair Display';font-style:italic;letter-spacing:.02em;text-transform:none;font-size:17px;font-weight:700}
+
+/* 7 — stacked block */
+.v7{display:grid;grid-template-columns:repeat(2,auto);gap:6px;font-family:Unbounded;font-weight:900;font-size:clamp(28px,3.6vw,40px);line-height:1}
+.v7 div{background:var(--cream);color:var(--ink);padding:14px 16px;border-radius:12px;text-align:center}
+.v7 div:nth-child(2){background:var(--ember)}
+.v7 .tg{grid-column:1/-1;background:none;color:var(--muted);font-family:Manrope;font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;padding:8px 0 0}
+
+/* 8 — open/closed toggle */
+.v8{display:flex;align-items:center;gap:16px}
+.v8 .sw{width:86px;height:48px;border-radius:999px;background:var(--ember);position:relative;flex:none}
+.sw::after{content:"";position:absolute;right:7%;top:12%;height:76%;aspect-ratio:1;border-radius:50%;background:var(--ink)}
+.v8 .w{font-family:Unbounded;font-weight:600;font-size:clamp(28px,3.6vw,40px);line-height:1;letter-spacing:-.02em}
+.v8 .tag{color:var(--muted);display:block;margin-top:8px}
+
+.foot{color:var(--muted);font-size:14px;margin-top:36px}
+@media(max-width:860px){.grid{grid-template-columns:1fr}}
+@media(max-width:480px){body{padding:40px 16px}.minis{grid-template-columns:1fr}.mini+.mini{border-left:0;border-top:1px solid var(--line)}.v1,.v8{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="key" viewBox="0 0 64 64">
+    <path d="M20 13c3 3-2 5 1 8" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M26 12c3 3-2 5 1 8" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none" opacity=".55"/>
+    <circle cx="22" cy="36" r="10" fill="none" stroke="currentColor" stroke-width="5.5"/>
+    <circle cx="22" cy="36" r="3" fill="currentColor"/>
+    <path d="M32 36h21M46 36v8M53 36v6" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="keyO" viewBox="0 0 70 40">
+    <circle cx="18" cy="20" r="13" fill="none" stroke="currentColor" stroke-width="8"/>
+    <path d="M31 20h34M55 20v12M65 20v9" stroke="currentColor" stroke-width="8" stroke-linecap="square"/>
+  </symbol>
+  <symbol id="badge" viewBox="0 0 64 64">
+    <rect width="64" height="64" rx="16" fill="#FF5A1F"/>
+    <use href="#key" color="#141110"/>
+  </symbol>
+</svg>
+
+<div class="wrap">
+  <h1>ВІДЧИНЕНО: варіанти логотипа</h1>
+  <p class="sub">Підзаголовок «Від ідеї до першого гостя». Під кожним варіантом показано, як він виглядає на світлому, на помаранчевому і в маленькому розмірі (аватарка, фавікон).</p>
+
+  <div class="grid">
+
+    <!-- 1 -->
+    <div class="card">
+      <div class="stage"><div class="v1">
+        <svg width="84" height="84"><use href="#badge"/></svg>
+        <div><div class="w">ВІДЧИНЕНО</div><span class="tag">від ідеї до першого гостя</span></div>
+      </div></div>
+      <div class="minis">
+        <div class="mini" style="background:var(--cream);color:var(--ink)"><svg width="40" height="40"><use href="#badge"/></svg><b style="font-family:Unbounded;font-size:15px">ВІДЧИНЕНО</b></div>
+        <div class="mini" style="background:var(--ember);color:var(--ink)"><svg width="44" height="44"><use href="#key"/></svg><b style="font-family:Unbounded;font-size:15px">ВІДЧИНЕНО</b></div>
+        <div class="mini"><svg width="48" height="48"><use href="#badge"/></svg></div>
+      </div>
+      <div class="meta"><b><span>01</span> Ключ із парою</b><p>Поточний варіант із сайту. Ключ означає «під ключ», пара над ним — гарячу кухню. Найуніверсальніший: добре працює і в шапці сайту, і на аватарці.</p></div>
+    </div>
+
+    <!-- 2 -->
+    <div class="card">
+      <div class="stage"><div class="v2">
+        <svg width="150" height="56" viewBox="0 0 150 56"><path d="M20 56 75 6l55 50" stroke="#b3a693" stroke-width="1.5" fill="none"/><circle cx="75" cy="6" r="6" fill="#b3a693"/></svg>
+        <div class="board"><div class="w">ВІДЧИНЕНО</div><span class="tag">від ідеї до першого гостя</span></div>
+      </div></div>
+      <div class="minis">
+        <div class="mini" style="background:var(--cream)"><div class="v2"><div class="board" style="padding:10px 16px;border-radius:10px"><div class="w" style="font-size:15px">ВІДЧИНЕНО</div></div></div></div>
+        <div class="mini" style="background:var(--ember)"><div class="v2"><div class="board" style="padding:10px 16px;border-radius:10px;background:var(--ink);color:var(--ember);box-shadow:inset 0 0 0 3px var(--ember),inset 0 0 0 5px var(--ink)"><div class="w" style="font-size:15px">ВІДЧИНЕНО</div></div></div></div>
+        <div class="mini"><div class="v2"><div class="board" style="padding:9px 9px;border-radius:10px"><div class="w" style="font-size:20px">В</div></div></div></div>
+      </div>
+      <div class="meta"><b><span>02</span> Табличка на дверях</b><p>Буквально та сама табличка, яку вішають у день відкриття. Найсильніше передає ідею назви й гарно виглядатиме як наліпка чи справжня табличка в подарунок клієнтам.</p></div>
+    </div>
+
+    <!-- 3 -->
+    <div class="card">
+      <div class="stage"><div class="v3">
+        <svg width="230" height="230" viewBox="0 0 230 230">
+          <defs><path id="arcT" d="M115,115 m-82,0 a82,82 0 1,1 164,0"/><path id="arcB" d="M115,115 m-96,0 a96,96 0 0,0 192,0"/></defs>
+          <circle cx="115" cy="115" r="110" fill="none" stroke="#ff5a1f" stroke-width="3"/>
+          <circle cx="115" cy="115" r="62" fill="#ff5a1f"/>
+          <text fill="#f4ead9" font-size="26" font-weight="800" letter-spacing="5"><textPath href="#arcT" startOffset="50%" text-anchor="middle">ВІДЧИНЕНО</textPath></text>
+          <text fill="#b3a693" font-size="10.5" letter-spacing="3"><textPath href="#arcB" startOffset="50%" text-anchor="middle">ВІД ІДЕЇ ДО ПЕРШОГО ГОСТЯ</textPath></text>
+          <use href="#key" x="75" y="75" width="80" height="80" color="#141110"/>
+          <text x="22" y="120" fill="#ff5a1f" font-size="12">✦</text><text x="198" y="120" fill="#ff5a1f" font-size="12">✦</text>
+        </svg>
+      </div></div>
+      <div class="minis">
+        <div class="mini" style="background:var(--cream)"><svg width="78" height="78" viewBox="0 0 230 230"><circle cx="115" cy="115" r="110" fill="none" stroke="#141110" stroke-width="5"/><circle cx="115" cy="115" r="62" fill="#ff5a1f"/><text fill="#141110" font-size="26" font-weight="800" letter-spacing="5" font-family="Unbounded"><textPath href="#arcT" startOffset="50%" text-anchor="middle">ВІДЧИНЕНО</textPath></text><use href="#key" x="75" y="75" width="80" height="80" color="#141110"/></svg></div>
+        <div class="mini" style="background:var(--ember)"><svg width="78" height="78" viewBox="0 0 230 230"><circle cx="115" cy="115" r="110" fill="none" stroke="#141110" stroke-width="5"/><circle cx="115" cy="115" r="62" fill="#141110"/><text fill="#141110" font-size="26" font-weight="800" letter-spacing="5" font-family="Unbounded"><textPath href="#arcT" startOffset="50%" text-anchor="middle">ВІДЧИНЕНО</textPath></text><use href="#key" x="75" y="75" width="80" height="80" color="#ff5a1f"/></svg></div>
+        <div class="mini"><svg width="52" height="52" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#ff5a1f"/><use href="#key" x="6" y="6" width="52" height="52" color="#141110"/></svg></div>
+      </div>
+      <div class="meta"><b><span>03</span> Печатка</b><p>Кругла печатка, як «знак якості». Виглядає солідно, підходить для упаковки, документів, договорів і сертифіката «Заклад відкрито з Відчинено».</p></div>
+    </div>
+
+    <!-- 4 -->
+    <div class="card">
+      <div class="stage" style="background:radial-gradient(circle,#2a1610,#0e0b0a 70%)"><div class="v4">
+        <div class="w">Відчинено</div><span class="tag">від ідеї до першого гостя</span>
+      </div></div>
+      <div class="minis">
+        <div class="mini" style="background:var(--cream)"><span style="font-family:Neucha;font-size:30px;color:var(--ember)">Відчинено</span></div>
+        <div class="mini" style="background:var(--ember)"><span style="font-family:Neucha;font-size:30px;color:var(--ink)">Відчинено</span></div>
+        <div class="mini" style="background:#0e0b0a"><span style="font-family:Neucha;font-size:34px;color:#fff4e6;text-shadow:0 0 8px var(--ember),0 0 18px var(--ember)">В</span></div>
+      </div>
+      <div class="meta"><b><span>04</span> Неонова вивіска</b><p>Рукописний неон, як світиться вивіска нічного кафе. Найемоційніший і найкращий для Instagram, але менш «діловий».</p></div>
+    </div>
+
+    <!-- 5 -->
+    <div class="card">
+      <div class="stage"><div class="v5">
+        <div class="w">ВІДЧИНЕН<svg viewBox="0 0 70 40" style="color:var(--ember)"><use href="#keyO"/></svg></div>
+        <span class="tag">від ідеї до першого гостя</span>
+      </div></div>
+      <div class="minis">
+        <div class="mini" style="background:var(--cream);color:var(--ink)"><div class="v5"><div class="w" style="font-size:17px">ВІДЧИНЕН<svg viewBox="0 0 70 40" style="color:var(--ember)"><use href="#keyO"/></svg></div></div></div>
+        <div class="mini" style="background:var(--ember);color:var(--ink)"><div class="v5"><div class="w" style="font-size:17px">ВІДЧИНЕН<svg viewBox="0 0 70 40"><use href="#keyO"/></svg></div></div></div>
+        <div class="mini"><svg width="64" height="38" viewBox="0 0 70 40" style="color:var(--ember)"><use href="#keyO"/></svg></div>
+      </div>
+      <div class="meta"><b><span>05</span> Ключ замість «О»</b><p>Остання літера перетворюється на ключ. Мінімалістично й розумно, людина помічає це не одразу, а потім запам'ятовує.</p></div>
+    </div>
+
+    <!-- 6 -->
+    <div class="card">
+      <div class="stage" style="background:var(--cream);color:var(--ink)"><div class="v6">
+        <div class="w">Відчи<i>нено</i></div>
+        <div class="rule"><span class="tag" style="color:#6b5d4e">від ідеї до першого гостя</span></div>
+      </div></div>
+      <div class="minis">
+        <div class="mini"><span style="font-family:'Playfair Display';font-weight:900;font-size:28px">Відчи<i style="color:var(--ember)">нено</i></span></div>
+        <div class="mini" style="background:var(--ember);color:var(--ink)"><span style="font-family:'Playfair Display';font-weight:900;font-size:28px">Відчи<i>нено</i></span></div>
+        <div class="mini" style="background:var(--ink)"><span style="font-family:'Playfair Display';font-weight:900;font-size:40px;color:var(--cream)">В<i style="color:var(--ember)">н</i></span></div>
+      </div>
+      <div class="meta"><b><span>06</span> Ресторанна класика</b><p>Засічковий шрифт, як на меню гарного ресторану. Пасує, якщо Діма хоче подаватися як преміальний сервіс для ресторанів, а не для стрітфуду.</p></div>
+    </div>
+
+    <!-- 7 -->
+    <div class="card">
+      <div class="stage"><div class="v7">
+        <div>ВІД</div><div>ЧИ</div><div>НЕ</div><div>НО</div>
+        <span class="tg">від ідеї до першого гостя</span>
+      </div></div>
+      <div class="minis">
+        <div class="mini" style="background:var(--cream)"><div class="v7" style="font-size:12px;gap:2px"><div style="padding:5px 6px;border-radius:4px;background:var(--ink);color:var(--cream)">ВІД</div><div style="padding:5px 6px;border-radius:4px">ЧИ</div><div style="padding:5px 6px;border-radius:4px;background:var(--ink);color:var(--cream)">НЕ</div><div style="padding:5px 6px;border-radius:4px;background:var(--ink);color:var(--cream)">НО</div></div></div>
+        <div class="mini" style="background:var(--ember)"><div class="v7" style="font-size:12px;gap:2px"><div style="padding:5px 6px;border-radius:4px">ВІД</div><div style="padding:5px 6px;border-radius:4px;background:var(--ink);color:var(--ember)">ЧИ</div><div style="padding:5px 6px;border-radius:4px">НЕ</div><div style="padding:5px 6px;border-radius:4px">НО</div></div></div>
+        <div class="mini"><div class="v7" style="font-size:13px;gap:2px"><div style="padding:6px 7px;border-radius:5px">ВІ</div><div style="padding:6px 7px;border-radius:5px">Д</div></div></div>
+      </div>
+      <div class="meta"><b><span>07</span> Плитка</b><p>Слово розбите на склади й складене як плитка на кухні. Сміливо, по-сучасному, легко анімувати: склади «падають» на свої місця.</p></div>
+    </div>
+
+    <!-- 8 -->
+    <div class="card">
+      <div class="stage"><div class="v8">
+        <div class="sw"></div>
+        <div><div class="w">відчинено</div><span class="tag">від ідеї до першого гостя</span></div>
+      </div></div>
+      <div class="minis">
+        <div class="mini" style="background:var(--cream);color:var(--ink)"><div class="v8" style="gap:8px;flex-direction:row"><div class="sw" style="width:44px;height:24px"></div><b style="font-family:Unbounded;font-weight:600;font-size:16px">відчинено</b></div></div>
+        <div class="mini" style="background:var(--ember);color:var(--ink)"><div class="v8" style="gap:8px;flex-direction:row"><div class="sw" style="width:44px;height:24px;background:var(--ink)"></div><b style="font-family:Unbounded;font-weight:600;font-size:16px">відчинено</b></div></div>
+        <div class="mini"><div class="sw" style="width:60px;height:34px;position:relative;border-radius:999px;background:var(--ember)"></div></div>
+      </div>
+      <div class="meta"><b><span>08</span> Перемикач «ON»</b><p>Тумблер у положенні «увімкнено»: заклад запущено. Технологічний і дуже простий значок, але менше пов'язаний із кухнею.</p></div>
+    </div>
+
+  </div>
+  <p class="foot">Колір, шрифт і значок можна міксувати між варіантами, наприклад значок 05 зі шрифтом 06.</p>
+</div>
+</body>
+</html>
