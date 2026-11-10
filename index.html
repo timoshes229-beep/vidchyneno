@@ -2,555 +2,92 @@
 <html lang="uk">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ВІДЧИНЕНО — запуск закладів під ключ</title>
-<meta name="description" content="Відкриваємо кафе, ресторани, кав'ярні та стрітфуд під ключ по всій Україні. 20+ запущених закладів, досвід у HoReCa з 2012 року.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ВІДЧИНЕНО | Запуск закладів під ключ</title>
+<meta name="description" content="Дмитро Барсук відкриває кафе, ресторани та стрітфуд під ключ по всій Україні. 12 років шеф-кухарем, 20+ запущених закладів.">
+<meta name="theme-color" content="#141a24">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 44'%3E%3Crect x='2' y='2' width='60' height='40' rx='10' fill='%23f26a1b'/%3E%3Crect x='7' y='7' width='50' height='30' rx='6' fill='none' stroke='%2315110e' stroke-width='3'/%3E%3Ctext x='32' y='30' font-family='Arial' font-weight='900' font-size='20' text-anchor='middle' fill='%2315110e'%3EВ%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FF5A1F'/%3E%3Ccircle cx='22' cy='34' r='10' fill='none' stroke='%23141110' stroke-width='6'/%3E%3Cpath d='M32 34h22M46 34v8M53 34v6' stroke='%23141110' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
-<style>
-:root{
-  --bg:#141110;
-  --bg2:#1d1916;
-  --card:#231e1a;
-  --line:#3a322b;
-  --cream:#f4ead9;
-  --muted:#b3a693;
-  --ember:#ff5a1f;
-  --ember2:#ffb23f;
-  --green:#7fd39b;
-  --radius:22px;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--cream);font-family:Manrope,system-ui,sans-serif;font-size:17px;line-height:1.55;overflow-x:hidden}
-a{color:inherit;text-decoration:none}
-img,svg{display:block}
-.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
-h1,h2,h3,.display{font-family:Unbounded,sans-serif;line-height:1.05;letter-spacing:-.02em}
-h2{font-size:clamp(32px,5vw,60px);font-weight:800;margin-bottom:20px}
-.eyebrow{display:inline-flex;gap:10px;align-items:center;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--ember2);margin-bottom:18px;font-weight:700}
-.eyebrow::before{content:"";width:28px;height:2px;background:var(--ember)}
-.lead{color:var(--muted);font-size:19px;max-width:640px}
-section{padding:110px 0;position:relative}
-.btn{display:inline-flex;align-items:center;gap:12px;background:var(--ember);color:#141110;font-weight:700;padding:18px 30px;border-radius:999px;border:0;font-size:16px;cursor:pointer;transition:transform .2s,box-shadow .2s;font-family:inherit}
-.btn:hover{transform:translateY(-2px);box-shadow:0 12px 40px -10px var(--ember)}
-.btn.ghost{background:transparent;color:var(--cream);border:1.5px solid var(--line)}
-.btn.ghost:hover{border-color:var(--cream);box-shadow:none}
-
-/* grain */
-body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.07;z-index:100;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
-
-/* header */
-header{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .3s,backdrop-filter .3s}
-header.scrolled{background:rgba(20,17,16,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.nav{display:flex;align-items:center;justify-content:space-between;height:76px}
-.logo{display:flex;align-items:center;gap:12px}
-.logo-mark{width:44px;height:44px;flex:none}
-.logo-word{font-family:Unbounded;font-weight:800;font-size:19px;letter-spacing:.02em;line-height:1}
-.logo-word small{display:block;font-family:Manrope;font-weight:500;font-size:10.5px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-top:5px}
-.menu{display:flex;gap:30px;font-size:15px;color:var(--muted)}
-.menu a:hover{color:var(--cream)}
-.nav .btn{padding:12px 22px;font-size:14px}
-
-/* hero */
-.hero{min-height:100vh;display:flex;align-items:center;padding:130px 0 80px;overflow:hidden}
-.hero-glow{position:absolute;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(255,90,31,.28),transparent 60%);right:-300px;top:-200px;filter:blur(20px);animation:breathe 7s ease-in-out infinite}
-@keyframes breathe{50%{transform:scale(1.12);opacity:.75}}
-.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:40px;align-items:center;position:relative}
-.hero h1{font-size:clamp(44px,7.4vw,104px);font-weight:800;margin-bottom:28px}
-.hero h1 em{font-style:normal;color:var(--ember);position:relative;white-space:nowrap}
-.hero h1 .outline{color:transparent;-webkit-text-stroke:2px var(--cream)}
-.hero .lead{margin-bottom:38px}
-.hero-actions{display:flex;flex-wrap:wrap;gap:14px}
-
-/* door sign */
-.sign-stage{display:flex;justify-content:center;perspective:900px}
-.sign{transform-origin:50% 0;animation:swing 4.5s ease-in-out infinite;position:relative;padding-top:90px;cursor:pointer}
-.sign::before{content:"";position:absolute;top:0;left:50%;width:150px;height:96px;transform:translateX(-50%);
-  background:linear-gradient(to bottom right,transparent calc(50% - 1px),var(--muted) 50%,transparent calc(50% + 1px)) left/50% 100% no-repeat,
-             linear-gradient(to bottom left,transparent calc(50% - 1px),var(--muted) 50%,transparent calc(50% + 1px)) right/50% 100% no-repeat}
-.sign::after{content:"";position:absolute;top:-8px;left:50%;width:16px;height:16px;border-radius:50%;background:var(--muted);transform:translateX(-50%)}
-@keyframes swing{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
-.sign-board{width:320px;max-width:76vw;aspect-ratio:1.45;border-radius:26px;background:var(--ember);color:#141110;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
-  box-shadow:0 40px 80px -30px rgba(255,90,31,.7),inset 0 0 0 6px #141110,inset 0 0 0 9px var(--ember);transition:transform .6s;transform-style:preserve-3d}
-.sign-board .display{font-size:clamp(26px,3.4vw,38px);font-weight:800}
-.sign-board span{font-size:13px;letter-spacing:.2em;text-transform:uppercase;font-weight:700}
-.sign.flip .sign-board{background:var(--cream)}
-
-/* marquee */
-.marquee{border-block:1px solid var(--line);padding:22px 0;overflow:hidden;background:var(--bg2)}
-.marquee-track{display:flex;gap:44px;width:max-content;animation:run 38s linear infinite}
-.marquee span{font-family:Unbounded;font-size:clamp(20px,2.6vw,30px);font-weight:600;white-space:nowrap;display:flex;align-items:center;gap:44px}
-.marquee span::after{content:"✦";color:var(--ember);font-size:.7em}
-@keyframes run{to{transform:translateX(-50%)}}
-
-/* stats */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:60px}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px 26px}
-.stat b{font-family:Unbounded;font-size:clamp(38px,4.4vw,56px);font-weight:800;display:block;color:var(--ember2);line-height:1;margin-bottom:12px}
-.stat p{color:var(--muted);font-size:15px}
-
-/* about */
-.about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:center}
-.portrait{aspect-ratio:4/5;border-radius:var(--radius);background:
-  radial-gradient(circle at 30% 20%,rgba(255,178,63,.35),transparent 50%),
-  linear-gradient(160deg,#2c241e,#171311);border:1px solid var(--line);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:28px}
-.portrait .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--line)}
-.portrait .ph svg{width:46%;opacity:.9}
-.portrait .tag{position:relative;background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:16px 20px}
-.portrait .tag b{font-family:Unbounded;font-size:20px;display:block}
-.portrait .tag span{color:var(--muted);font-size:14px}
-.facts{display:grid;gap:14px;margin-top:30px}
-.fact{display:flex;gap:16px;align-items:flex-start;padding:18px 0;border-bottom:1px solid var(--line)}
-.fact i{flex:none;width:38px;height:38px;border-radius:12px;background:rgba(255,90,31,.14);color:var(--ember);display:grid;place-items:center;font-style:normal;font-weight:800;font-family:Unbounded;font-size:14px}
-.quote{margin-top:34px;font-family:Unbounded;font-size:clamp(18px,2vw,22px);line-height:1.4;font-weight:400;border-left:3px solid var(--ember);padding-left:22px}
-
-/* services */
-.services{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:50px}
-.svc{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px;transition:border-color .3s,transform .3s}
-.svc:hover{border-color:var(--ember);transform:translateY(-4px)}
-.svc .n{font-family:Unbounded;color:var(--ember);font-size:14px;margin-bottom:18px;display:block}
-.svc h3{font-size:21px;margin-bottom:14px;font-weight:600}
-.svc ul{list-style:none;color:var(--muted);font-size:15px;display:grid;gap:7px}
-.svc li::before{content:"— ";color:var(--ember)}
-.extra{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.extra .svc{background:linear-gradient(135deg,rgba(255,90,31,.12),var(--card) 60%)}
-
-/* process */
-.process{background:var(--bg2);border-block:1px solid var(--line)}
-.steps{display:grid;grid-template-columns:repeat(6,1fr);gap:0;margin-top:60px;counter-reset:s}
-.step{position:relative;padding:0 18px 0 0}
-.step::before{counter-increment:s;content:"0" counter(s);font-family:Unbounded;font-weight:800;font-size:15px;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:var(--bg);border:1.5px solid var(--ember);color:var(--ember);position:relative;z-index:1;margin-bottom:22px}
-.step::after{content:"";position:absolute;top:27px;left:54px;right:0;height:1.5px;background:repeating-linear-gradient(90deg,var(--line) 0 8px,transparent 8px 14px)}
-.step:last-child::after{display:none}
-.step:last-child::before{background:var(--ember);color:#141110}
-.step h3{font-size:17px;font-weight:600;margin-bottom:8px}
-.step p{font-size:14.5px;color:var(--muted)}
-.timing{margin-top:56px;display:flex;flex-wrap:wrap;gap:14px}
-.pill{border:1px solid var(--line);border-radius:999px;padding:12px 22px;font-size:15px}
-.pill b{color:var(--ember2)}
-
-/* cases */
-.cases{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;margin-top:50px}
-.case{grid-column:span 2;border-radius:var(--radius);overflow:hidden;position:relative;min-height:320px;display:flex;flex-direction:column;justify-content:flex-end;padding:28px;border:1px solid var(--line)}
-.case.big{grid-column:span 3;min-height:420px}
-.case .bg{position:absolute;inset:0;z-index:0;transition:transform .7s}
-.case:hover .bg{transform:scale(1.06)}
-.case>*:not(.bg){position:relative;z-index:1}
-.case .type{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ember2);font-weight:700;margin-bottom:10px}
-.case h3{font-size:clamp(22px,2.4vw,30px);margin-bottom:8px}
-.case p{color:var(--muted);font-size:15px}
-.case .city{position:absolute;top:24px;right:24px;z-index:1;font-size:13px;background:rgba(20,17,16,.7);border:1px solid var(--line);padding:6px 14px;border-radius:999px}
-.note{color:var(--muted);font-size:14px;margin-top:18px}
-
-/* pricing */
-.calc{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:50px}
-.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:36px}
-.area-out{font-family:Unbounded;font-size:clamp(52px,6vw,80px);font-weight:800;line-height:1}
-.area-out small{font-size:.35em;color:var(--muted);font-weight:400}
-input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:9px;background:linear-gradient(90deg,var(--ember) var(--p,25%),var(--line) var(--p,25%));margin:34px 0 14px;outline:none}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;border-radius:50%;background:var(--cream);border:6px solid var(--ember);cursor:grab}
-input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--cream);border:6px solid var(--ember);cursor:grab}
-.scale{display:flex;justify-content:space-between;color:var(--muted);font-size:13px}
-.tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:30px}
-.tier{border:1px solid var(--line);border-radius:14px;padding:12px 8px;text-align:center;font-size:13px;color:var(--muted);cursor:pointer;transition:.2s;background:none;font-family:inherit}
-.tier.on{border-color:var(--ember);color:var(--cream);background:rgba(255,90,31,.12)}
-.result .row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:22px 0;border-bottom:1px solid var(--line)}
-.result .row:last-of-type{border:0}
-.result .row span{color:var(--muted);font-size:15px}
-.result .row b{font-family:Unbounded;font-size:clamp(24px,2.8vw,34px);font-weight:600;text-align:right}
-.result .row b.hot{color:var(--ember)}
-.result .btn{margin-top:20px;width:100%;justify-content:center}
-
-/* vs */
-.vs{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:50px}
-.vs .panel h3{font-size:19px;margin-bottom:18px;font-weight:600}
-.vs .panel ul{list-style:none;display:grid;gap:12px;font-size:15.5px;color:var(--muted)}
-.vs .panel li{display:flex;gap:10px}
-.vs .panel li::before{content:"✕";color:#8a7d6f;flex:none}
-.vs .panel.us{border-color:var(--ember);background:linear-gradient(160deg,rgba(255,90,31,.16),var(--card) 55%)}
-.vs .panel.us li{color:var(--cream)}
-.vs .panel.us li::before{content:"✓";color:var(--ember)}
-
-/* faq */
-.faq{max-width:860px;margin-top:40px}
-details{border-bottom:1px solid var(--line)}
-summary{list-style:none;cursor:pointer;padding:26px 50px 26px 0;font-family:Unbounded;font-size:clamp(16px,1.8vw,20px);position:relative}
-summary::-webkit-details-marker{display:none}
-summary::after{content:"+";position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:28px;color:var(--ember);transition:transform .3s}
-details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
-details p{color:var(--muted);padding:0 0 26px;max-width:720px}
-
-/* cta */
-.cta{padding:0 0 110px}
-.cta-box{background:var(--ember);color:#141110;border-radius:36px;padding:clamp(36px,6vw,80px);display:grid;grid-template-columns:1fr 1fr;gap:50px;position:relative;overflow:hidden}
-.cta-box h2{color:#141110}
-.cta-box .lead{color:#3b1d0e}
-.cta-box .big-key{position:absolute;right:-60px;bottom:-80px;width:360px;opacity:.13}
-form{display:grid;gap:12px;position:relative}
-form input,form select,form textarea{width:100%;background:rgba(20,17,16,.08);border:1.5px solid rgba(20,17,16,.3);border-radius:16px;padding:17px 20px;font:inherit;color:#141110;outline:none}
-form input::placeholder,form textarea::placeholder{color:#5a2c14}
-form input:focus,form select:focus,form textarea:focus{border-color:#141110}
-form .btn{background:#141110;color:var(--cream);justify-content:center}
-form .btn:hover{box-shadow:0 12px 40px -10px #141110}
-.thanks{display:none;font-family:Unbounded;font-size:22px;padding:30px 0}
-.contacts{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
-.contacts a{border:1.5px solid #141110;border-radius:999px;padding:12px 20px;font-weight:700;font-size:15px}
-.contacts a:hover{background:#141110;color:var(--ember)}
-
-footer{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-size:14px}
-footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;align-items:center}
-
-/* reveal */
-.rv{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
-.rv.in{opacity:1;transform:none}
-
-@media (max-width:980px){
-  .menu{display:none}
-  .hero-grid,.about-grid,.calc,.cta-box{grid-template-columns:1fr}
-  .sign-stage{order:-1}
-  .sign-board{width:240px}
-  .stats{grid-template-columns:1fr 1fr}
-  .services,.vs{grid-template-columns:1fr}
-  .extra{grid-template-columns:1fr}
-  .steps{grid-template-columns:1fr 1fr;gap:34px 0}
-  .step::after{display:none}
-  .cases{grid-template-columns:1fr}
-  .case,.case.big{grid-column:auto;min-height:280px}
-  section{padding:80px 0}
-}
-@media (max-width:560px){
-  .wrap{padding:0 16px}
-  .nav .btn{display:none}
-  .stats{grid-template-columns:1fr}
-  .steps{grid-template-columns:1fr}
-  .tiers{grid-template-columns:1fr 1fr}
-  .panel{padding:26px}
-  .hero{padding-top:100px}
-  .hero h1{font-size:clamp(30px,10.4vw,44px)}
-  .hero h1 em{white-space:normal}
-}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@300..800&family=Marck+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
 </head>
-<body>
+<body class="is-loading">
 
-<!-- reusable logo mark -->
-<svg width="0" height="0" style="position:absolute">
-  <symbol id="mark" viewBox="0 0 64 64">
-    <rect width="64" height="64" rx="16" fill="#FF5A1F"/>
-    <path d="M20 13c3 3-2 5 1 8" stroke="#141110" stroke-width="3" stroke-linecap="round" fill="none"/>
-    <path d="M26 12c3 3-2 5 1 8" stroke="#141110" stroke-width="3" stroke-linecap="round" fill="none" opacity=".55"/>
-    <circle cx="22" cy="36" r="10" fill="none" stroke="#141110" stroke-width="5.5"/>
-    <circle cx="22" cy="36" r="3" fill="#141110"/>
-    <path d="M32 36h21M46 36v8M53 36v6" stroke="#141110" stroke-width="5.5" stroke-linecap="round"/>
-  </symbol>
-</svg>
-
-<header id="top">
-  <div class="wrap nav">
-    <a href="#top" class="logo" aria-label="ВІДЧИНЕНО">
-      <svg class="logo-mark"><use href="#mark"/></svg>
-      <span class="logo-word">ВІДЧИНЕНО<small>заклади під ключ</small></span>
-    </a>
-    <nav class="menu">
-      <a href="#about">Про мене</a>
-      <a href="#services">Що входить</a>
-      <a href="#process">Етапи</a>
-      <a href="#cases">Проєкти</a>
-      <a href="#price">Вартість</a>
-    </nav>
-    <a href="#contact" class="btn">Обговорити заклад</a>
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader-lock">
+    <svg class="loader-key" viewBox="0 0 120 44" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round">
+      <circle cx="22" cy="22" r="15"/>
+      <path d="M37 22h76M98 22v14M110 22v10"/>
+    </svg>
   </div>
-</header>
-
-<section class="hero">
-  <div class="hero-glow"></div>
-  <div class="wrap hero-grid">
-    <div>
-      <div class="eyebrow rv">Запуск кафе та ресторанів по всій Україні</div>
-      <h1 class="rv">Від ідеї<br>до таблички<br><em>«Відчинено»</em></h1>
-      <p class="lead rv">Відкриваю заклади під ключ: від бізнес-плану й пошуку приміщення до першого гостя. 20+ запущених проєктів — від шаурми до пивного ресторану.</p>
-      <div class="hero-actions rv">
-        <a href="#contact" class="btn">Безкоштовна консультація →</a>
-        <a href="#price" class="btn ghost">Розрахувати вартість</a>
-      </div>
-    </div>
-    <div class="sign-stage">
-      <div class="sign" id="sign" title="Натисніть 🙂">
-        <div class="sign-board">
-          <svg width="54" height="54"><use href="#mark"/></svg>
-          <div class="display" id="signText">ВІДЧИНЕНО</div>
-          <span id="signSub">ласкаво просимо</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>Стрітфуд</span><span>Шаурма</span><span>Кав'ярні</span><span>Піцерії</span><span>Суші</span><span>Бургерні</span><span>Пекарні</span><span>Кондитерські</span><span>Dark kitchen</span><span>Чебуречні</span><span>Кафе при ЖК</span><span>Пивні ресторани</span>
-    <span>Стрітфуд</span><span>Шаурма</span><span>Кав'ярні</span><span>Піцерії</span><span>Суші</span><span>Бургерні</span><span>Пекарні</span><span>Кондитерські</span><span>Dark kitchen</span><span>Чебуречні</span><span>Кафе при ЖК</span><span>Пивні ресторани</span>
-  </div>
+  <p class="loader-count"><span id="loaderCount">0</span>%</p>
 </div>
 
-<section>
-  <div class="wrap">
-    <div class="eyebrow rv">Цифри</div>
-    <h2 class="rv">Досвід, який<br>можна порахувати</h2>
-    <div class="stats">
-      <div class="stat rv"><b data-count="20">20+</b><p>закладів запущено й перезапущено від Харкова до Кіровоградщини</p></div>
-      <div class="stat rv"><b>12 років</b><p>шеф-кухарем, а в HoReCa — з 2012 року</p></div>
-      <div class="stat rv"><b>1,5–3</b><p>місяці — середній термін від договору до відкриття</p></div>
-      <div class="stat rv"><b>30</b><p>днів супроводу після відкриття, щоб усе працювало як годинник</p></div>
-    </div>
-  </div>
-</section>
+<div class="cursor" id="cursor" aria-hidden="true"><span class="cursor-label" id="cursorLabel">Переверніть</span></div>
 
-<section id="about" style="padding-top:20px">
-  <div class="wrap about-grid">
-    <div class="portrait rv">
-      <div class="ph"><!-- сюди фото Діми -->
-        <svg viewBox="0 0 64 64" fill="currentColor"><circle cx="32" cy="22" r="12"/><path d="M8 62c0-14 11-22 24-22s24 8 24 22z"/></svg>
-      </div>
-      <div class="tag"><b>Дмитро</b><span>Засновник «Відчинено», бренд-шеф</span></div>
-    </div>
-    <div>
-      <div class="eyebrow rv">Про мене</div>
-      <h2 class="rv">Я не консультант<br>з презентацією. Я з кухні.</h2>
-      <p class="lead rv">12 років я стояв біля плити шеф-кухарем, потім став керуючим. Ресторан, який я відкрив з нуля, успішно працює вже понад 2 роки. Тепер разом із командою роблю те саме для вас.</p>
-      <div class="facts">
-        <div class="fact rv"><i>01</i><div><b>Бренд-шеф із запуску форматів</b><br><span style="color:var(--muted)">Мережа Red Cat Brewery, Харків: від фудкортів до пивного ресторану.</span></div></div>
-        <div class="fact rv"><i>02</i><div><b>Диплом технолога харчової промисловості</b><br><span style="color:var(--muted)">Техкарти, собівартість і санітарні норми — це моя база.</span></div></div>
-        <div class="fact rv"><i>03</i><div><b>Закордонна практика</b><br><span style="color:var(--muted)">Привожу в Україну підходи, які вже перевірені за кордоном.</span></div></div>
-      </div>
-      <p class="quote rv">«Я відкриваю заклад не заради відкриття, а заради репутації. І з великою душею, бо люблю те, що роблю».</p>
-    </div>
-  </div>
-</section>
+<header class="site-header" id="header">
+  <a class="brand" href="#top" aria-label="ВІДЧИНЕНО, на початок сторінки">
+    <span class="brand-sign">ВІДЧИНЕНО</span>
+  </a>
+  <nav class="header-actions">
+    <a class="header-link" href="https://t.me/" target="_blank" rel="noopener">Telegram</a>
+    <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="menu">
+      <span class="menu-toggle-text">Меню</span>
+      <span class="menu-toggle-icon" aria-hidden="true"></span>
+    </button>
+  </nav>
+</header>
 
-<section id="services">
-  <div class="wrap">
-    <div class="eyebrow rv">Під ключ — це</div>
-    <h2 class="rv">Ви отримуєте ключі.<br>Усе інше — на нас.</h2>
-    <p class="lead rv">Працюємо з вашим приміщенням або знайдемо нове. Постачальників і обладнання підберемо самі, або візьмемо ваших — як зручніше.</p>
-    <div class="services">
-      <div class="svc rv"><span class="n">01 / Стратегія</span><h3>Цифри та місце</h3><ul><li>Бізнес-план і фінмодель</li><li>Підбір приміщення</li><li>Аналіз локації та ЦА</li><li>Первинний прорахунок інвестицій</li></ul></div>
-      <div class="svc rv"><span class="n">02 / Бренд</span><h3>Обличчя закладу</h3><ul><li>Концепція та назва</li><li>Дизайн і контроль підрядників</li><li>Оформлення залу</li><li>Упаковка та уніформа</li></ul></div>
-      <div class="svc rv"><span class="n">03 / Кухня</span><h3>Серце закладу</h3><ul><li>Меню та техкарти</li><li>Підбір обладнання</li><li>Постачальники</li><li>Планування цехів</li></ul></div>
-      <div class="svc rv"><span class="n">04 / Команда</span><h3>Люди</h3><ul><li>Підбір персоналу</li><li>Навчання кухні та залу</li><li>Стандарти сервісу</li></ul></div>
-      <div class="svc rv"><span class="n">05 / Система</span><h3>Порядок</h3><ul><li>Документи та дозволи</li><li>Каса й автоматизація</li><li>Облік і звітність</li></ul></div>
-      <div class="svc rv"><span class="n">06 / Старт</span><h3>Відкриття</h3><ul><li>Просування до відкриття</li><li>Організація старту</li><li>Місяць супроводу</li></ul></div>
-    </div>
-    <div class="extra">
-      <div class="svc rv"><span class="n">Перезапуск</span><h3>Заклад працює, але не заробляє?</h3><p style="color:var(--muted);font-size:15px">Проведемо аудит, перезапустимо концепцію, зробимо ребрендинг або оновимо меню кухні.</p></div>
-      <div class="svc rv"><span class="n">Окремі послуги</span><h3>Не потрібен повний пакет?</h3><p style="color:var(--muted);font-size:15px">Можна замовити лише меню й техкарти, аудит, підбір обладнання чи навчання персоналу.</p></div>
-    </div>
-  </div>
-</section>
+<div class="menu" id="menu" hidden>
+  <ul class="menu-list">
+    <li><a href="#about">Про Дмитра</a></li>
+    <li><a href="#services">Що входить</a></li>
+    <li><a href="#process">Як ми працюємо</a></li>
+    <li><a href="#cases">Відкриті заклади</a></li>
+    <li><a href="#price">Вартість</a></li>
+    <li><a href="#contact">Контакти</a></li>
+  </ul>
+  <p class="menu-foot">Запуск кафе, ресторанів і стрітфуду по всій Україні</p>
+</div>
 
-<section id="process" class="process">
-  <div class="wrap">
-    <div class="eyebrow rv">Як ми працюємо</div>
-    <h2 class="rv">Шість кроків до першого гостя</h2>
-    <div class="steps">
-      <div class="step rv"><h3>Зустріч</h3><p>Знайомимось, слухаємо вашу ідею та бюджет.</p></div>
-      <div class="step rv"><h3>Консультація</h3><p>Підбираємо формат, локацію та концепцію.</p></div>
-      <div class="step rv"><h3>Прорахунок</h3><p>Первинна оцінка інвестицій та окупності.</p></div>
-      <div class="step rv"><h3>Договір</h3><p>Фіксуємо обсяг робіт, терміни й вартість.</p></div>
-      <div class="step rv"><h3>Запуск</h3><p>Ремонт, обладнання, меню, команда, документи.</p></div>
-      <div class="step rv"><h3>Відчинено!</h3><p>Відкриття та 30 днів супроводу.</p></div>
-    </div>
-    <div class="timing rv">
-      <div class="pill">Стандартний проєкт: <b>1,5–3 місяці</b></div>
-      <div class="pill">Великий проєкт: <b>від 3 місяців</b></div>
-      <div class="pill">Географія: <b>вся Україна</b></div>
-    </div>
-  </div>
-</section>
+<main id="top">
+  <section class="hero" id="hero">
+    <div class="hero-stage">
+      <canvas class="hero-canvas" id="scene" aria-hidden="true"></canvas>
+      <div class="hero-shade" aria-hidden="true"></div>
 
-<section id="cases">
-  <div class="wrap">
-    <div class="eyebrow rv">Проєкти</div>
-    <h2 class="rv">Заклади, які вже<br>відчинили двері</h2>
-    <div class="cases">
-      <article class="case big rv">
-        <div class="bg" style="background:radial-gradient(circle at 70% 30%,rgba(255,178,63,.35),transparent 55%),linear-gradient(200deg,#3a2f28,#141110 70%)"></div>
-        <span class="city">Софіївська Борщагівка</span>
-        <div class="type">Ресторан · відкрито з нуля</div>
-        <h3>Grey Stone</h3>
-        <p>Мій власний проєкт: від порожнього приміщення до ресторану, який стабільно працює понад 2 роки.</p>
-      </article>
-      <article class="case big rv">
-        <div class="bg" style="background:radial-gradient(circle at 30% 30%,rgba(255,90,31,.45),transparent 55%),linear-gradient(160deg,#3b1f14,#141110 70%)"></div>
-        <span class="city">Харків</span>
-        <div class="type">Пивні паби · мережа</div>
-        <h3>Red Cat Pub ×3</h3>
-        <p>ТРЦ «Французький бульвар», Сумська та ХТЗ: кухня, обладнання, планування, навчання персоналу.</p>
-      </article>
-      <article class="case rv">
-        <div class="bg" style="background:radial-gradient(circle at 60% 20%,rgba(127,211,155,.3),transparent 55%),linear-gradient(180deg,#1f2a22,#141110 75%)"></div>
-        <div class="type">Кафе при ЖК</div>
-        <h3>Eat it</h3>
-        <p>Молодіжний формат біля дому.</p>
-      </article>
-      <article class="case rv">
-        <div class="bg" style="background:radial-gradient(circle at 40% 20%,rgba(244,234,217,.22),transparent 55%),linear-gradient(180deg,#2c2620,#141110 75%)"></div>
-        <div class="type">Готова їжа</div>
-        <h3>Готові страви поруч</h3>
-        <p>Корисні домашні страви щодня.</p>
-      </article>
-      <article class="case rv">
-        <div class="bg" style="background:repeating-linear-gradient(135deg,#231e1a 0 18px,#1d1916 18px 36px)"></div>
-        <div class="type">І ще 15+ закладів</div>
-        <h3>Ваш заклад</h3>
-        <p>Може бути наступним у цьому списку.</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section id="price" class="process">
-  <div class="wrap">
-    <div class="eyebrow rv">Вартість</div>
-    <h2 class="rv">Скільки коштує<br>відкрити заклад?</h2>
-    <p class="lead rv">Посуньте повзунок — і побачите орієнтовну вартість послуги та середній обсяг інвестицій у запуск. Точний прорахунок робимо індивідуально.</p>
-    <div class="calc">
-      <div class="panel rv">
-        <div style="color:var(--muted);font-size:15px;margin-bottom:10px">Площа закладу</div>
-        <div class="area-out"><span id="area">30</span> <small>м²</small></div>
-        <input type="range" id="range" min="10" max="80" value="30" aria-label="Площа закладу, м²">
-        <div class="scale"><span>10 м²</span><span>80 м²</span></div>
-        <div class="tiers" id="tiers">
-          <button class="tier" data-v="15">до 20 м²</button>
-          <button class="tier" data-v="30">20–40 м²</button>
-          <button class="tier" data-v="50">40–60 м²</button>
-          <button class="tier" data-v="70">60–80 м²</button>
+      <div class="hero-copy" id="heroCopy">
+        <h1 class="hero-title">
+          <span class="hero-word hero-word-left"><span class="mask"><span>Від ідеї</span></span></span>
+          <span class="hero-word hero-word-right"><span class="mask"><span>до першого</span></span><span class="mask"><span>гостя</span></span></span>
+        </h1>
+        <div class="hero-foot">
+          <p class="hero-lead">Дмитро Барсук відкриває кафе, ресторани та стрітфуд під ключ. Дванадцять років шеф-кухарем, понад двадцять запущених закладів по всій Україні.</p>
+          <div class="hero-actions">
+            <a class="btn btn-sign magnetic" href="#contact"><span>Обговорити заклад</span></a>
+            <a class="btn btn-line magnetic" href="#price"><span>Порахувати вартість</span></a>
+          </div>
         </div>
       </div>
-      <div class="panel result rv">
-        <div class="row"><span>Послуга «під ключ»</span><b class="hot" id="fee">$3 300</b></div>
-        <div class="row"><span>Середні інвестиції в запуск<br><small>ремонт, обладнання, старт</small></span><b id="inv">$15 000 – $25 000</b></div>
-        <div class="row"><span>Термін запуску</span><b>1,5–3 міс</b></div>
-        <a href="#contact" class="btn" id="calcBtn">Отримати точний прорахунок →</a>
-      </div>
+
+      <p class="scroll-hint" id="scrollHint"><span class="scroll-hint-bar" aria-hidden="true"></span>Гортайте, і двері відчиняться</p>
+      <div class="hero-veil" id="heroVeil" aria-hidden="true"></div>
     </div>
-    <p class="note rv">Більше 80 м² або нестандартний формат — розрахуємо окремо. Ціни орієнтовні, вказані в доларах США.</p>
-  </div>
-</section>
+  </section>
 
-<section>
-  <div class="wrap">
-    <div class="eyebrow rv">Чому не франшиза</div>
-    <h2 class="rv">Ваш заклад —<br>ваші правила</h2>
-    <div class="vs">
-      <div class="panel rv"><h3>Франшиза</h3><ul><li>Паушальний внесок і роялті щомісяця</li><li>Чужий бренд і жорсткі правила</li><li>Шаблон, не адаптований під вашу локацію</li></ul></div>
-      <div class="panel rv"><h3>Робити самому</h3><ul><li>Помилки, які коштують тисячі доларів</li><li>Місяці на пошук постачальників і людей</li><li>Ризик закритися в перший рік</li></ul></div>
-      <div class="panel us rv"><h3>Відчинено</h3><ul><li>Бренд і бізнес повністю ваші, без роялті</li><li>Концепція під вашу локацію та аудиторію</li><li>20+ запусків досвіду в кожному рішенні</li><li>Місяць супроводу після відкриття</li></ul></div>
-    </div>
-  </div>
-</section>
+  <section class="next" id="about">
+    <p>Тут буде наступний блок: про Дмитра.</p>
+  </section>
+</main>
 
-<section style="padding-top:20px">
-  <div class="wrap">
-    <div class="eyebrow rv">Питання</div>
-    <h2 class="rv">Часті запитання</h2>
-    <div class="faq">
-      <details class="rv"><summary>У мене немає досвіду в ресторанному бізнесі. Ви працюєте з новачками?</summary><p>Так. Працюємо і з людьми, які хочуть безпомилково запустити свій перший бізнес, і з підприємцями з інших сфер, і з чинними рестораторами.</p></details>
-      <details class="rv"><summary>У мене вже є приміщення. Можна відкрити заклад у ньому?</summary><p>Звісно. Проаналізуємо локацію й аудиторію та підберемо формат, який там спрацює. Якщо приміщення немає — знайдемо його.</p></details>
-      <details class="rv"><summary>Які формати ви відкриваєте?</summary><p>Стрітфуд, фастфуд, кафе, шаурма, чебуречні, пекарні, кондитерські, бургерні, піцерії, суші, dark kitchen, кав'ярні та індивідуальні формати.</p></details>
-      <details class="rv"><summary>Чи працюєте ви в моєму місті?</summary><p>Працюємо по всій Україні: від Харкова до Київщини та Кіровоградщини.</p></details>
-      <details class="rv"><summary>Мій заклад працює, але не приносить прибутку. Допоможете?</summary><p>Так, робимо перезапуск: аудит, оновлення меню, ребрендинг, налаштування процесів на кухні й у залі.</p></details>
-      <details class="rv"><summary>Що буде після відкриття?</summary><p>Протягом місяця супроводжуємо заклад: допомагаємо команді, коригуємо меню та процеси, поки все не запрацює стабільно.</p></details>
-    </div>
-  </div>
-</section>
-
-<section id="contact" class="cta">
-  <div class="wrap">
-    <div class="cta-box rv">
-      <svg class="big-key" viewBox="0 0 64 64"><circle cx="22" cy="36" r="10" fill="none" stroke="#141110" stroke-width="5.5"/><path d="M32 36h21M46 36v8M53 36v6" stroke="#141110" stroke-width="5.5" stroke-linecap="round"/></svg>
-      <div>
-        <h2>Повісимо табличку «Відчинено» на ваші двері?</h2>
-        <p class="lead">Залиште заявку — зателефоную, розпитаю про ідею та зроблю первинний прорахунок безкоштовно.</p>
-        <div class="contacts">
-          <a href="tel:+380000000000">+38 (0XX) XXX-XX-XX</a>
-          <a href="https://t.me/" target="_blank" rel="noopener">Telegram</a>
-          <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
-        </div>
-      </div>
-      <form id="form">
-        <input name="name" placeholder="Ваше ім'я" required>
-        <input name="phone" type="tel" placeholder="Телефон" required>
-        <select name="format" aria-label="Формат закладу">
-          <option value="">Який заклад хочете відкрити?</option>
-          <option>Кав'ярня</option><option>Стрітфуд / шаурма</option><option>Піцерія / суші / бургерна</option><option>Кафе / ресторан</option><option>Пекарня / кондитерська</option><option>Dark kitchen</option><option>Перезапуск чинного закладу</option><option>Ще не визначився</option>
-        </select>
-        <input name="area" id="formArea" placeholder="Площа, м² (якщо відомо)">
-        <button class="btn" type="submit">Надіслати заявку</button>
-        <div class="thanks" id="thanks">Дякую! Зв'яжуся з вами найближчим часом 🔑</div>
-      </form>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap">
-    <a href="#top" class="logo"><svg class="logo-mark" style="width:34px;height:34px"><use href="#mark"/></svg><span class="logo-word" style="font-size:15px">ВІДЧИНЕНО</span></a>
-    <span>Власник — Дмитро · Запуск закладів під ключ по всій Україні</span>
-    <span>© 2026</span>
-  </div>
-</footer>
-
-<script>
-// header on scroll
-const hdr=document.querySelector('header');
-addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>30),{passive:true});
-
-// reveal
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
-document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%4)*80+'ms';io.observe(el)});
-
-// door sign flip
-const sign=document.getElementById('sign'),st=document.getElementById('signText'),ss=document.getElementById('signSub');
-sign.addEventListener('click',()=>{
-  const f=sign.classList.toggle('flip');
-  st.textContent=f?'ЗАЧИНЕНО':'ВІДЧИНЕНО';
-  ss.textContent=f?'поки що 😉':'ласкаво просимо';
-});
-
-// calculator
-const tiers=[
-  {max:20,fee:2800,inv:[10000,18000]},
-  {max:40,fee:3300,inv:[15000,25000]},
-  {max:60,fee:3600,inv:[20000,40000]},
-  {max:80,fee:4800,inv:[35000,65000]}
-];
-const r=document.getElementById('range'),fmt=n=>'$'+n.toLocaleString('uk-UA').replace(/,/g,' ');
-const tb=[...document.querySelectorAll('.tier')];
-function upd(){
-  const v=+r.value,i=tiers.findIndex(t=>v<=t.max),t=tiers[i];
-  document.getElementById('area').textContent=v;
-  document.getElementById('fee').textContent=fmt(t.fee);
-  document.getElementById('inv').textContent=fmt(t.inv[0])+' – '+fmt(t.inv[1]);
-  r.style.setProperty('--p',((v-10)/70*100)+'%');
-  tb.forEach((b,j)=>b.classList.toggle('on',j===i));
-}
-r.addEventListener('input',upd);
-tb.forEach(b=>b.addEventListener('click',()=>{r.value=b.dataset.v;upd()}));
-document.getElementById('calcBtn').addEventListener('click',()=>{document.getElementById('formArea').value=r.value});
-upd();
-
-// form (TODO: підключити Telegram-бота / CRM)
-document.getElementById('form').addEventListener('submit',e=>{
-  e.preventDefault();
-  e.target.querySelectorAll('input,select,.btn').forEach(el=>el.style.display='none');
-  document.getElementById('thanks').style.display='block';
-});
-</script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script type="module" src="js/main.js"></script>
 </body>
 </html>
