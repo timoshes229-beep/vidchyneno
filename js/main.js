@@ -3,6 +3,7 @@ import { initAbout } from './about.js';
 import { initMenu } from './menu.js';
 import { initProcess } from './process.js';
 import { initCases } from './cases.js';
+import { initPricing } from './pricing.js';
 
 const $ = (s) => document.querySelector(s);
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -22,7 +23,7 @@ const hint = $('#scrollHint');
 const veil = $('#heroVeil');
 const canvasEl = $('#scene');
 const header = $('#header');
-const lightSections = [...document.querySelectorAll('.about, .process, .next')];
+const lightSections = [...document.querySelectorAll('.about, .process, .pricing, .next')];
 let hero = null;
 
 const heroReady = createHero(canvasEl)
@@ -107,6 +108,7 @@ function updateHero() {
 const updateAbout = initAbout();
 const updateProcess = initProcess();
 const updateCases = initCases();
+initPricing();
 initMenu(finePointer && !reduceMotion);
 
 function raf(t) {

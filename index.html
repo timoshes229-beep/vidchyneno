@@ -290,8 +290,45 @@
     </div>
   </section>
 
-  <section class="next" id="price">
-    <p>Тут буде наступний блок: вартість.</p>
+  <section class="pricing" id="price">
+    <div class="pricing-grid">
+      <div class="pricing-left">
+        <h2 class="pricing-title">Скільки коштує відкрити заклад</h2>
+        <p class="pricing-lead">Вартість залежить від площі. Посуньте повзунок, і ми одразу надрукуємо рахунок.</p>
+
+        <div class="plan" aria-hidden="true">
+          <div class="plan-room" id="planRoom">
+            <span class="plan-door"></span>
+            <span class="plan-area" id="planArea">30 м²</span>
+          </div>
+        </div>
+
+        <label class="area-label" for="areaRange">Площа закладу: <b id="areaValue">30 м²</b></label>
+        <input class="area-range" id="areaRange" type="range" min="10" max="100" step="1" value="30">
+        <div class="area-scale" aria-hidden="true"><span>10 м²</span><span>40</span><span>80</span><span>понад 80</span></div>
+      </div>
+
+      <div class="receipt-wrap">
+        <div class="receipt" id="receipt" aria-live="polite">
+          <p class="receipt-head">Рахунок</p>
+          <p class="receipt-sub">ВІДЧИНЕНО, запуск під ключ</p>
+          <dl class="receipt-lines">
+            <div><dt>Площа</dt><dd id="rArea">20–40 м²</dd></div>
+            <div><dt>Послуга під ключ</dt><dd id="rFee">$3 300</dd></div>
+            <div><dt>Середні вкладення у запуск</dt><dd id="rInv">$15 000 – $25 000</dd></div>
+            <div><dt>Термін запуску</dt><dd>1,5–3 міс</dd></div>
+            <div class="receipt-gift"><dt>Місяць супроводу</dt><dd>комплімент</dd></div>
+          </dl>
+          <p class="receipt-note">Вкладення в ремонт, обладнання й запуск оплачуються окремо від послуги. Точну суму рахуємо індивідуально після зустрічі.</p>
+          <p class="receipt-thanks">Дякуємо, що завітали</p>
+        </div>
+        <a class="btn btn-sign magnetic receipt-cta" id="receiptCta" href="#contact"><span>Отримати точний прорахунок</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="next" id="contact">
+    <p>Тут буде наступний блок: контакти та заявка.</p>
   </section>
 </main>
 
