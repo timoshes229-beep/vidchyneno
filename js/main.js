@@ -3,6 +3,7 @@ import { initAbout } from './about.js';
 import { initProcess } from './process.js';
 import { initCases } from './cases.js';
 import { initPricing } from './pricing.js';
+import { initOrder } from './order.js';
 import { initContact } from './contact.js';
 import { initPlace } from './place.js';
 import { initSound } from './sound.js';
@@ -26,7 +27,7 @@ const copy = $('#heroCopy');
 const veil = $('#heroVeil');
 const canvasEl = $('#scene');
 const header = $('#header');
-const lightSections = [...document.querySelectorAll('.about, .menu-card, .process, .pricing')];
+const lightSections = [...document.querySelectorAll('.about, .process, .pricing')];
 let hero = null;
 
 const heroReady = createHero(canvasEl)
@@ -115,6 +116,7 @@ const updateAbout = initAbout();
 initProcess();
 const updateCases = initCases();
 initPricing();
+initOrder(!reduceMotion);
 initContact();
 
 function raf(t) {

@@ -1,73 +1,52 @@
-// Кухонний таймер: натискаєте на етап, стрілка доїжджає до потрібного часу
+// «Як ми працюємо»: креслення закладу добудовується з кожним етапом
 export function initProcess() {
-  const section = document.getElementById('process');
-  const list = document.getElementById('steps');
-  if (!section || !list) return;
+  const svg = document.getElementById('buildSvg');
+  const list = document.getElementById('buildSteps');
+  if (!svg || !list) return;
 
-  const ticks = document.getElementById('timerTicks');
-  const arc = document.getElementById('timerArc');
-  const hand = document.getElementById('timerHand');
-  const stepEl = document.getElementById('timerStep');
-  const whenEl = document.getElementById('timerWhen');
-  const next = document.getElementById('stepNext');
+  const layers = [...svg.querySelectorAll('.b-step')];
+  const buttons = [...list.querySelectorAll('.build-step')];
+  const when = document.getElementById('buildWhen');
+  const name = document.getElementById('buildName');
+  const text = document.getElementById('buildText');
+  const prev = document.getElementById('buildPrev');
+  const next = document.getElementById('buildNext');
+  let current = -1;
 
-  const NS = 'http://www.w3.org/2000/svg';
-  for (let i = 0; i < 60; i++) {
-    const major = i % 5 === 0;
-    const a = (i / 60) * Math.PI * 2;
-    const r1 = major ? 168 : 172, r2 = 182;
-    const l = document.createElementNS(NS, 'line');
-    l.setAttribute('x1', 200 + Math.sin(a) * r1);
-    l.setAttribute('y1', 200 - Math.cos(a) * r1);
-    l.setAttribute('x2', 200 + Math.sin(a) * r2);
-    l.setAttribute('y2', 200 - Math.cos(a) * r2);
-    if (major) l.classList.add('is-major');
-    ticks.appendChild(l);
-  }
-
-  const all = [...list.querySelectorAll('.step')];
-  let steps = [];
-  let current = 0;
-
-  function show(idx) {
-    current = Math.max(0, Math.min(steps.length - 1, idx));
-    const share = (current + 1) / steps.length;
-    hand.style.setProperty('--deg', `${share * 360}deg`);
-    arc.style.strokeDashoffset = String(100 - share * 100);
-    for (const s of all) s.classList.remove('is-active', 'is-done');
-    steps.forEach((s, i) => {
-      s.classList.toggle('is-active', i === current);
-      s.classList.toggle('is-done', i < current);
-      s.querySelector('.step-btn').setAttribute('aria-pressed', String(i === current));
+  function show(i) {
+    i = Math.max(0, Math.min(buttons.length - 1, i));
+    if (i === current) return;
+    current = i;
+    layers.forEach((l) => l.classList.toggle('is-on', Number(l.dataset.step) <= i + 1));
+    svg.classList.toggle('is-inked', i >= 3);
+    buttons.forEach((b, k) => {
+      b.classList.toggle('is-active', k === i);
+      b.classList.toggle('is-done', k < i);
+      b.setAttribute('aria-pressed', String(k === i));
     });
-    stepEl.textContent = String(current + 1).padStart(2, '0');
-    whenEl.textContent = steps[current].dataset.when;
-    next.querySelector('span').textContent = current === steps.length - 1 ? 'Спочатку' : 'Далі';
+    list.style.setProperty('--progress', `${((i + 1) / buttons.length) * 100}%`);
+    const b = buttons[i];
+    when.textContent = b.dataset.when;
+    name.textContent = b.lastChild.textContent.trim();
+    text.textContent = b.dataset.text;
+    prev.disabled = i === 0;
+    next.querySelector('span').textContent = i === buttons.length - 1 ? 'Спочатку' : 'Далі';
   }
 
   list.addEventListener('click', (e) => {
-    const li = e.target.closest('.step');
-    if (li && steps.includes(li)) show(steps.indexOf(li));
+    const b = e.target.closest('.build-step');
+    if (b) show(buttons.indexOf(b));
   });
-  next.addEventListener('click', () => show(current === steps.length - 1 ? 0 : current + 1));
+  prev.addEventListener('click', () => show(current - 1));
+  next.addEventListener('click', () => {
+    if (current === buttons.length - 1) { current = -1; layers.forEach((l) => l.classList.remove('is-on')); requestAnimationFrame(() => show(0)); }
+    else show(current + 1);
+  });
 
-  // перемикач «є приміщення / ще шукаємо» додає або прибирає етап пошуку
-  const group = section.querySelector('.premises');
-  function setMode(mode) {
-    const active = steps[current];
-    group.dataset.mode = mode;
-    for (const b of group.querySelectorAll('.premises-btn')) {
-      const on = b.dataset.mode === mode;
-      b.classList.toggle('is-active', on);
-      b.setAttribute('aria-pressed', String(on));
-    }
-    for (const s of all) s.classList.toggle('is-hidden', mode === 'have' && s.classList.contains('step-search'));
-    steps = all.filter((s) => !s.classList.contains('is-hidden'));
-    show(steps.includes(active) ? steps.indexOf(active) : Math.min(current, steps.length - 1));
-  }
-  group.addEventListener('click', (e) => {
-    const b = e.target.closest('.premises-btn');
-    if (b) setMode(b.dataset.mode);
-  });
-  setMode('have');
+  // перший штрих малюється, коли блок з'являється на екрані
+  new IntersectionObserver((entries, io) => {
+    if (!entries[0].isIntersecting) return;
+    show(0);
+    io.disconnect();
+  }, { threshold: 0.35 }).observe(svg);
 }

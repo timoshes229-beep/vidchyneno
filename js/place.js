@@ -41,6 +41,8 @@ export function initPlace(hero) {
       c.setAttribute('aria-pressed', String(on));
     }
     if (signName) signName.textContent = name ? `«${name}»` : 'від ідеї до першого гостя';
+    const buildSign = document.getElementById('buildSignText');
+    if (buildSign) buildSign.textContent = name || 'Ваш заклад';
     if (bookingPlace && !bookingPlace.dataset.touched) bookingPlace.value = name;
     if (bookingFormat && !bookingFormat.dataset.touched) bookingFormat.value = SELECT_BY_FORMAT[place.format];
     save();
