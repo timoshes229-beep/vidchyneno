@@ -69,20 +69,81 @@ function neonTexture(name) {
   return tex(c);
 }
 
-function figure(color) {
+// людина: тулуб, голова з волоссям, руки й ноги на шарнірах для кроку
+function person({ shirt, pants = 0x2b2f3a, skin = 0xe8b996, hair = 0x2a1d15 }) {
   const f = new THREE.Group();
-  const mat = new THREE.MeshStandardMaterial({ color, roughness: 0.7 });
-  const body = new THREE.Mesh(new THREE.CapsuleGeometry(0.17, 0.5, 4, 10), mat);
-  body.position.y = 0.45;
-  const head = new THREE.Mesh(new THREE.SphereGeometry(0.14, 16, 12), mat);
-  head.position.y = 1.0;
-  f.add(body, head);
+  const m = (c, r = 0.75) => new THREE.MeshStandardMaterial({ color: c, roughness: r });
+  const shirtM = m(shirt), pantsM = m(pants), skinM = m(skin, 0.6), hairM = m(hair, 0.9), shoeM = m(0x1a1714, 0.5);
+  const limb = (r, len, mat) => {
+    const g = new THREE.CapsuleGeometry(r, len, 4, 10);
+    g.translate(0, -len / 2 - r, 0);
+    return new THREE.Mesh(g, mat);
+  };
+  const legs = [-0.1, 0.1].map((x) => {
+    const pivot = new THREE.Group();
+    pivot.position.set(x, 0.92, 0);
+    const shoe = new THREE.Mesh(new THREE.BoxGeometry(0.13, 0.08, 0.26), shoeM);
+    shoe.position.set(0, -0.88, 0.05);
+    pivot.add(limb(0.078, 0.68, pantsM), shoe);
+    f.add(pivot);
+    return pivot;
+  });
+  const torso = new THREE.Mesh(new THREE.CapsuleGeometry(0.17, 0.42, 4, 12), shirtM);
+  torso.position.y = 1.22;
+  torso.scale.z = 0.72;
+  const arms = [-0.25, 0.25].map((x) => {
+    const pivot = new THREE.Group();
+    pivot.position.set(x, 1.48, 0);
+    const hand = new THREE.Mesh(new THREE.SphereGeometry(0.06, 10, 8), skinM);
+    hand.position.y = -0.63;
+    pivot.add(limb(0.055, 0.46, shirtM), hand);
+    f.add(pivot);
+    return pivot;
+  });
+  const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.06, 0.1, 10), skinM);
+  neck.position.y = 1.6;
+  const head = new THREE.Mesh(new THREE.SphereGeometry(0.13, 20, 16), skinM);
+  head.position.y = 1.76;
+  head.scale.set(0.95, 1.08, 1);
+  const hairCap = new THREE.Mesh(new THREE.SphereGeometry(0.138, 20, 12, 0, Math.PI * 2, 0, Math.PI * 0.55), hairM);
+  hairCap.position.set(0, 1.78, -0.01);
+  hairCap.rotation.x = -0.25;
+  f.add(torso, neck, head, hairCap);
+  f.traverse((o) => { if (o.isMesh) o.castShadow = true; });
+  f.userData.limbs = { legs, arms };
   return f;
+}
+
+function stride(f, phase, amount) {
+  const s = Math.sin(phase) * 0.55 * amount;
+  const { legs, arms } = f.userData.limbs;
+  legs[0].rotation.x = s; legs[1].rotation.x = -s;
+  arms[0].rotation.x = -s * 0.8; arms[1].rotation.x = s * 0.8;
+}
+
+function interiorTexture() {
+  const [c, g] = canvas(512, 512);
+  const gr = g.createLinearGradient(0, 0, 0, 512);
+  gr.addColorStop(0, '#5a3418'); gr.addColorStop(0.55, '#c98545'); gr.addColorStop(1, '#3a2010');
+  g.fillStyle = gr; g.fillRect(0, 0, 512, 512);
+  for (let i = 0; i < 3; i++) {
+    const x = 100 + i * 156, y = 120;
+    const rg = g.createRadialGradient(x, y, 0, x, y, 90);
+    rg.addColorStop(0, 'rgba(255,240,210,1)'); rg.addColorStop(0.25, 'rgba(255,190,110,.75)'); rg.addColorStop(1, 'rgba(255,160,80,0)');
+    g.fillStyle = rg; g.fillRect(x - 90, y - 90, 180, 180);
+    g.fillStyle = 'rgba(30,18,10,.7)'; g.fillRect(x - 1, 0, 2, y - 12);
+  }
+  g.fillStyle = 'rgba(28,16,8,.92)'; g.fillRect(0, 360, 512, 152);
+  g.fillStyle = 'rgba(255,205,140,.6)'; g.fillRect(0, 360, 512, 5);
+  g.fillStyle = 'rgba(240,232,216,.9)';
+  for (let i = 0; i < 7; i++) g.fillRect(60 + i * 58, 320, 22, 40);
+  return tex(c);
 }
 
 export async function createBuild3D(canvasEl) {
   await Promise.all([
     document.fonts.load('600 64px Montserrat', 'вкладення окупність'),
+    document.fonts.load('800 60px Montserrat', 'ВІДЧИНЕНО 30 днів поруч'),
     document.fonts.load('400 100px "Marck Script"', 'Ваш заклад формат'),
   ]).catch(() => {});
 
@@ -91,13 +152,24 @@ export async function createBuild3D(canvasEl) {
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.setClearColor(0x000000, 0);
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 100);
   scene.add(new THREE.HemisphereLight(0xffffff, 0xcfc2ad, 1.7));
   const sun = new THREE.DirectionalLight(0xfff4e6, 1.6);
   sun.position.set(6, 10, 8);
+  sun.castShadow = true;
+  sun.shadow.mapSize.set(1536, 1536);
+  Object.assign(sun.shadow.camera, { left: -11, right: 11, top: 11, bottom: -11, near: 1, far: 30 });
+  sun.shadow.bias = -0.0006;
   scene.add(sun);
+  const shadowFloor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.ShadowMaterial({ opacity: 0.16 }));
+  shadowFloor.rotation.x = -Math.PI / 2;
+  shadowFloor.position.y = 0.004;
+  shadowFloor.receiveShadow = true;
+  scene.add(shadowFloor);
 
   // макет: аркуш з сіткою
   const grid = new THREE.GridHelper(18, 18, 0xb7c4d8, 0xd3dbe7);
@@ -130,8 +202,11 @@ export async function createBuild3D(canvasEl) {
   /* 2. консультація: люди проходять повз, формат під питанням */
   const walkers = [];
   for (let i = 0; i < 6; i++) {
-    const f = figure(i % 3 === 0 ? 0xf26a1b : 0x3a3530);
-    f.userData = { speed: 0.6 + Math.random() * 0.6, dir: i % 2 ? 1 : -1, z: FRONT + 1.4 + (i % 3) * 0.55, x: -7 + i * 2.4 };
+    const shirts = [0x3b67a8, 0xf26a1b, 0xe9dfcf, 0x5f8a4a, 0x8a3b2b, 0x2a2420];
+    const skins = [0xf1c9a5, 0xd9a47c, 0xe8b996, 0xb57b52];
+    const hairs = [0x2a1d15, 0x6b4423, 0xc9a26b, 0x111111];
+    const f = person({ shirt: shirts[i], pants: i % 2 ? 0x2b2f3a : 0x4a3b30, skin: skins[i % 4], hair: hairs[(i + 1) % 4] });
+    Object.assign(f.userData, { speed: 0.7 + Math.random() * 0.5, dir: i % 2 ? 1 : -1, z: FRONT + 1.5 + (i % 3) * 0.6, x: -7 + i * 2.4 });
     f.scale.setScalar(0);
     scene.add(f);
     walkers.push(f);
@@ -173,15 +248,18 @@ export async function createBuild3D(canvasEl) {
   const wallGeo = new THREE.BoxGeometry(W, H, D);
   wallGeo.translate(0, H / 2, 0);
   const wallMesh = new THREE.Mesh(wallGeo, new THREE.MeshStandardMaterial({ map: brickTexture(), roughness: 0.9 }));
+  wallMesh.castShadow = true;
   walls.add(wallMesh);
   const roof = new THREE.Mesh(new THREE.BoxGeometry(W + 0.4, 0.3, D + 0.4), new THREE.MeshStandardMaterial({ color: 0xf1e8d8, roughness: 0.8 }));
   roof.position.y = H + 0.15;
+  roof.castShadow = true;
   walls.add(roof);
   walls.scale.y = 0.001;
 
   const facade = new THREE.Group();
   scene.add(facade);
-  const glassMat = new THREE.MeshStandardMaterial({ color: 0x2a2420, emissive: 0xffb35c, emissiveIntensity: 0, roughness: 0.3, transparent: true, opacity: 0 });
+  const glassMat = new THREE.MeshBasicMaterial({ map: interiorTexture(), transparent: true, opacity: 0 });
+  glassMat.color.setScalar(0.25);
   const winGeo = new THREE.PlaneGeometry(1.6, 1.8);
   for (const x of [-1.8, 1.8]) {
     const win = new THREE.Mesh(winGeo, glassMat);
@@ -203,16 +281,46 @@ export async function createBuild3D(canvasEl) {
     const aw = new THREE.Mesh(new THREE.BoxGeometry(1.9, 0.06, 0.6), awningMat);
     aw.position.set(x, 2.62, FRONT + 0.3);
     aw.rotation.x = 0.35;
+    aw.castShadow = true;
     facade.add(aw);
   }
+
+  const street = new THREE.Group();
+  scene.add(street);
+  const tree = new THREE.Group();
+  const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.13, 1.5, 10), new THREE.MeshStandardMaterial({ color: 0x6b4a32 }));
+  trunk.position.y = 0.75;
+  const leafM = new THREE.MeshStandardMaterial({ color: 0x6f9a52, flatShading: true, roughness: 0.9 });
+  const crownA = new THREE.Mesh(new THREE.IcosahedronGeometry(0.8, 1), leafM);
+  crownA.position.y = 2.0;
+  const crownB = new THREE.Mesh(new THREE.IcosahedronGeometry(0.55, 1), leafM);
+  crownB.position.set(0.45, 2.5, 0.1);
+  tree.add(trunk, crownA, crownB);
+  tree.position.set(-4.7, 0, FRONT + 2.1);
+  street.add(tree);
+  const lamp = new THREE.Group();
+  const poleM = new THREE.MeshStandardMaterial({ color: 0x2a2420, roughness: 0.5 });
+  const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.07, 3, 10), poleM);
+  pole.position.y = 1.5;
+  const arm = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.05, 0.05), poleM);
+  arm.position.set(-0.28, 2.95, 0);
+  const bulbMat = new THREE.MeshStandardMaterial({ color: 0xfff1d6, emissive: 0xffc27a, emissiveIntensity: 0 });
+  const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.12, 14, 10), bulbMat);
+  bulb.position.set(-0.55, 2.82, 0);
+  lamp.add(pole, arm, bulb);
+  lamp.position.set(4.3, 0, FRONT + 0.45);
+  lamp.rotation.y = -0.5;
+  street.add(lamp);
+  street.traverse((o) => { if (o.isMesh) o.castShadow = true; });
+  street.scale.setScalar(0.001);
 
   /* 6. відчинено: вивіска з назвою, світло */
   const neonMat = new THREE.MeshBasicMaterial({ map: neonTexture('Ваш заклад'), transparent: true, opacity: 0 });
   const neon = new THREE.Mesh(new THREE.PlaneGeometry(2.8, 0.55), neonMat);
   neon.position.set(0, 2.86, FRONT + 0.03);
   scene.add(neon);
-  const openSign = label('ВІДЧИНЕНО', { font: '800 60px Montserrat', color: '#15110e', bg: '#f26a1b', height: 0.26, pad: 18, round: 14 });
-  openSign.position.set(0, 1.55, FRONT + 0.08);
+  const openSign = label('ВІДЧИНЕНО', { font: '800 60px Montserrat', color: '#15110e', bg: '#f26a1b', height: 0.17, pad: 16, round: 12 });
+  openSign.position.set(0, 1.62, FRONT + 0.05);
   openSign.material.opacity = 0;
   scene.add(openSign);
   const warm = new THREE.PointLight(0xffb35c, 0, 9, 2);
@@ -220,7 +328,7 @@ export async function createBuild3D(canvasEl) {
   scene.add(warm);
 
   /* 7. супровід: перший гість, зелень, 30 днів */
-  const guest = figure(0xf26a1b);
+  const guest = person({ shirt: 0xf26a1b, pants: 0x2b2f3a, skin: 0xe8b996, hair: 0x6b4423 });
   guest.scale.setScalar(0);
   scene.add(guest);
   const plants = [];
@@ -231,6 +339,7 @@ export async function createBuild3D(canvasEl) {
     const leaves = new THREE.Mesh(new THREE.ConeGeometry(0.24, 0.7, 12), new THREE.MeshStandardMaterial({ color: 0x5f8a4a }));
     leaves.position.y = 0.62;
     p.add(pot, leaves);
+    p.traverse((o) => { if (o.isMesh) o.castShadow = true; });
     p.position.set(x, 0, FRONT + 0.35);
     p.scale.setScalar(0);
     scene.add(p);
@@ -272,7 +381,9 @@ export async function createBuild3D(canvasEl) {
       const u = f.userData;
       u.x += u.speed * u.dir * dt;
       if (u.x > 8) u.x = -8; if (u.x < -8) u.x = 8;
-      f.position.set(u.x, Math.abs(Math.sin(t * 6 + u.speed * 10)) * 0.04, u.z);
+      const phase = t * u.speed * 7 + u.z * 3;
+      stride(f, phase, 1);
+      f.position.set(u.x, Math.abs(Math.sin(phase)) * 0.03, u.z);
       f.rotation.y = u.dir > 0 ? Math.PI / 2 : -Math.PI / 2;
       f.scale.setScalar(v[2] * (1 - v[7] * 0.5));
     });
@@ -287,18 +398,23 @@ export async function createBuild3D(canvasEl) {
     walls.scale.y = Math.max(0.001, v[5]);
     const show = Math.max(0, (v[5] - 0.6) / 0.4);
     glassMat.opacity = doorMat.opacity = frameMat.opacity = awningMat.opacity = show;
+    street.scale.setScalar(Math.max(0.001, show));
 
     const flick = stage >= 6 && v[6] < 0.7 ? (Math.sin(t * 50) > 0 ? 1 : 0.3) : 1;
-    glassMat.emissiveIntensity = v[6] * 1.5 * flick;
+    glassMat.color.setScalar(0.25 + v[6] * 1.05 * flick);
+    bulbMat.emissiveIntensity = v[6] * 2.4 * flick;
     doorMat.emissiveIntensity = v[6] * 0.6 * flick;
     warm.intensity = v[6] * 14 * flick;
     neonMat.opacity = v[6];
     openSign.material.opacity = v[6];
 
     const walk = v[7];
+    // гість іде до дверей і зупиняється збоку, щоб не закривати табличку
     guest.scale.setScalar(walk > 0.01 ? 1 : 0);
-    guest.position.set(3.6 * (1 - walk), Math.abs(Math.sin(t * 6)) * 0.04 * (1 - walk), FRONT + 0.6 + 0.9 * (1 - walk));
-    guest.rotation.y = -Math.PI / 2 + walk * (Math.PI / 2 - 0.2);
+    const moving = walk < 0.97 ? 1 : 0;
+    stride(guest, t * 7, moving);
+    guest.position.set(-4.4 + 3.1 * walk, Math.abs(Math.sin(t * 7)) * 0.03 * moving, FRONT + 1.9 - 1.15 * walk);
+    guest.rotation.y = moving ? Math.PI / 2 + 0.35 : Math.PI - 0.5;
     for (const p of plants) p.scale.setScalar(v[7]);
     badge.material.opacity = v[7];
     badge.position.y = H + 0.9 + Math.sin(t * 2) * 0.06;
@@ -306,7 +422,7 @@ export async function createBuild3D(canvasEl) {
     // камера повільно оглядає макет
     const portrait = camera.aspect < 1;
     const az = 0.55 + Math.sin(t * 0.22) * 0.38;
-    const r = portrait ? 19 : 15;
+    const r = portrait ? 21 : 16.5;
     camera.position.set(Math.sin(az) * r, 6.2, Math.cos(az) * r);
     camera.lookAt(target);
     renderer.render(scene, camera);
