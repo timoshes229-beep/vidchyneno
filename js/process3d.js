@@ -121,22 +121,43 @@ function stride(f, phase, amount) {
   arms[0].rotation.x = -s * 0.8; arms[1].rotation.x = s * 0.8;
 }
 
-function interiorTexture() {
+function interiorTexture(format = 'restaurant') {
   const [c, g] = canvas(512, 512);
+  const bgs = {
+    restaurant: ['#5a3418', '#c98545', '#3a2010'],
+    coffee: ['#4a2c1a', '#b9834e', '#2c1a10'],
+    pizza: ['#3a160c', '#9a4420', '#24100a'],
+    burger: ['#2a1810', '#7a3a1a', '#1a0f0a'],
+  }[format] || ['#5a3418', '#c98545', '#3a2010'];
   const gr = g.createLinearGradient(0, 0, 0, 512);
-  gr.addColorStop(0, '#5a3418'); gr.addColorStop(0.55, '#c98545'); gr.addColorStop(1, '#3a2010');
+  gr.addColorStop(0, bgs[0]); gr.addColorStop(0.55, bgs[1]); gr.addColorStop(1, bgs[2]);
   g.fillStyle = gr; g.fillRect(0, 0, 512, 512);
-  for (let i = 0; i < 3; i++) {
-    const x = 100 + i * 156, y = 120;
-    const rg = g.createRadialGradient(x, y, 0, x, y, 90);
+  const glow = (x, y, r) => {
+    const rg = g.createRadialGradient(x, y, 0, x, y, r);
     rg.addColorStop(0, 'rgba(255,240,210,1)'); rg.addColorStop(0.25, 'rgba(255,190,110,.75)'); rg.addColorStop(1, 'rgba(255,160,80,0)');
-    g.fillStyle = rg; g.fillRect(x - 90, y - 90, 180, 180);
-    g.fillStyle = 'rgba(30,18,10,.7)'; g.fillRect(x - 1, 0, 2, y - 12);
+    g.fillStyle = rg; g.fillRect(x - r, y - r, r * 2, r * 2);
+  };
+  if (format === 'pizza') {
+    glow(256, 90, 80);
+    g.fillStyle = '#6a3020'; g.beginPath(); g.ellipse(256, 360, 170, 190, 0, Math.PI, 0); g.fill();
+    const f = g.createRadialGradient(256, 340, 4, 256, 330, 100);
+    f.addColorStop(0, '#fff0b4'); f.addColorStop(0.4, '#ff8c28'); f.addColorStop(1, '#782010');
+    g.fillStyle = f; g.beginPath(); g.ellipse(256, 360, 86, 76, 0, Math.PI, 0); g.fill();
+  } else if (format === 'burger') {
+    g.save(); g.shadowColor = '#ffb400'; g.shadowBlur = 24; g.strokeStyle = '#fff3bf'; g.lineWidth = 12; g.lineCap = 'round';
+    g.beginPath(); g.moveTo(150, 200); g.quadraticCurveTo(150, 110, 256, 110); g.quadraticCurveTo(362, 110, 362, 200); g.closePath();
+    g.moveTo(140, 240); g.lineTo(372, 240); g.moveTo(150, 280); g.lineTo(362, 280); g.quadraticCurveTo(362, 310, 330, 310); g.lineTo(182, 310); g.quadraticCurveTo(150, 310, 150, 280);
+    g.stroke(); g.restore();
+  } else if (format === 'coffee') {
+    for (const x of [110, 256, 402]) glow(x, 90, 70);
+    g.fillStyle = 'rgba(30,18,10,.8)'; g.fillRect(40, 200, 432, 8);
+    g.fillStyle = 'rgba(250,244,232,.95)'; for (let i = 0; i < 9; i++) g.fillRect(56 + i * 46, 168, 26, 32);
+    g.fillStyle = '#9a9aa0'; g.fillRect(290, 270, 170, 90);
+  } else {
+    for (let i = 0; i < 3; i++) { glow(100 + i * 156, 120, 90); g.fillStyle = 'rgba(30,18,10,.7)'; g.fillRect(100 + i * 156 - 1, 0, 2, 108); }
   }
   g.fillStyle = 'rgba(28,16,8,.92)'; g.fillRect(0, 360, 512, 152);
   g.fillStyle = 'rgba(255,205,140,.6)'; g.fillRect(0, 360, 512, 5);
-  g.fillStyle = 'rgba(240,232,216,.9)';
-  for (let i = 0; i < 7; i++) g.fillRect(60 + i * 58, 320, 22, 40);
   return tex(c);
 }
 
@@ -247,7 +268,8 @@ export async function createBuild3D(canvasEl) {
   scene.add(walls);
   const wallGeo = new THREE.BoxGeometry(W, H, D);
   wallGeo.translate(0, H / 2, 0);
-  const wallMesh = new THREE.Mesh(wallGeo, new THREE.MeshStandardMaterial({ map: brickTexture(), roughness: 0.9 }));
+  const brickMap = brickTexture();
+  const wallMesh = new THREE.Mesh(wallGeo, new THREE.MeshStandardMaterial({ map: brickMap, roughness: 0.9 }));
   wallMesh.castShadow = true;
   walls.add(wallMesh);
   const roof = new THREE.Mesh(new THREE.BoxGeometry(W + 0.4, 0.3, D + 0.4), new THREE.MeshStandardMaterial({ color: 0xf1e8d8, roughness: 0.8 }));
@@ -314,6 +336,53 @@ export async function createBuild3D(canvasEl) {
   street.traverse((o) => { if (o.isMesh) o.castShadow = true; });
   street.scale.setScalar(0.001);
 
+  /* конструктор: тераса й гірлянда */
+  const terrace = new THREE.Group();
+  const wood = new THREE.MeshStandardMaterial({ color: 0x7a5a3c, roughness: 0.7 });
+  const metalM = new THREE.MeshStandardMaterial({ color: 0x2a2420, roughness: 0.45 });
+  const umbrellaMat = new THREE.MeshStandardMaterial({ color: 0xf26a1b, roughness: 0.6, side: THREE.DoubleSide });
+  for (const [x, z] of [[1.7, FRONT + 1.35], [3.3, FRONT + 1.6]]) {
+    const top = new THREE.Mesh(new THREE.CylinderGeometry(0.36, 0.36, 0.05, 24), wood);
+    top.position.set(x, 0.75, z);
+    const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.05, 0.75, 8), metalM);
+    leg.position.set(x, 0.37, z);
+    terrace.add(top, leg);
+    for (const dx of [-0.55, 0.55]) {
+      const seat = new THREE.Mesh(new THREE.BoxGeometry(0.36, 0.05, 0.36), wood);
+      seat.position.set(x + dx, 0.45, z);
+      const back = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.42, 0.36), wood);
+      back.position.set(x + dx * 1.3, 0.68, z);
+      const cl = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.45, 0.04), metalM);
+      cl.position.set(x + dx, 0.22, z);
+      terrace.add(seat, back, cl);
+    }
+  }
+  const pole2 = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 2.3, 8), metalM);
+  pole2.position.set(2.5, 1.15, FRONT + 1.5);
+  const canopy = new THREE.Mesh(new THREE.ConeGeometry(1.3, 0.45, 8, 1, true), umbrellaMat);
+  canopy.position.set(2.5, 2.35, FRONT + 1.5);
+  terrace.add(pole2, canopy);
+  terrace.traverse((o) => { if (o.isMesh) o.castShadow = true; });
+  terrace.scale.setScalar(0.001);
+  scene.add(terrace);
+
+  const garland = new THREE.Group();
+  const garlandPts = [];
+  const bulbMatG = new THREE.MeshStandardMaterial({ color: 0xfff1d6, emissive: 0xffc27a, emissiveIntensity: 0 });
+  for (let i = 0; i <= 24; i++) {
+    const u = i / 24;
+    const p = new THREE.Vector3(-2.9 + 5.8 * u, 3.0 - Math.sin(u * Math.PI * 3) ** 2 * 0.22, FRONT + 0.7);
+    garlandPts.push(p);
+    if (i % 2 === 0) {
+      const b = new THREE.Mesh(new THREE.SphereGeometry(0.055, 10, 8), bulbMatG);
+      b.position.copy(p).add(new THREE.Vector3(0, -0.07, 0));
+      garland.add(b);
+    }
+  }
+  garland.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(garlandPts), new THREE.LineBasicMaterial({ color: 0x2a2420 })));
+  garland.scale.setScalar(0.001);
+  scene.add(garland);
+
   /* 6. відчинено: вивіска з назвою, світло */
   const neonMat = new THREE.MeshBasicMaterial({ map: neonTexture('Ваш заклад'), transparent: true, opacity: 0 });
   const neon = new THREE.Mesh(new THREE.PlaneGeometry(2.8, 0.55), neonMat);
@@ -363,6 +432,8 @@ export async function createBuild3D(canvasEl) {
   addEventListener('resize', resize);
 
   const v = [0, 0, 0, 0, 0, 0, 0, 0];
+  const cfg = { build: false, terrace: false, flowers: true, garland: false };
+  const ex = { terrace: 0, garland: 0, build: 0 };
   let stage = 0, running = false, raf = 0;
   const clock = new THREE.Clock();
   const target = new THREE.Vector3(0, 1.4, 0);
@@ -372,10 +443,17 @@ export async function createBuild3D(canvasEl) {
     const dt = Math.min(clock.getDelta(), 0.05);
     const t = clock.elapsedTime;
     for (let k = 1; k <= 7; k++) v[k] += ((stage >= k ? 1 : 0) - v[k]) * Math.min(1, dt * 2.6);
+    const ease = Math.min(1, dt * 4);
+    ex.build += ((cfg.build ? 1 : 0) - ex.build) * ease;
+    ex.terrace += ((cfg.build && cfg.terrace ? 1 : 0) - ex.terrace) * ease;
+    ex.garland += ((cfg.build && cfg.garland ? 1 : 0) - ex.garland) * ease;
+    terrace.scale.setScalar(Math.max(0.001, ex.terrace));
+    garland.scale.setScalar(Math.max(0.001, ex.garland));
+    const hideDraft = 1 - ex.build;
 
     lineGeo.instanceCount = Math.ceil(v[1] * totalSegs);
     lineMat.color.lerpColors(new THREE.Color(BLUE), new THREE.Color(INK), v[4]);
-    lineMat.opacity = 1 - v[5] * 0.6;
+    lineMat.opacity = (1 - v[5] * 0.6) * hideDraft;
 
     walkers.forEach((f) => {
       const u = f.userData;
@@ -387,11 +465,11 @@ export async function createBuild3D(canvasEl) {
       f.rotation.y = u.dir > 0 ? Math.PI / 2 : -Math.PI / 2;
       f.scale.setScalar(v[2] * (1 - v[7] * 0.5));
     });
-    formatTag.material.opacity = v[2] * (1 - v[6]);
+    formatTag.material.opacity = v[2] * (1 - v[6]) * hideDraft;
     formatTag.position.y = H + 1.1 + Math.sin(t * 1.6) * 0.08;
 
-    dimMat.opacity = v[3] * (1 - v[6] * 0.7);
-    for (const l of dimLabels) l.material.opacity = v[3] * (1 - v[6] * 0.8);
+    dimMat.opacity = v[3] * (1 - v[6] * 0.7) * hideDraft;
+    for (const l of dimLabels) l.material.opacity = v[3] * (1 - v[6] * 0.8) * hideDraft;
 
     pad.material.opacity = v[4] * 0.8;
 
@@ -403,6 +481,7 @@ export async function createBuild3D(canvasEl) {
     const flick = stage >= 6 && v[6] < 0.7 ? (Math.sin(t * 50) > 0 ? 1 : 0.3) : 1;
     glassMat.color.setScalar(0.25 + v[6] * 1.05 * flick);
     bulbMat.emissiveIntensity = v[6] * 2.4 * flick;
+    bulbMatG.emissiveIntensity = v[6] * 3 * flick;
     doorMat.emissiveIntensity = v[6] * 0.6 * flick;
     warm.intensity = v[6] * 14 * flick;
     neonMat.opacity = v[6];
@@ -415,8 +494,8 @@ export async function createBuild3D(canvasEl) {
     stride(guest, t * 7, moving);
     guest.position.set(-4.4 + 3.1 * walk, Math.abs(Math.sin(t * 7)) * 0.03 * moving, FRONT + 1.9 - 1.15 * walk);
     guest.rotation.y = moving ? Math.PI / 2 + 0.35 : Math.PI - 0.5;
-    for (const p of plants) p.scale.setScalar(v[7]);
-    badge.material.opacity = v[7];
+    for (const p of plants) p.scale.setScalar(Math.max(0.001, v[7] * (cfg.build && !cfg.flowers ? 0 : 1)));
+    badge.material.opacity = v[7] * hideDraft;
     badge.position.y = H + 0.9 + Math.sin(t * 2) * 0.06;
 
     // камера повільно оглядає макет
@@ -430,6 +509,16 @@ export async function createBuild3D(canvasEl) {
 
   return {
     setStage(n) { stage = n; },
+    setBuild(on) { cfg.build = on; },
+    setFacade(kind) {
+      const m = wallMesh.material;
+      m.map = kind === 'brick' ? brickMap : null;
+      m.color.set(kind === 'plaster' ? 0xe9dfcf : kind === 'dark' ? 0x34302c : 0xffffff);
+      m.needsUpdate = true;
+    },
+    setAwning(color) { awningMat.color.set(color); umbrellaMat.color.set(color); },
+    setExtras({ terrace: t, flowers, garland: gl }) { cfg.terrace = t; cfg.flowers = flowers; cfg.garland = gl; },
+    setFormat(format) { glassMat.map?.dispose(); glassMat.map = interiorTexture(format); glassMat.needsUpdate = true; },
     setName(name) { neonMat.map?.dispose(); neonMat.map = neonTexture(name || 'Ваш заклад'); neonMat.needsUpdate = true; },
     start() { if (running) return; running = true; clock.getDelta(); frame(); },
     stop() { running = false; cancelAnimationFrame(raf); },

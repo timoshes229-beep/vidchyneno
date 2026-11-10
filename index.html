@@ -201,7 +201,11 @@
   <section class="process" id="process">
     <div class="process-wrap">
       <h2 class="process-title">Як ми працюємо</h2>
-      <p class="process-lead">Від першої зустрічі до першого гостя. Дивіться, як народжується заклад, або натисніть на будь-який етап.</p>
+      <p class="process-lead">Від першої зустрічі до першого гостя. Дивіться, як народжується заклад, або зберіть свій власний.</p>
+      <div class="build-modes" id="buildModes" role="tablist" aria-label="Режим макета" hidden>
+        <button class="build-mode is-active" type="button" role="tab" aria-selected="true" data-mode="steps">Як ми працюємо</button>
+        <button class="build-mode" type="button" role="tab" aria-selected="false" data-mode="config">Зберіть свій заклад</button>
+      </div>
 
       <div class="build">
         <div class="build-art">
@@ -290,6 +294,49 @@
             <button class="btn btn-ink" type="button" id="buildNext"><span>Далі</span></button>
           </div>
           <a class="btn btn-sign magnetic build-cta" href="#contact"><span>Записатися на зустріч</span></a>
+        </div>
+        <div class="build-config" id="buildConfig" hidden>
+          <label class="cfg-name">
+            <span>Назва</span>
+            <input id="cfgName" maxlength="26" placeholder="Як назвете свій заклад?" autocomplete="off">
+          </label>
+          <div class="cfg-row">
+            <span class="cfg-label">Формат</span>
+            <div class="cfg-options" data-cfg="format">
+              <button type="button" data-value="restaurant">Ресторан</button>
+              <button type="button" data-value="coffee">Кав'ярня</button>
+              <button type="button" data-value="pizza">Піцерія</button>
+              <button type="button" data-value="burger">Бургерна</button>
+            </div>
+          </div>
+          <div class="cfg-row">
+            <span class="cfg-label">Фасад</span>
+            <div class="cfg-options" data-cfg="facade">
+              <button type="button" data-value="brick" class="is-active">Цегла</button>
+              <button type="button" data-value="plaster">Штукатурка</button>
+              <button type="button" data-value="dark">Темний</button>
+            </div>
+          </div>
+          <div class="cfg-row">
+            <span class="cfg-label">Козирки</span>
+            <div class="cfg-options cfg-swatches" data-cfg="awning">
+              <button type="button" data-value="#f26a1b" class="is-active" aria-label="Помаранчеві" style="--sw: #f26a1b"></button>
+              <button type="button" data-value="#3f6b45" aria-label="Зелені" style="--sw: #3f6b45"></button>
+              <button type="button" data-value="#7a2430" aria-label="Бордові" style="--sw: #7a2430"></button>
+              <button type="button" data-value="#1f1b18" aria-label="Чорні" style="--sw: #1f1b18"></button>
+              <button type="button" data-value="#e9dfcf" aria-label="Кремові" style="--sw: #e9dfcf"></button>
+            </div>
+          </div>
+          <div class="cfg-row">
+            <span class="cfg-label">Додати</span>
+            <div class="cfg-options cfg-multi" data-cfg="extras">
+              <button type="button" data-value="terrace" aria-pressed="false">Тераса</button>
+              <button type="button" data-value="flowers" aria-pressed="true" class="is-active">Квіти</button>
+              <button type="button" data-value="garland" aria-pressed="false">Гірлянда</button>
+            </div>
+          </div>
+          <button class="btn btn-ink cfg-open" type="button" id="cfgOpen"><span>Відкрити заклад</span></button>
+          <a class="btn btn-sign magnetic cfg-want" id="cfgWant" href="#contact"><span>Хочу такий заклад</span></a>
         </div>
       </div>
 

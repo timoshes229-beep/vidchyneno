@@ -7,6 +7,15 @@ const SELECT_BY_FORMAT = {
 };
 
 export const place = { name: '', format: 'restaurant' };
+let applyPlace = () => {};
+
+// зміна назви чи формату з інших блоків (наприклад, з конструктора)
+export function updatePlace(patch) {
+  Object.assign(place, patch);
+  const input = document.getElementById('placeName');
+  if (input && 'name' in patch) input.value = place.name;
+  applyPlace();
+}
 
 function load() {
   try {
@@ -49,6 +58,7 @@ export function initPlace(hero) {
     dispatchEvent(new CustomEvent('place:change', { detail: { name, format: place.format } }));
   }
 
+  applyPlace = apply;
   load();
   input.value = place.name;
   let timer;

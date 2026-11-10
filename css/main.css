@@ -1074,3 +1074,40 @@ body.is-ready .scroll-hint { opacity: 1; }
   animation: step-timer var(--step-ms, 3200ms) linear both;
 }
 @keyframes step-timer { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* ---------- «Зберіть свій заклад» ---------- */
+.build-modes { display: inline-flex; gap: 4px; padding: 4px; margin-bottom: 26px; border-radius: 999px; background: rgba(21, 17, 14, .07); }
+.build-modes[hidden] { display: none; }
+.build-mode { padding: 11px 20px; border-radius: 999px; font-size: 14.5px; font-weight: 600; color: rgba(21, 17, 14, .7); transition: background .3s, color .3s; }
+.build-mode.is-active { background: var(--ink); color: var(--cream); }
+.process.is-config .build-info, .process.is-config .build-steps, .process.is-config .process-note { display: none; }
+.build-config { display: grid; gap: 18px; }
+.build-config[hidden] { display: none; }
+.cfg-name { display: grid; gap: 8px; }
+.cfg-name span, .cfg-label { font-size: 13px; font-weight: 600; color: rgba(21, 17, 14, .6); }
+.cfg-name input {
+  width: 100%; padding: 13px 16px;
+  border: 0; border-radius: 12px;
+  background: #fffdf8; box-shadow: inset 0 0 0 1px rgba(21, 17, 14, .15);
+  font-family: var(--script); font-size: 24px; color: var(--ink);
+}
+.cfg-name input::placeholder { font-family: var(--font); font-size: 15px; }
+.cfg-name input:focus { outline: none; box-shadow: inset 0 0 0 2px var(--sign); }
+.cfg-row { display: grid; gap: 8px; }
+.cfg-options { display: flex; flex-wrap: wrap; gap: 6px; }
+.cfg-options button {
+  padding: 9px 14px; border-radius: 999px;
+  box-shadow: inset 0 0 0 1px rgba(21, 17, 14, .2);
+  font-size: 14px; font-weight: 500;
+  transition: background .25s, color .25s, box-shadow .25s, transform .3s var(--ease-out);
+}
+.cfg-options button:hover { box-shadow: inset 0 0 0 1px var(--ink); }
+.cfg-options button.is-active { background: var(--ink); color: var(--cream); box-shadow: none; }
+.cfg-options button:active { transform: scale(.94); }
+.cfg-swatches button { width: 36px; height: 36px; padding: 0; background: var(--sw); box-shadow: inset 0 0 0 1px rgba(21, 17, 14, .2); }
+.cfg-swatches button.is-active { background: var(--sw); box-shadow: 0 0 0 2px var(--cream), 0 0 0 4px var(--ink); }
+.cfg-open, .cfg-want { width: 100%; }
+.cfg-open { margin-top: 4px; }
+@media (max-width: 900px) {
+  .process.is-config .build-art { position: sticky; top: 64px; z-index: 3; }
+}
