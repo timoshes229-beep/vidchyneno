@@ -70,14 +70,25 @@
         </h1>
         <div class="hero-foot">
           <p class="hero-lead">Дмитро Барсук відкриває кафе, ресторани та стрітфуд під ключ. Дванадцять років шеф-кухарем, понад двадцять запущених закладів по всій Україні.</p>
+          <form class="place" id="place" autocomplete="off">
+            <label class="place-name">
+              <span class="visually-hidden">Назва вашого закладу</span>
+              <input id="placeName" name="placeName" maxlength="26" placeholder="Як назвете свій заклад?" enterkeyhint="done">
+            </label>
+            <div class="place-formats" role="group" aria-label="Формат закладу">
+              <button class="place-format is-active" type="button" data-format="restaurant" aria-pressed="true">Ресторан</button>
+              <button class="place-format" type="button" data-format="coffee" aria-pressed="false">Кав'ярня</button>
+              <button class="place-format" type="button" data-format="pizza" aria-pressed="false">Піцерія</button>
+              <button class="place-format" type="button" data-format="burger" aria-pressed="false">Бургерна</button>
+            </div>
+            <p class="place-hint">Назва засвітиться на вивісці. Гортайте вниз, і двері відчиняться.</p>
+          </form>
           <div class="hero-actions">
             <a class="btn btn-sign magnetic" href="#contact"><span>Обговорити заклад</span></a>
-            <a class="btn btn-line magnetic" href="#price"><span>Порахувати вартість</span></a>
           </div>
         </div>
       </div>
 
-      <p class="scroll-hint" id="scrollHint"><span class="scroll-hint-bar" aria-hidden="true"></span>Гортайте, і двері відчиняться</p>
       <div class="hero-veil" id="heroVeil" aria-hidden="true"></div>
     </div>
   </section>
@@ -354,7 +365,7 @@
           <span class="final-sign-cord" aria-hidden="true"></span>
           <span class="final-sign-inner">
             <span class="final-face final-face-closed"><b>ЗАЧИНЕНО</b><small>поки що</small></span>
-            <span class="final-face final-face-open"><b>ВІДЧИНЕНО</b><small>від ідеї до першого гостя</small></span>
+            <span class="final-face final-face-open"><b>ВІДЧИНЕНО</b><small id="finalSignName">від ідеї до першого гостя</small></span>
           </span>
         </button>
       </div>
@@ -369,6 +380,10 @@
           <label class="field">
             <span>Телефон або Telegram</span>
             <input name="phone" autocomplete="tel" required>
+          </label>
+          <label class="field field-wide">
+            <span>Назва закладу, якщо вже придумали</span>
+            <input name="place" id="bookingPlace">
           </label>
           <label class="field">
             <span>Який заклад плануєте</span>
@@ -399,10 +414,7 @@
         </div>
         <p class="booking-error" id="bookingError" role="alert"></p>
         <button class="btn btn-sign booking-submit" type="submit"><span>Надіслати заявку</span></button>
-        <div class="booking-done" id="bookingDone" hidden>
-          <p class="booking-done-title">Заявку прийнято</p>
-          <p class="booking-done-text" id="bookingDoneText">Дмитро зв'яжеться з вами найближчим часом.</p>
-        </div>
+        <div class="booking-done" id="bookingDone" hidden></div>
       </form>
     </div>
   </section>

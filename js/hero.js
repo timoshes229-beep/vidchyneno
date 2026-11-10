@@ -132,53 +132,178 @@ function signTexture(open) {
   return tex(c);
 }
 
-function neonTexture() {
+// Формати закладу: колір неону та що видно у вітринах
+const FORMATS = {
+  restaurant: { neon: '#ffd9a8', glow: '#ff9a3c' },
+  coffee: { neon: '#fff1dc', glow: '#ffae5c' },
+  pizza: { neon: '#ffe1c8', glow: '#ff5a2e' },
+  burger: { neon: '#fff3bf', glow: '#ffb400' },
+};
+
+function glowText(g, text, x, y, f) {
+  g.shadowColor = f.glow;
+  for (const blur of [60, 30, 12]) {
+    g.shadowBlur = blur;
+    g.fillStyle = f.neon;
+    g.fillText(text, x, y);
+  }
+  g.shadowBlur = 0;
+  g.fillStyle = '#fffaf2';
+  g.fillText(text, x, y);
+}
+
+function neonTexture(name, format) {
+  const f = FORMATS[format] || FORMATS.restaurant;
   const W = 2048, H = 560;
   const [c, g] = canvas(W, H);
   g.textAlign = 'center'; g.textBaseline = 'middle';
-  fitFont(g, 'Ласкаво просимо', 400, '"Marck Script"', W - 260, 300);
-  g.shadowColor = '#ff9a3c';
-  for (const blur of [60, 30, 12]) {
-    g.shadowBlur = blur;
-    g.fillStyle = '#ffd9a8';
-    g.fillText('Ласкаво просимо', W / 2, H / 2);
+  if (name) {
+    fitFont(g, 'Ласкаво просимо до', 400, '"Marck Script"', W - 300, 170);
+    glowText(g, 'Ласкаво просимо до', W / 2, H * 0.3, f);
+    fitFont(g, `«${name}»`, 400, '"Marck Script"', W - 260, 230);
+    glowText(g, `«${name}»`, W / 2, H * 0.7, f);
+  } else {
+    fitFont(g, 'Ласкаво просимо', 400, '"Marck Script"', W - 260, 300);
+    glowText(g, 'Ласкаво просимо', W / 2, H / 2, f);
   }
-  g.shadowBlur = 0;
-  g.fillStyle = '#fff6ea';
-  g.fillText('Ласкаво просимо', W / 2, H / 2);
   return tex(c);
 }
 
-function windowTexture(seed) {
+// значки форматів, намальовані «неоновою трубкою»
+function drawIcon(g, format, x, y, s) {
+  g.save();
+  g.translate(x, y);
+  g.scale(s / 100, s / 100);
+  g.beginPath();
+  if (format === 'coffee') {
+    g.moveTo(-34, -18); g.lineTo(-28, 34); g.lineTo(22, 34); g.lineTo(28, -18); g.closePath();
+    g.moveTo(28, -6); g.bezierCurveTo(52, -6, 52, 22, 25, 22);
+    g.moveTo(-12, -32); g.bezierCurveTo(-2, -40, -18, -48, -8, -58);
+    g.moveTo(8, -32); g.bezierCurveTo(18, -40, 2, -48, 12, -58);
+  } else if (format === 'pizza') {
+    g.moveTo(-40, -36); g.quadraticCurveTo(0, -52, 40, -36); g.lineTo(0, 44); g.closePath();
+    g.moveTo(-14, -18); g.arc(-12, -18, 6, 0, Math.PI * 2);
+    g.moveTo(16, -12); g.arc(12, -12, 6, 0, Math.PI * 2);
+    g.moveTo(4, 12); g.arc(0, 12, 6, 0, Math.PI * 2);
+  } else if (format === 'burger') {
+    g.moveTo(-42, -6); g.quadraticCurveTo(-42, -44, 0, -44); g.quadraticCurveTo(42, -44, 42, -6); g.closePath();
+    g.moveTo(-46, 8); g.quadraticCurveTo(-34, 0, -22, 8); g.quadraticCurveTo(-10, 16, 2, 8); g.quadraticCurveTo(14, 0, 26, 8); g.quadraticCurveTo(38, 16, 46, 8);
+    g.moveTo(-42, 24); g.lineTo(42, 24); g.quadraticCurveTo(42, 40, 26, 40); g.lineTo(-26, 40); g.quadraticCurveTo(-42, 40, -42, 24);
+  } else {
+    g.moveTo(-46, 26); g.lineTo(46, 26);
+    g.moveTo(-38, 26); g.quadraticCurveTo(-38, -30, 0, -30); g.quadraticCurveTo(38, -30, 38, 26);
+    g.moveTo(-6, -36); g.lineTo(6, -36); g.moveTo(0, -36); g.lineTo(0, -30);
+  }
+  g.restore();
+  // товщина лінії після restore, щоб stroke() малював у масштабі значка
+  g.lineWidth = 7 * s / 100; g.lineCap = 'round'; g.lineJoin = 'round';
+}
+
+function signageTexture(name, format) {
+  const f = FORMATS[format] || FORMATS.restaurant;
+  const W = 2048, H = 360;
+  const [c, g] = canvas(W, H);
+  const text = name || 'Ваш заклад';
+  g.textBaseline = 'middle';
+  const size = fitFont(g, text, 400, '"Marck Script"', W - 560, 230);
+  const tw = g.measureText(text).width;
+  const icon = 190, gap = 50;
+  const x0 = (W - (icon + gap + tw)) / 2;
+  g.shadowColor = f.glow;
+  for (const blur of [50, 24, 10, 0]) {
+    g.shadowBlur = blur;
+    g.strokeStyle = blur ? f.neon : '#fffaf2';
+    g.fillStyle = blur ? f.neon : '#fffaf2';
+    drawIcon(g, format, x0 + icon / 2, H / 2, icon);
+    g.stroke();
+    g.font = `400 ${size}px "Marck Script"`;
+    g.textAlign = 'left';
+    g.fillText(text, x0 + icon + gap, H / 2 + 6);
+  }
+  return tex(c);
+}
+
+function windowTexture(format, seed) {
   const W = 512, H = 512;
   const [c, g] = canvas(W, H);
-  const gr = g.createLinearGradient(0, 0, 0, H);
-  gr.addColorStop(0, '#3b2414');
-  gr.addColorStop(0.55, '#8a5427');
-  gr.addColorStop(1, '#2a180e');
-  g.fillStyle = gr; g.fillRect(0, 0, W, H);
-  // підвісні світильники
-  for (let i = 0; i < 4; i++) {
-    const x = 60 + i * 130 + (seed * 37 % 40), y = 120 + (i % 2) * 40;
-    const rg = g.createRadialGradient(x, y, 0, x, y, 90);
-    rg.addColorStop(0, 'rgba(255,236,200,1)');
-    rg.addColorStop(0.2, 'rgba(255,190,110,.7)');
-    rg.addColorStop(1, 'rgba(255,160,80,0)');
-    g.fillStyle = rg; g.fillRect(x - 90, y - 90, 180, 180);
-    g.fillStyle = 'rgba(20,12,8,.6)'; g.fillRect(x - 1, 0, 2, y - 10);
+  const glowAt = (x, y, r, inner = 'rgba(255,236,200,1)', mid = 'rgba(255,190,110,.7)') => {
+    const rg = g.createRadialGradient(x, y, 0, x, y, r);
+    rg.addColorStop(0, inner); rg.addColorStop(0.22, mid); rg.addColorStop(1, 'rgba(255,160,80,0)');
+    g.fillStyle = rg; g.fillRect(x - r, y - r, r * 2, r * 2);
+  };
+  const bg = (top, mid, bottom) => {
+    const gr = g.createLinearGradient(0, 0, 0, H);
+    gr.addColorStop(0, top); gr.addColorStop(0.55, mid); gr.addColorStop(1, bottom);
+    g.fillStyle = gr; g.fillRect(0, 0, W, H);
+  };
+  const counter = (y, color = 'rgba(24,14,8,.92)') => {
+    g.fillStyle = color; g.fillRect(0, y, W, H - y);
+    g.fillStyle = 'rgba(255,200,130,.55)'; g.fillRect(0, y, W, 4);
+  };
+
+  if (format === 'coffee') {
+    bg('#3a2416', '#a0683a', '#2a180e');
+    for (let i = 0; i < 3; i++) glowAt(110 + i * 150 + seed % 20, 70, 70);
+    // крейдяна дошка з меню
+    g.fillStyle = 'rgba(20,22,20,.9)'; g.fillRect(36, 110, 170, 150);
+    g.strokeStyle = 'rgba(240,235,220,.7)'; g.lineWidth = 3;
+    for (let i = 0; i < 5; i++) { g.beginPath(); g.moveTo(56, 140 + i * 24); g.lineTo(150 + (i * 23 % 40), 140 + i * 24); g.stroke(); }
+    // полиця з чашками
+    g.fillStyle = 'rgba(30,18,10,.8)'; g.fillRect(250, 190, 230, 8);
+    g.fillStyle = 'rgba(250,244,232,.92)';
+    for (let i = 0; i < 6; i++) g.fillRect(262 + i * 36, 160, 24, 30);
+    // кавомашина
+    g.fillStyle = 'rgba(160,160,165,.95)'; g.fillRect(280, 268, 170, 92);
+    g.fillStyle = 'rgba(60,60,66,.95)'; g.fillRect(300, 300, 130, 24);
+    counter(360);
+  } else if (format === 'pizza') {
+    bg('#2a120a', '#6e3016', '#1e0c06');
+    glowAt(120, 60, 60); glowAt(400, 60, 60);
+    // піч із вогнем
+    g.fillStyle = '#5a2a1a';
+    g.beginPath(); g.ellipse(256, 360, 170, 200, 0, Math.PI, 0); g.fill();
+    const fire = g.createRadialGradient(256, 340, 4, 256, 330, 110);
+    fire.addColorStop(0, 'rgba(255,240,180,1)'); fire.addColorStop(0.35, 'rgba(255,140,40,.95)'); fire.addColorStop(1, 'rgba(120,30,10,1)');
+    g.fillStyle = fire;
+    g.beginPath(); g.ellipse(256, 360, 90, 80, 0, Math.PI, 0); g.fill();
+    counter(360, 'rgba(30,14,8,.95)');
+    // піци на стійці
+    for (const x of [90, 420]) {
+      g.fillStyle = '#e8c27a'; g.beginPath(); g.ellipse(x, 392, 62, 16, 0, 0, Math.PI * 2); g.fill();
+      g.fillStyle = '#c0391f'; g.beginPath(); g.ellipse(x, 390, 50, 11, 0, 0, Math.PI * 2); g.fill();
+    }
+  } else if (format === 'burger') {
+    bg('#1d1410', '#4e2612', '#140c08');
+    // неоновий бургер у вікні
+    g.save();
+    g.shadowColor = '#ffb400'; g.strokeStyle = '#fff3bf';
+    for (const blur of [30, 12, 0]) { g.shadowBlur = blur; g.beginPath(); drawIcon(g, 'burger', 256, 170, 210); g.stroke(); }
+    g.restore();
+    counter(340);
+    // барні стільці
+    g.fillStyle = 'rgba(12,8,6,.95)';
+    for (const x of [100, 256, 412]) {
+      g.beginPath(); g.ellipse(x, 420, 46, 12, 0, 0, Math.PI * 2); g.fill();
+      g.fillRect(x - 4, 420, 8, 92);
+    }
+  } else {
+    bg('#3b2414', '#8a5427', '#2a180e');
+    for (let i = 0; i < 4; i++) {
+      const x = 60 + i * 130 + (seed * 37 % 40), y = 120 + (i % 2) * 40;
+      glowAt(x, y, 90);
+      g.fillStyle = 'rgba(20,12,8,.6)'; g.fillRect(x - 1, 0, 2, y - 10);
+    }
+    g.fillStyle = 'rgba(18,10,6,.85)';
+    for (let i = 0; i < 3; i++) {
+      const x = 50 + i * 160 + seed * 11 % 30;
+      g.fillRect(x, 360, 110, 10);
+      g.fillRect(x + 50, 370, 8, 110);
+      g.fillRect(x - 25, 330, 6, 150);
+      g.fillRect(x + 130, 330, 6, 150);
+    }
+    g.fillStyle = 'rgba(14,20,10,.8)';
+    g.beginPath(); g.ellipse(470, 300, 50, 110, 0, 0, Math.PI * 2); g.fill();
   }
-  // силуети столів і стільців
-  g.fillStyle = 'rgba(18,10,6,.85)';
-  for (let i = 0; i < 3; i++) {
-    const x = 50 + i * 160 + seed * 11 % 30;
-    g.fillRect(x, 360, 110, 10);
-    g.fillRect(x + 50, 370, 8, 110);
-    g.fillRect(x - 25, 330, 6, 150);
-    g.fillRect(x + 130, 330, 6, 150);
-  }
-  // рослина
-  g.fillStyle = 'rgba(14,20,10,.8)';
-  g.beginPath(); g.ellipse(470, 300, 50, 110, 0, 0, Math.PI * 2); g.fill();
   return tex(c);
 }
 
@@ -292,6 +417,13 @@ export async function createHero(canvasEl) {
   const corniceTop = new THREE.Mesh(new THREE.BoxGeometry(W, 0.12, 0.84), plaster);
   corniceTop.position.set(0, 4.36, 0.42);
   scene.add(corniceTop);
+  const signage = new THREE.Mesh(
+    new THREE.PlaneGeometry(2.6, 0.457),
+    new THREE.MeshBasicMaterial({ map: signageTexture('', 'restaurant'), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }),
+  );
+  signage.material.color.setScalar(0);
+  signage.position.set(0, 3.35, 0.03);
+  scene.add(signage);
   const led = new THREE.Mesh(new THREE.BoxGeometry(W, 0.03, 0.05), glow(COL.lamp, 0));
   led.position.set(0, 3.56, 0.66);
   scene.add(led);
@@ -339,7 +471,8 @@ export async function createHero(canvasEl) {
     const g = new THREE.Group();
     g.position.set(s * 5.1, SILL, 0.01);
     const pane = new THREE.Mesh(new THREE.PlaneGeometry(2.5, 2.7), glow(0xffffff, 0));
-    pane.material.map = windowTexture(s > 0 ? 3 : 7);
+    pane.material.map = windowTexture('restaurant', s > 0 ? 3 : 7);
+    pane.userData.seed = s > 0 ? 3 : 7;
     pane.position.y = 0.4 + 1.35;
     g.add(pane);
     const fr = (w, h, x, y) => { const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.08), metal); m.position.set(x, y, 0.03); g.add(m); };
@@ -487,7 +620,7 @@ export async function createHero(canvasEl) {
   // неон «Ласкаво просимо» на задній стіні
   const neon = new THREE.Mesh(
     new THREE.PlaneGeometry(4.6, 1.26),
-    new THREE.MeshBasicMaterial({ map: neonTexture(), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }),
+    new THREE.MeshBasicMaterial({ map: neonTexture('', 'restaurant'), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }),
   );
   neon.material.color.setScalar(0);
   neon.position.set(0, 2.25, -0.36 - RD + 0.02);
@@ -563,7 +696,7 @@ export async function createHero(canvasEl) {
     mouse: new THREE.Vector2(), mouseSmooth: new THREE.Vector2(), mousePrevX: 0,
     hover: false,
   };
-  const listeners = { hover: () => {}, layout: () => {} };
+  const listeners = { hover: () => {}, layout: () => {}, door: () => {} };
 
   const ray = new THREE.Raycaster();
   const ndc = new THREE.Vector2(-9, -9);
@@ -611,6 +744,7 @@ export async function createHero(canvasEl) {
     }
     led.material.color.copy(led.material.userData.base).multiplyScalar(L * 3);
     wash.material.opacity = L * 0.42;
+    signage.material.color.setScalar(L * flicker * 1.15);
     stepLed.material.color.copy(stepLed.material.userData.base).multiplyScalar(L * 3);
     stepGlow.material.opacity = L * 0.35;
     for (const w of windows) w.material.color.setScalar(L * 1.05);
@@ -623,6 +757,9 @@ export async function createHero(canvasEl) {
     dust.material.opacity = L * (0.35 + open * 0.4);
     frontMat.emissiveIntensity = L * 0.16;
     backMat.emissiveIntensity = L * 0.12;
+
+    if (open > 0.08 && !state.belled) { state.belled = true; listeners.door(); }
+    if (open < 0.02) state.belled = false;
 
     // двері
     const doorAngle = open * 1.7;
@@ -681,6 +818,13 @@ export async function createHero(canvasEl) {
     setProgress(v) { state.target = clamp(v); },
     lightsOn() { state.lightsTarget = 1; state.lightsStart = clock.elapsedTime; setTimeout(() => { state.flipTarget = 0; state.swingVel += 1.2; }, 650); },
     onHover(fn) { listeners.hover = fn; },
+    onDoor(fn) { listeners.door = fn; },
+    setPlace({ name, format }) {
+      const swap = (mat, t) => { mat.map?.dispose(); mat.map = t; mat.needsUpdate = true; };
+      swap(signage.material, signageTexture(name, format));
+      swap(neon.material, neonTexture(name, format));
+      for (const w of windows) swap(w.material, windowTexture(format, w.userData.seed));
+    },
     onLayout(fn) { listeners.layout = fn; },
     pause() {
       running = false;

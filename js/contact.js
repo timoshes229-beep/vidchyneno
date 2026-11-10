@@ -1,4 +1,7 @@
 import { CONTACTS, FORM_ENDPOINT } from './config.js';
+import { sfx } from './sound.js';
+
+const esc = (v) => String(v || '').replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
 
 function applyContacts() {
   const { phone, telegram, instagram, tiktok } = CONTACTS;
@@ -31,7 +34,7 @@ export function initContact() {
   const sign = document.getElementById('finalSign');
   const form = document.getElementById('booking');
   if (!form) return;
-  sign?.addEventListener('click', () => sign.classList.toggle('is-open'));
+  sign?.addEventListener('click', () => { sign.classList.toggle('is-open'); sfx.flip(); });
 
   // площа з калькулятора переходить у заявку
   const area = document.getElementById('bookingArea');
@@ -41,7 +44,6 @@ export function initContact() {
 
   const error = document.getElementById('bookingError');
   const done = document.getElementById('bookingDone');
-  const doneText = document.getElementById('bookingDoneText');
   const submit = form.querySelector('.booking-submit');
 
   form.addEventListener('submit', async (e) => {
@@ -67,11 +69,27 @@ export function initContact() {
         });
         if (!res.ok) throw new Error(String(res.status));
       }
-      const name = String(data.name).trim().split(/\s+/)[0];
-      doneText.textContent = `${name}, дякуємо! Дмитро зв'яжеться з вами найближчим часом.`;
+      // заявка друкується як кухонне замовлення: після 20+ закладів ваш стане 21-м
+      const first = String(data.name).trim().split(/\s+/)[0];
+      const rows = [
+        ['Гість', data.name],
+        ['Контакт', data.phone],
+        ['Формат', data.format || 'ще обираємо'],
+        ['Площа', data.area || 'уточнимо'],
+        ['Приміщення', data.premises === 'Є' ? 'вже є' : 'треба знайти'],
+      ];
+      done.innerHTML = `
+        <div class="order-ticket">
+          <p class="order-head"><span>Замовлення</span><span>№ 0021</span></p>
+          <p class="order-title">${esc(data.place) || 'Новий заклад'}</p>
+          <dl class="order-lines">${rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>
+          <p class="order-foot">${esc(first)}, дякуємо! Дмитро зв'яжеться з вами найближчим часом.</p>
+          <span class="order-stamp">Прийнято</span>
+        </div>`;
       form.classList.add('is-sent');
       done.hidden = false;
-      sign?.classList.add('is-open');
+      sfx.printer();
+      setTimeout(() => { sign?.classList.add('is-open'); sfx.flip(); }, 900);
     } catch {
       error.textContent = 'Не вдалося надіслати заявку. Спробуйте ще раз або зателефонуйте Дмитру.';
     } finally {

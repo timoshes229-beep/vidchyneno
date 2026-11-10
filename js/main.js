@@ -4,6 +4,8 @@ import { initProcess } from './process.js';
 import { initCases } from './cases.js';
 import { initPricing } from './pricing.js';
 import { initContact } from './contact.js';
+import { initPlace } from './place.js';
+import { initSound } from './sound.js';
 
 const $ = (s) => document.querySelector(s);
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -16,10 +18,11 @@ const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
 const lenis = window.Lenis && !reduceMotion ? new window.Lenis({ lerp: 0.085 }) : null;
 lenis?.stop();
 
+const sound = initSound();
+
 /* ---------- 3D-сцена ---------- */
 const heroEl = $('#hero');
 const copy = $('#heroCopy');
-const hint = $('#scrollHint');
 const veil = $('#heroVeil');
 const canvasEl = $('#scene');
 const header = $('#header');
@@ -41,9 +44,12 @@ const heroReady = createHero(canvasEl)
       cursor.classList.toggle('is-sign', on);
     });
     h.start();
+    initPlace(h);
+    h.onDoor(() => sound.bell());
   })
   .catch((err) => {
     console.warn('WebGL недоступний, показуємо фото', err);
+    initPlace(null);
     canvasEl.remove();
   });
 
@@ -70,6 +76,7 @@ tickLoader();
 
 function openUp() {
   opened = true;
+  sound.key();
   loader.classList.add('is-turning');
   setTimeout(() => {
     loader.classList.add('is-done');
@@ -92,7 +99,6 @@ function updateHero() {
   const fade = smooth(0, 0.12, p);
   copy.style.opacity = String(1 - fade);
   copy.style.transform = `translate3d(0, ${-fade * 60}px, 0) scale(${1 + fade * 0.04})`;
-  hint.style.visibility = p > 0.02 ? 'hidden' : '';
   veil.style.opacity = String(smooth(0.86, 0.995, p));
 
   const overLight = lightSections.some((el) => { const r = el.getBoundingClientRect(); return r.top < 40 && r.bottom > 40; });
