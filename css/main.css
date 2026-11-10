@@ -110,6 +110,8 @@ body::after {
   transition: transform .6s var(--ease-out), opacity .6s;
 }
 body.is-loading .site-header { opacity: 0; transform: translateY(-20px); }
+.site-header { color: var(--cream); transition: transform .6s var(--ease-out), opacity .6s, color .4s; }
+.site-header.is-light { color: var(--ink); }
 
 .brand-sign {
   display: inline-block;
@@ -245,6 +247,150 @@ body.is-ready .scroll-hint { opacity: 1; }
 @keyframes drip { 0% { transform: scaleY(0); } 60% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
 
 .hero-veil { position: absolute; inset: 0; background: var(--cream); opacity: 0; pointer-events: none; }
+
+/* ---------- про Дмитра ---------- */
+.about {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(90px, 12vw, 180px) var(--gutter) clamp(40px, 6vw, 90px);
+  background: var(--cream);
+  color: var(--ink);
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(36px, 7vw, 120px);
+  align-items: end;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+.about-photo { position: relative; }
+.about-photo-frame {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 999px 999px 20px 20px;
+  background: #2b2723;
+}
+.about-photo-frame img {
+  display: block;
+  width: 100%; height: 118%;
+  object-fit: cover; object-position: 50% 0%;
+  transform: translate3d(0, var(--py, -4%), 0);
+  filter: sepia(.1) saturate(.92) contrast(1.04);
+}
+.about-sign {
+  position: absolute; right: -6%; bottom: 7%;
+  padding: 8px 18px 10px;
+  border-radius: 12px;
+  background: var(--sign);
+  color: var(--ink);
+  font-family: var(--script);
+  font-size: clamp(26px, 2.6vw, 38px);
+  line-height: 1;
+  transform: rotate(-5deg);
+  box-shadow: 0 16px 36px -16px rgba(120, 50, 10, .7);
+}
+.about-title {
+  max-width: 13ch;
+  margin-bottom: clamp(26px, 3vw, 46px);
+  font-size: clamp(40px, 5.2vw, 88px);
+  font-weight: 700;
+  line-height: .95;
+  letter-spacing: -.05em;
+}
+.about-statement {
+  max-width: 34ch;
+  font-size: clamp(20px, 1.9vw, 29px);
+  font-weight: 400;
+  line-height: 1.38;
+  letter-spacing: -.015em;
+}
+.about-statement .word { opacity: .16; transition: opacity .35s; }
+.about-statement .word.is-on { opacity: 1; }
+.about-quote {
+  max-width: 46ch;
+  margin-top: clamp(30px, 3.4vw, 52px);
+  padding-left: 22px;
+  border-left: 2px solid var(--sign);
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(21, 17, 14, .7);
+}
+
+/* кухонна рейка з чеками */
+.rail { position: relative; max-width: 1360px; margin: clamp(80px, 10vw, 150px) auto 0; }
+.rail-bar {
+  position: relative; z-index: 2;
+  height: 14px;
+  border-radius: 7px;
+  background: linear-gradient(#f7f7f5, #b4b4b0 42%, #74746f 58%, #d6d6d2);
+  box-shadow: 0 10px 20px -12px rgba(0, 0, 0, .55);
+}
+.tickets {
+  list-style: none;
+  display: flex; justify-content: space-between; gap: clamp(14px, 1.8vw, 26px);
+  margin-top: -7px;
+  padding: 0 clamp(6px, 1vw, 18px) 50px;
+}
+.ticket {
+  position: relative;
+  flex: 1 1 0; min-width: 0; max-width: 260px;
+  padding: 28px 20px 34px;
+  background: #fcf9f3;
+  box-shadow: 0 22px 34px -22px rgba(50, 30, 10, .55);
+  transform-origin: 50% 0;
+  transform: rotate(var(--r, 0deg));
+  transition: transform .7s var(--ease-out), opacity .7s var(--ease-out);
+  -webkit-mask: linear-gradient(#000 0 0) top / 100% calc(100% - 9px) no-repeat, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / 14px 9px repeat-x;
+  mask: linear-gradient(#000 0 0) top / 100% calc(100% - 9px) no-repeat, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / 14px 9px repeat-x;
+}
+.rail:not(.is-in) .ticket { transform: translate3d(0, -40px, 0) rotate(calc(var(--r, 0deg) * 4)); opacity: 0; }
+.rail.is-in:not(.is-settled) .ticket { transition-delay: calc(var(--i, 0) * 110ms); }
+.ticket:hover { transform: translate3d(0, 8px, 0) rotate(0deg); }
+.ticket::after {
+  content: "Готово";
+  position: absolute; right: 14px; bottom: 26px;
+  padding: 3px 9px;
+  border: 2px solid var(--sign);
+  border-radius: 6px;
+  color: var(--sign);
+  font-size: 13px; font-weight: 700;
+  opacity: 0;
+  transform: rotate(-12deg) scale(1.7);
+  transition: opacity .25s, transform .45s var(--ease-out);
+}
+.ticket:hover::after { opacity: 1; transform: rotate(-12deg) scale(1); }
+.ticket-head {
+  display: flex; justify-content: space-between;
+  margin-bottom: 18px; padding-bottom: 12px;
+  border-bottom: 1.5px dashed rgba(21, 17, 14, .25);
+  font-size: 12px;
+  color: rgba(21, 17, 14, .5);
+  font-variant-numeric: tabular-nums;
+}
+.ticket-big {
+  display: block;
+  margin-bottom: 12px;
+  font-size: clamp(30px, 2.8vw, 44px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -.04em;
+}
+.ticket-text { display: block; font-size: 14.5px; line-height: 1.45; color: rgba(21, 17, 14, .78); }
+
+@media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; align-items: start; }
+  .about-photo { width: min(78%, 380px); }
+  .about-sign { right: -14%; }
+  .tickets {
+    justify-content: flex-start;
+    overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+    margin-left: calc(var(--gutter) * -1); margin-right: calc(var(--gutter) * -1);
+    padding-left: var(--gutter); padding-right: var(--gutter);
+  }
+  .tickets::-webkit-scrollbar { display: none; }
+  .ticket { flex: 0 0 min(64vw, 240px); scroll-snap-align: center; }
+}
 
 /* ---------- заглушка наступного блоку ---------- */
 .next {

@@ -1,4 +1,5 @@
 import { createHero } from './hero.js';
+import { initAbout } from './about.js';
 
 const $ = (s) => document.querySelector(s);
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -17,6 +18,7 @@ const copy = $('#heroCopy');
 const hint = $('#scrollHint');
 const veil = $('#heroVeil');
 const canvasEl = $('#scene');
+const header = $('#header');
 let hero = null;
 
 const heroReady = createHero(canvasEl)
@@ -88,6 +90,8 @@ function updateHero() {
   hint.style.visibility = p > 0.02 ? 'hidden' : '';
   veil.style.opacity = String(smooth(0.86, 0.995, p));
 
+  header.classList.toggle('is-light', rect.bottom < 60 && !menu.classList.contains('is-open'));
+
   const visible = rect.bottom > 0;
   if (visible !== heroVisible) {
     heroVisible = visible;
@@ -95,9 +99,12 @@ function updateHero() {
   }
 }
 
+const updateAbout = initAbout();
+
 function raf(t) {
   lenis?.raf(t);
   updateHero();
+  updateAbout();
   requestAnimationFrame(raf);
 }
 requestAnimationFrame(raf);
