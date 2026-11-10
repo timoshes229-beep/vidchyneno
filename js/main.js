@@ -2,6 +2,7 @@ import { createHero } from './hero.js';
 import { initAbout } from './about.js';
 import { initMenu } from './menu.js';
 import { initProcess } from './process.js';
+import { initCases } from './cases.js';
 
 const $ = (s) => document.querySelector(s);
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -105,6 +106,7 @@ function updateHero() {
 
 const updateAbout = initAbout();
 const updateProcess = initProcess();
+const updateCases = initCases();
 initMenu(finePointer && !reduceMotion);
 
 function raf(t) {
@@ -112,6 +114,7 @@ function raf(t) {
   updateHero();
   updateAbout();
   updateProcess();
+  updateCases();
   requestAnimationFrame(raf);
 }
 requestAnimationFrame(raf);
