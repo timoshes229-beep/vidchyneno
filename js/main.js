@@ -1,6 +1,7 @@
 import { createHero } from './hero.js';
 import { initAbout } from './about.js';
 import { initMenu } from './menu.js';
+import { initProcess } from './process.js';
 
 const $ = (s) => document.querySelector(s);
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -20,7 +21,7 @@ const hint = $('#scrollHint');
 const veil = $('#heroVeil');
 const canvasEl = $('#scene');
 const header = $('#header');
-const lightSections = [...document.querySelectorAll('.about, .next')];
+const lightSections = [...document.querySelectorAll('.about, .process, .next')];
 let hero = null;
 
 const heroReady = createHero(canvasEl)
@@ -103,12 +104,14 @@ function updateHero() {
 }
 
 const updateAbout = initAbout();
+const updateProcess = initProcess();
 initMenu(finePointer && !reduceMotion);
 
 function raf(t) {
   lenis?.raf(t);
   updateHero();
   updateAbout();
+  updateProcess();
   requestAnimationFrame(raf);
 }
 requestAnimationFrame(raf);

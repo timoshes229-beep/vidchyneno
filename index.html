@@ -196,8 +196,47 @@
     <figure class="dish-preview" id="dishPreview" aria-hidden="true"><img alt=""></figure>
   </section>
 
-  <section class="next" id="process">
-    <p>Тут буде наступний блок: як ми працюємо.</p>
+  <section class="process" id="process">
+    <div class="process-stage">
+      <div class="process-side">
+        <h2 class="process-title">Як ми працюємо</h2>
+        <div class="premises" role="group" aria-label="Чи є у вас приміщення">
+          <button class="premises-btn is-active" type="button" data-mode="have" aria-pressed="true">Приміщення вже є</button>
+          <button class="premises-btn" type="button" data-mode="search" aria-pressed="false">Ще треба знайти</button>
+          <span class="premises-thumb" aria-hidden="true"></span>
+        </div>
+
+        <div class="timer" aria-hidden="true">
+          <svg class="timer-svg" viewBox="0 0 400 400">
+            <g class="timer-ticks" id="timerTicks"></g>
+            <circle class="timer-track" cx="200" cy="200" r="150"/>
+            <circle class="timer-arc" id="timerArc" cx="200" cy="200" r="150" pathLength="100"/>
+            <g class="timer-hand" id="timerHand"><line x1="200" y1="200" x2="200" y2="70"/><circle cx="200" cy="70" r="9"/></g>
+            <circle class="timer-hub" cx="200" cy="200" r="16"/>
+          </svg>
+          <div class="timer-face">
+            <span class="timer-step" id="timerStep">01</span>
+            <span class="timer-when" id="timerWhen">День 1</span>
+          </div>
+        </div>
+      </div>
+
+      <ol class="steps" id="steps">
+        <li class="step" data-when="День 1"><b>Зустріч</b><span>Знайомимось, слухаємо вашу ідею, бюджет і очікування.</span></li>
+        <li class="step" data-when="Тиждень 1"><b>Консультація</b><span>Обираємо формат і дивимось, що підійде саме вашому місту та району.</span></li>
+        <li class="step step-search" data-when="Тиждень 1–3"><b>Пошук приміщення</b><span>Підбираємо варіанти, рахуємо трафік і перевіряємо комунікації.</span></li>
+        <li class="step" data-when="Тиждень 2"><b>Первинний прорахунок</b><span>Показуємо вкладення та окупність ще до старту робіт.</span></li>
+        <li class="step" data-when="Тиждень 2"><b>Договір</b><span>Фіксуємо обсяг робіт, терміни й вартість.</span></li>
+        <li class="step" data-when="Тижні 3–10"><b>Запуск</b><span>Ремонт, обладнання, меню й техкарти, команда, документи.</span></li>
+        <li class="step" data-when="Тиждень 6–12"><b>Відчинено</b><span>Перший гість за столом.</span></li>
+        <li class="step" data-when="+30 днів"><b>Супровід</b><span>Місяць поруч: коригуємо меню й процеси, поки все не запрацює стабільно.</span></li>
+      </ol>
+      <p class="process-note">Орієнтовно від договору до відкриття минає 1,5–3 місяці. Великі проєкти займають більше часу.</p>
+    </div>
+  </section>
+
+  <section class="next" id="cases">
+    <p>Тут буде наступний блок: відкриті заклади.</p>
   </section>
 </main>
 

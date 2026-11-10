@@ -682,7 +682,10 @@ export async function createHero(canvasEl) {
     lightsOn() { state.lightsTarget = 1; state.lightsStart = clock.elapsedTime; setTimeout(() => { state.flipTarget = 0; state.swingVel += 1.2; }, 650); },
     onHover(fn) { listeners.hover = fn; },
     onLayout(fn) { listeners.layout = fn; },
-    pause() { running = false; },
+    pause() {
+      running = false;
+      if (state.hover) { state.hover = false; listeners.hover(false); }
+    },
     resume() { if (!running) { running = true; clock.getDelta(); frame(); } },
   };
 }
