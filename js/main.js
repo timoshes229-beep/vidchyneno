@@ -1,6 +1,5 @@
 import { createHero } from './hero.js';
 import { initAbout } from './about.js';
-import { initMenu } from './menu.js';
 import { initProcess } from './process.js';
 import { initCases } from './cases.js';
 import { initPricing } from './pricing.js';
@@ -24,7 +23,7 @@ const hint = $('#scrollHint');
 const veil = $('#heroVeil');
 const canvasEl = $('#scene');
 const header = $('#header');
-const lightSections = [...document.querySelectorAll('.about, .process, .pricing, .next')];
+const lightSections = [...document.querySelectorAll('.about, .menu-card, .process, .pricing')];
 let hero = null;
 
 const heroReady = createHero(canvasEl)
@@ -107,17 +106,15 @@ function updateHero() {
 }
 
 const updateAbout = initAbout();
-const updateProcess = initProcess();
+initProcess();
 const updateCases = initCases();
 initPricing();
 initContact();
-initMenu(finePointer && !reduceMotion);
 
 function raf(t) {
   lenis?.raf(t);
   updateHero();
   updateAbout();
-  updateProcess();
   updateCases();
   requestAnimationFrame(raf);
 }
