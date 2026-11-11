@@ -473,7 +473,7 @@ body.is-ready .scroll-hint { opacity: 1; }
 .kt-empty { padding: 16px 0; font-size: 14.5px; color: rgba(21, 17, 14, .6); }
 .kt-total { padding-top: 16px; border-top: 1.5px dashed rgba(21, 17, 14, .3); font-size: 18px; font-weight: 700; letter-spacing: -.02em; }
 .kt-stamp {
-  position: absolute; right: 16px; top: 64px;
+  position: absolute; right: 18px; bottom: 30px;
   padding: 5px 12px;
   border: 2.5px solid var(--sign); border-radius: 8px;
   color: var(--sign); font-size: 15px; font-weight: 800; letter-spacing: .03em;
@@ -1111,3 +1111,25 @@ body.is-ready .scroll-hint { opacity: 1; }
 @media (max-width: 900px) {
   .process.is-config .build-art { position: sticky; top: 64px; z-index: 3; }
 }
+
+/* ---------- телефон: текст першого екрана завжди влазить ---------- */
+@media (max-width: 760px) {
+  .hero-copy {
+    top: auto;
+    bottom: calc(14px + env(safe-area-inset-bottom));
+    gap: 14px;
+  }
+  .hero-foot { align-items: stretch; }
+  .hero-actions { display: block; }
+  .hero-actions .btn { width: 100%; }
+  .place-hint { display: none; }
+}
+@media (max-width: 760px) and (max-height: 720px) {
+  .hero-title { font-size: clamp(32px, 9.4vw, 42px); }
+  .hero-copy { gap: 10px; }
+  .place { gap: 6px; padding: 8px; }
+  .place-name input { padding: 10px 12px; font-size: 19px; }
+  .place-format { padding: 6px 11px; font-size: 12.5px; }
+  .hero-actions .btn { min-height: 46px; }
+}
+.kt-total { padding-right: 112px; }

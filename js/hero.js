@@ -744,7 +744,7 @@ export async function createHero(canvasEl) {
     }
     led.material.color.copy(led.material.userData.base).multiplyScalar(L * 3);
     wash.material.opacity = L * 0.42;
-    signage.material.color.setScalar(L * flicker * 1.15);
+    signage.material.color.setScalar(L * flicker * 0.55);
     stepLed.material.color.copy(stepLed.material.userData.base).multiplyScalar(L * 3);
     stepGlow.material.opacity = L * 0.35;
     for (const w of windows) w.material.color.setScalar(L * 1.05);
