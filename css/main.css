@@ -945,8 +945,7 @@ body.is-ready .scroll-hint { opacity: 1; }
 .pricing-lead, .contact-lead { margin-bottom: clamp(36px, 5vw, 64px); }
 
 @media (min-width: 901px) {
-  .about-title, .services-title, .process-title, .pricing-title, .contact-title { white-space: nowrap; max-width: none; }
-  .about-title { font-size: min(68px, 3.9vw); }
+  .services-title, .process-title, .pricing-title, .contact-title { white-space: nowrap; max-width: none; }
   .services-title { font-size: min(80px, 7.2vw); }
   .process-title { font-size: min(76px, 9.4vw); }
   .pricing-title { font-size: min(72px, 4.6vw); }
@@ -1133,3 +1132,57 @@ body.is-ready .scroll-hint { opacity: 1; }
   .hero-actions .btn { min-height: 46px; }
 }
 .kt-total { padding-right: 112px; }
+
+/* ---------- «Про Дмитра»: фото на пів блоку ---------- */
+.about { padding: 0 0 clamp(50px, 7vw, 100px); }
+.about-split { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; min-height: 100svh; }
+.about-photo { position: relative; margin: 0; overflow: hidden; background: #2b2723; }
+.about-photo img {
+  position: absolute; left: 0; top: 0;
+  width: 100%; height: 112%;
+  object-fit: cover; object-position: 50% 12%;
+  transform: translate3d(0, var(--py, -4%), 0);
+  filter: sepia(.08) saturate(.95) contrast(1.05);
+}
+.about-photo::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to top, rgba(20, 17, 14, .45), transparent 35%);
+}
+.chef-sign {
+  position: absolute; z-index: 1;
+  left: clamp(20px, 4vw, 60px); bottom: clamp(28px, 6vw, 80px);
+  display: flex; flex-direction: column; align-items: center;
+  transform-origin: 50% 0;
+  animation: hang 5.5s ease-in-out infinite;
+}
+.chef-cord {
+  position: relative;
+  width: 120px; height: 46px;
+  background:
+    linear-gradient(to bottom right, transparent calc(50% - 1px), rgba(233, 223, 207, .7) 50%, transparent calc(50% + 1px)) left / 50% 100% no-repeat,
+    linear-gradient(to bottom left, transparent calc(50% - 1px), rgba(233, 223, 207, .7) 50%, transparent calc(50% + 1px)) right / 50% 100% no-repeat;
+}
+.chef-cord::before { content: ""; position: absolute; top: -5px; left: 50%; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: #c8a062; }
+.chef-board {
+  display: grid; gap: 2px; text-align: center;
+  padding: 14px 26px 15px;
+  border-radius: 16px;
+  background: var(--sign); color: var(--ink);
+  box-shadow: inset 0 0 0 4px var(--sign), inset 0 0 0 6px var(--ink), 0 24px 50px -20px rgba(0, 0, 0, .7);
+}
+.chef-board small { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; opacity: .75; }
+.chef-board b { font-size: clamp(18px, 1.6vw, 24px); font-weight: 800; letter-spacing: -.01em; white-space: nowrap; }
+
+.about-text { align-self: center; max-width: 700px; padding: clamp(60px, 8vw, 120px) var(--gutter) clamp(40px, 5vw, 80px) clamp(36px, 6vw, 100px); }
+.about-text .about-title { max-width: 20ch; margin: 0 0 clamp(22px, 2.6vw, 34px); font-size: clamp(34px, 3.2vw, 56px); }
+.about-text .about-statement { max-width: 38ch; font-size: clamp(17px, 1.35vw, 20px); line-height: 1.55; color: var(--ink); margin-bottom: 14px; }
+.about-text .about-quote { margin-top: clamp(22px, 2.6vw, 34px); }
+.about-quote cite { display: block; margin-top: 10px; font-style: normal; font-size: 13.5px; font-weight: 600; color: rgba(21, 17, 14, .55); }
+.about-cta { margin-top: clamp(24px, 3vw, 36px); }
+.about .rail { padding: 0 var(--gutter); margin-top: clamp(50px, 7vw, 100px); }
+
+@media (max-width: 900px) {
+  .about-split { grid-template-columns: 1fr; min-height: 0; }
+  .about-photo { width: 100%; height: min(78vh, 560px); }
+  .about-text { padding: 36px var(--gutter) 10px; max-width: none; }
+}
