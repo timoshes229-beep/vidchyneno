@@ -1,5 +1,6 @@
-import { CONTACTS, FORM_ENDPOINT } from './config.js';
-import { sfx } from './sound.js';
+import { CONTACTS, FORM_ENDPOINT } from './config.js?v=202611120008';
+import { sfx } from './sound.js?v=202611120008';
+import { initPhone, phone } from './phone.js?v=202611120008';
 
 const esc = (v) => String(v || '').replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
 
@@ -42,6 +43,7 @@ export function initContact() {
     if (document.body.dataset.area) area.value = document.body.dataset.area;
   });
 
+  initPhone();
   const error = document.getElementById('bookingError');
   const done = document.getElementById('bookingDone');
   const submit = form.querySelector('.booking-submit');
@@ -56,6 +58,13 @@ export function initContact() {
       form.elements[missing[0]].focus();
       return;
     }
+    if (!phone.isValid()) {
+      form.elements.phone.setAttribute('aria-invalid', 'true');
+      error.textContent = 'Перевірте номер: здається, в ньому не вистачає цифр.';
+      form.elements.phone.focus();
+      return;
+    }
+    data.phone = phone.value();
     error.textContent = '';
     submit.disabled = true;
     submit.querySelector('span').textContent = 'Надсилаємо…';

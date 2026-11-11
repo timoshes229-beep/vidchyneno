@@ -1,5 +1,5 @@
-import { createBuild3D } from './process3d.js';
-import { place, updatePlace } from './place.js';
+import { createBuild3D } from './process3d.js?v=202611120008';
+import { place, updatePlace } from './place.js?v=202611120008';
 
 // «Як ми працюємо»: заклад будується етап за етапом, сам або по кліку
 const STEP_MS = 1900;
@@ -81,17 +81,27 @@ export function initProcess() {
     else show(current + 1);
   });
 
+  // показ стартує з першого етапу щоразу, коли макет видно хоча б наполовину
+  let fresh = true;
   new IntersectionObserver((entries) => {
-    visible = entries[0].isIntersecting;
-    if (visible) {
-      model?.start();
-      if (current < 0) show(0);
-      tick();
-    } else {
+    const e = entries[0];
+    if (!e.isIntersecting) {
+      visible = false;
+      fresh = true;
       model?.stop();
       clearTimeout(timer);
+      return;
     }
-  }, { threshold: 0.3 }).observe(art);
+    model?.start();
+    if (e.intersectionRatio >= 0.5 && fresh && !section.classList.contains('is-config')) {
+      fresh = false;
+      visible = true;
+      playing = true;
+      clearTimeout(timer);
+      reset();
+      setTimeout(() => { show(0); tick(); }, 350);
+    } else if (current < 0) show(0);
+  }, { threshold: [0, 0.5] }).observe(art);
 
   /* «Зберіть свій заклад»: режим конструктора на тому ж макеті */
   const section = document.getElementById('process');

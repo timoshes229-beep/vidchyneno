@@ -1331,3 +1331,15 @@ body.is-ready .scroll-hint { opacity: 1; }
   .faq-wrap { grid-template-columns: 1fr; }
   .faq-head { position: static; }
 }
+
+/* ---------- телефон з вибором країни ---------- */
+.field-phone .iti { display: block; width: 100%; }
+.field-phone .iti__selected-country { border-radius: 12px 0 0 12px; }
+.field-phone .iti__selected-country-primary { padding: 0 6px 0 14px; }
+.field-phone .iti__selected-dial-code { font-size: 16px; color: var(--ink); }
+.iti__dropdown-content { border: 0; border-radius: 14px; box-shadow: 0 30px 60px -20px rgba(40, 25, 10, .45), 0 0 0 1px rgba(21, 17, 14, .08); overflow: hidden; font-family: var(--font); }
+.iti__search-input { padding: 12px 14px; border: 0; border-bottom: 1px solid rgba(21, 17, 14, .1); font: inherit; font-size: 15px; }
+.iti__search-input:focus { outline: none; }
+.iti__country { padding: 10px 14px; font-size: 15px; }
+.iti__country.iti__highlight { background: rgba(242, 106, 27, .12); }
+.iti__dial-code { color: rgba(21, 17, 14, .55); }

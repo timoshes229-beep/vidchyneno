@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400..800&family=Marck+Script&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/main.css?v=20261112a">
+<link rel="stylesheet" href="css/main.css?v=202611120008">
 <script type="importmap">
 { "imports": {
   "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
@@ -555,9 +555,9 @@
             <span>Ваше ім'я</span>
             <input name="name" autocomplete="name" required>
           </label>
-          <label class="field">
-            <span>Телефон або Telegram</span>
-            <input name="phone" autocomplete="tel" required>
+          <label class="field field-phone">
+            <span>Телефон</span>
+            <input name="phone" id="bookingPhone" type="tel" inputmode="tel" autocomplete="tel" required>
           </label>
           <label class="field field-wide">
             <span>Назва закладу, якщо вже придумали</span>
@@ -609,6 +609,6 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script type="module" src="js/main.js?v=20261112a"></script>
+<script type="module" src="js/main.js?v=202611120008"></script>
 </body>
 </html>
