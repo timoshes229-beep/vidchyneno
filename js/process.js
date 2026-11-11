@@ -180,7 +180,9 @@ export function initProcess() {
 
   // 3D-макет; якщо WebGL недоступний, лишається плаский ескіз
   const canvas = document.getElementById('build3d');
-  if (canvas) {
+  if (canvas) new IntersectionObserver((entries, io) => {
+    if (!entries[0].isIntersecting) return;
+    io.disconnect();
     createBuild3D(canvas).then((m) => {
       model = m;
       art.classList.add('has-3d');
@@ -194,5 +196,5 @@ export function initProcess() {
       if (current >= 0) m.setStage(current + 1);
       if (visible) m.start();
     }).catch((err) => console.warn('3D-макет недоступний, показуємо ескіз', err));
-  }
+  }, { rootMargin: '900px 0px' }).observe(art);
 }

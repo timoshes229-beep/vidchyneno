@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400..800&family=Marck+Script&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/main.css?v=20261111i">
+<link rel="stylesheet" href="css/main.css?v=20261112a">
 <script type="importmap">
 { "imports": {
   "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
@@ -49,10 +49,12 @@
 <div class="menu" id="menu" hidden>
   <ul class="menu-list">
     <li><a href="#about">Про Дмитра</a></li>
+    <li><a href="#audience">Для кого</a></li>
     <li><a href="#services">Що входить</a></li>
     <li><a href="#process">Як ми працюємо</a></li>
     <li><a href="#cases">Відкриті заклади</a></li>
     <li><a href="#price">Вартість</a></li>
+    <li><a href="#faq">Питання</a></li>
     <li><a href="#contact">Контакти</a></li>
   </ul>
   <p class="menu-foot">Запуск кафе, ресторанів і стрітфуду по всій Україні</p>
@@ -145,6 +147,54 @@
           <span class="ticket-text">диплом технолога харчової промисловості та закордонна практика</span>
         </li>
       </ul>
+    </div>
+  </section>
+
+  <section class="audience" id="audience">
+    <div class="audience-head">
+      <h2 class="audience-title">Яка з дверей ваша?</h2>
+      <p class="audience-lead">Наведіть або торкніться, щоб відчинити.</p>
+    </div>
+    <div class="doors">
+      <article class="door-card">
+        <div class="door-inside">
+          <p class="door-num">01</p>
+          <h3 class="door-title">Маю ідею, але без досвіду</h3>
+          <p class="door-text">Ведемо за руку від ідеї до першого гостя: формат, цифри, приміщення, команда. Ви вчитеся, ми робимо.</p>
+          <a class="door-cta" href="#contact" data-intent="Маю ідею, але без досвіду. Хочу відкрити заклад з нуля.">Почати з нуля</a>
+        </div>
+        <button class="door-leaf" type="button" aria-label="Відчинити двері: Маю ідею, але без досвіду">
+          <span class="door-glass" aria-hidden="true"></span>
+          <span class="door-plate">Маю ідею, але без досвіду</span>
+          <span class="door-knob" aria-hidden="true"></span>
+        </button>
+      </article>
+      <article class="door-card">
+        <div class="door-inside">
+          <p class="door-num">02</p>
+          <h3 class="door-title">Маю приміщення</h3>
+          <p class="door-text">Підберемо формат, який заробить саме тут, і запустимо заклад у вашому приміщенні під ключ.</p>
+          <a class="door-cta" href="#contact" data-intent="Маю приміщення, хочу відкрити в ньому заклад.">Обговорити приміщення</a>
+        </div>
+        <button class="door-leaf" type="button" aria-label="Відчинити двері: Маю приміщення">
+          <span class="door-glass" aria-hidden="true"></span>
+          <span class="door-plate">Маю приміщення</span>
+          <span class="door-knob" aria-hidden="true"></span>
+        </button>
+      </article>
+      <article class="door-card">
+        <div class="door-inside">
+          <p class="door-num">03</p>
+          <h3 class="door-title">Заклад працює, але не заробляє</h3>
+          <p class="door-text">Аудит, нове меню й техкарти, ребрендинг і налагоджена робота кухні та зали.</p>
+          <a class="door-cta" href="#contact" data-intent="Мій заклад працює, але не заробляє. Цікавить перезапуск.">Перезапустити заклад</a>
+        </div>
+        <button class="door-leaf" type="button" aria-label="Відчинити двері: Заклад працює, але не заробляє">
+          <span class="door-glass" aria-hidden="true"></span>
+          <span class="door-plate">Заклад працює, але не заробляє</span>
+          <span class="door-knob" aria-hidden="true"></span>
+        </button>
+      </article>
     </div>
   </section>
 
@@ -449,6 +499,34 @@
     </div>
   </section>
 
+  <section class="faq" id="faq">
+    <div class="faq-wrap">
+      <div class="faq-head">
+        <h2 class="faq-title">Запитайте шефа</h2>
+        <p class="faq-lead">Найчастіші питання перед стартом. Оберіть своє, і Дмитро відповість.</p>
+      </div>
+      <div class="chat">
+        <div class="chat-top">
+          <img class="chat-avatar" src="assets/photos/dima-portrait.jpg" alt="" width="44" height="44" loading="lazy" decoding="async">
+          <div class="chat-who"><b>Дмитро Барсук</b><span class="chat-status" id="chatStatus">у мережі</span></div>
+        </div>
+        <div class="chat-feed" id="chatFeed" aria-live="polite" data-lenis-prevent>
+          <div class="msg msg-in">Привіт! Я Дмитро. Оберіть питання нижче, і я відповім.</div>
+        </div>
+        <div class="chat-questions" id="chatQuestions">
+          <button class="chat-q" type="button" data-a="Так. Більшість моїх клієнтів відкривають свій перший заклад. Беремо на себе все: від бізнес-плану до навчання команди, а вам пояснюємо кожен крок.">У мене немає досвіду. Ви допоможете?</button>
+          <button class="chat-q" type="button" data-a="Франшиза це чужий бренд, паушальний внесок і роялті щомісяця. З нами заклад повністю ваш: назва, меню, рецепти. Платите один раз за запуск, без щомісячних відрахувань.">Чим ви кращі за франшизу?</button>
+          <button class="chat-q" type="button" data-a="Послуга під ключ від $2 800, залежно від площі. Самі вкладення в ремонт, обладнання й старт зазвичай від $10 000. Точно порахуємо після першої зустрічі, і це безкоштовно.">Скільки коштує запуск?</button>
+          <button class="chat-q" type="button" data-a="Зазвичай 1,5–3 місяці від договору. Якщо приміщення ще немає, додається час на пошук.">Скільки часу займає відкриття?</button>
+          <button class="chat-q" type="button" data-a="Так, ми працюємо по всій Україні, від Харкова до Кіровоградщини.">Ви працюєте в моєму місті?</button>
+          <button class="chat-q" type="button" data-a="Місяць супроводу: допомагаю команді, коригуємо меню й процеси, поки все не запрацює стабільно.">Що буде після відкриття?</button>
+          <button class="chat-q" type="button" data-a="Так. Будь-яку послугу можна замовити окремо: меню й техкарти, аудит або перезапуск закладу, що вже працює.">Можна замовити лише меню чи аудит?</button>
+          <a class="chat-q chat-q-more" href="#contact">Інше питання? Написати Дмитру</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="contact" id="contact">
     <h2 class="contact-title">Повісимо табличку «Відчинено» на ваші двері?</h2>
     <p class="contact-lead">Залиште заявку. Дмитро зателефонує, розпитає про ідею і безкоштовно зробить первинний прорахунок.</p>
@@ -471,6 +549,7 @@
 
       <form class="booking" id="booking" novalidate>
         <p class="booking-head">Заявка на запуск</p>
+        <input class="visually-hidden" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="booking-fields">
           <label class="field">
             <span>Ваше ім'я</span>
@@ -530,6 +609,6 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script type="module" src="js/main.js?v=20261111i"></script>
+<script type="module" src="js/main.js?v=20261112a"></script>
 </body>
 </html>

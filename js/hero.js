@@ -15,6 +15,8 @@ const COL = {
   cream: '#e9dfcf',
 };
 
+// слабкий пристрій: менше пікселів у 3D, той самий вигляд
+const WEAK = (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 4;
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const smooth = (a, b, v) => { const t = clamp((v - a) / (b - a)); return t * t * (3 - 2 * t); };
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -318,7 +320,7 @@ export async function createHero(canvasEl) {
 
   const lowPower = matchMedia('(max-width: 760px)').matches;
   const renderer = new THREE.WebGLRenderer({ canvas: canvasEl, antialias: !lowPower, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(devicePixelRatio, lowPower ? 1.5 : 2));
+  renderer.setPixelRatio(Math.min(devicePixelRatio, WEAK ? 1.2 : lowPower ? 1.5 : 2));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -627,7 +629,7 @@ export async function createHero(canvasEl) {
   room.add(neon);
 
   /* пил у світлі */
-  const DUST = lowPower ? 160 : 380;
+  const DUST = WEAK ? 90 : lowPower ? 160 : 380;
   const dustPos = new Float32Array(DUST * 3);
   const dustSpeed = new Float32Array(DUST);
   for (let i = 0; i < DUST; i++) {
@@ -677,7 +679,7 @@ export async function createHero(canvasEl) {
     const w = canvasEl.clientWidth, h = canvasEl.clientHeight;
     renderer.setSize(w, h, false);
     composer.setSize(w, h);
-    bloom.resolution.set(w / 2, h / 2);
+    bloom.resolution.set(w / (WEAK || lowPower ? 3 : 2), h / (WEAK || lowPower ? 3 : 2));
     camera.aspect = w / h;
     camera.fov = w / h < 0.9 ? 42 : 35;
     camera.updateProjectionMatrix();

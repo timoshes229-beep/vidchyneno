@@ -8,6 +8,9 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 // «Як ми працюємо» у 3D: заклад будується на макеті з кожним етапом
+// слабкий пристрій: менше пікселів у 3D, той самий вигляд
+const WEAK = (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 4;
+const SMALL = matchMedia('(max-width: 760px)').matches;
 const W = 6, H = 3.2, D = 4;
 const FRONT = D / 2;
 const BLUE = 0x3b67a8;
@@ -199,7 +202,7 @@ export async function createBuild3D(canvasEl) {
   ]).catch(() => {});
 
   const renderer = new THREE.WebGLRenderer({ canvas: canvasEl, antialias: true });
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(devicePixelRatio, WEAK ? 1.2 : SMALL ? 1.6 : 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.shadowMap.enabled = true;
@@ -214,7 +217,7 @@ export async function createBuild3D(canvasEl) {
   const sun = new THREE.DirectionalLight(0xfff4e6, 1.9);
   sun.position.set(6, 10, 8);
   sun.castShadow = true;
-  sun.shadow.mapSize.set(2048, 2048);
+  sun.shadow.mapSize.setScalar(WEAK || SMALL ? 1024 : 2048);
   sun.shadow.normalBias = 0.02;
   Object.assign(sun.shadow.camera, { left: -11, right: 11, top: 11, bottom: -11, near: 1, far: 30 });
   sun.shadow.bias = -0.0006;
@@ -551,7 +554,7 @@ export async function createBuild3D(canvasEl) {
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
     composer.setSize(w, h);
-    bloom.resolution.set(w / 2, h / 2);
+    bloom.resolution.set(w / (WEAK || SMALL ? 3 : 2), h / (WEAK || SMALL ? 3 : 2));
     lineMat.resolution.set(w, h);
     dimMat.resolution.set(w, h);
   }

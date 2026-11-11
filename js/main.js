@@ -4,6 +4,8 @@ import { initProcess } from './process.js';
 import { initCases } from './cases.js';
 import { initPricing } from './pricing.js';
 import { initOrder } from './order.js';
+import { initAudience } from './audience.js';
+import { initFaq } from './faq.js';
 import { initContact } from './contact.js';
 import { initPlace } from './place.js';
 import { initSound } from './sound.js';
@@ -27,7 +29,7 @@ const copy = $('#heroCopy');
 const veil = $('#heroVeil');
 const canvasEl = $('#scene');
 const header = $('#header');
-const lightSections = [...document.querySelectorAll('.about, .process, .pricing')];
+const lightSections = [...document.querySelectorAll('.about, .process, .pricing, .faq')];
 let hero = null;
 
 const heroReady = createHero(canvasEl)
@@ -117,6 +119,8 @@ initProcess();
 const updateCases = initCases();
 initPricing();
 initOrder(!reduceMotion);
+initAudience();
+initFaq();
 initContact();
 
 function raf(t) {
