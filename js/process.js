@@ -2,8 +2,8 @@ import { createBuild3D } from './process3d.js';
 import { place, updatePlace } from './place.js';
 
 // «Як ми працюємо»: заклад будується етап за етапом, сам або по кліку
-const STEP_MS = 3200;
-const HOLD_MS = 5000;
+const STEP_MS = 1900;
+const HOLD_MS = 3500;
 
 export function initProcess() {
   const svg = document.getElementById('buildSvg');

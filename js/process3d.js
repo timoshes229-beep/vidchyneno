@@ -2,6 +2,10 @@ import * as THREE from 'three';
 import { LineSegments2 } from 'three/addons/lines/LineSegments2.js';
 import { LineSegmentsGeometry } from 'three/addons/lines/LineSegmentsGeometry.js';
 import { LineMaterial } from 'three/addons/lines/LineMaterial.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 // «Як ми працюємо» у 3D: заклад будується на макеті з кожним етапом
 const W = 6, H = 3.2, D = 4;
@@ -55,6 +59,32 @@ function label(text, { font = '600 64px Montserrat', color = '#3b67a8', height =
   const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex(c), transparent: true, depthWrite: false }));
   s.scale.set(height * w / h, height, 1);
   return s;
+}
+
+function tileTexture() {
+  const [c, g] = canvas(256, 256);
+  g.fillStyle = '#cfc8bd'; g.fillRect(0, 0, 256, 256);
+  for (let y = 0; y < 4; y++) for (let x = 0; x < 4; x++) {
+    const v = Math.random() * 14;
+    g.fillStyle = `rgb(${200 + v},${194 + v},${184 + v})`;
+    g.fillRect(x * 64 + 2, y * 64 + 2, 60, 60);
+  }
+  const t = tex(c);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  t.repeat.set(14, 3);
+  return t;
+}
+
+function roadTexture() {
+  const [c, g] = canvas(512, 128);
+  g.fillStyle = '#3a3836'; g.fillRect(0, 0, 512, 128);
+  for (let i = 0; i < 400; i++) { g.fillStyle = `rgba(255,255,255,${Math.random() * 0.05})`; g.fillRect(Math.random() * 512, Math.random() * 128, 2, 2); }
+  g.fillStyle = '#efe6d2';
+  for (let x = 0; x < 512; x += 64) g.fillRect(x + 8, 60, 36, 6);
+  const t = tex(c);
+  t.wrapS = THREE.RepeatWrapping;
+  t.repeat.set(4, 1);
+  return t;
 }
 
 function neonTexture(name) {
@@ -168,21 +198,24 @@ export async function createBuild3D(canvasEl) {
     document.fonts.load('400 100px "Marck Script"', 'Ваш заклад формат'),
   ]).catch(() => {});
 
-  const renderer = new THREE.WebGLRenderer({ canvas: canvasEl, antialias: true, alpha: true });
+  const renderer = new THREE.WebGLRenderer({ canvas: canvasEl, antialias: true });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.setClearColor(0x000000, 0);
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
+  const BG = 0xf4ece0;
   const scene = new THREE.Scene();
+  scene.background = new THREE.Color(BG);
+  scene.fog = new THREE.Fog(BG, 24, 46);
   const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 100);
-  scene.add(new THREE.HemisphereLight(0xffffff, 0xcfc2ad, 1.7));
-  const sun = new THREE.DirectionalLight(0xfff4e6, 1.6);
+  scene.add(new THREE.HemisphereLight(0xffffff, 0xcfc2ad, 1.35));
+  const sun = new THREE.DirectionalLight(0xfff4e6, 1.9);
   sun.position.set(6, 10, 8);
   sun.castShadow = true;
-  sun.shadow.mapSize.set(1536, 1536);
+  sun.shadow.mapSize.set(2048, 2048);
+  sun.shadow.normalBias = 0.02;
   Object.assign(sun.shadow.camera, { left: -11, right: 11, top: 11, bottom: -11, near: 1, far: 30 });
   sun.shadow.bias = -0.0006;
   scene.add(sun);
@@ -196,6 +229,21 @@ export async function createBuild3D(canvasEl) {
   const grid = new THREE.GridHelper(18, 18, 0xb7c4d8, 0xd3dbe7);
   grid.material.transparent = true; grid.material.opacity = 0.45;
   scene.add(grid);
+
+  const streetMats = [];
+  const fadeMat = (m) => { m.transparent = true; m.opacity = 0; streetMats.push(m); return m; };
+  const sidewalk = new THREE.Mesh(new THREE.PlaneGeometry(26, 4.4), fadeMat(new THREE.MeshStandardMaterial({ map: tileTexture(), roughness: 0.85 })));
+  sidewalk.rotation.x = -Math.PI / 2;
+  sidewalk.position.set(0, 0.006, FRONT + 2.2);
+  sidewalk.receiveShadow = true;
+  const curb = new THREE.Mesh(new THREE.BoxGeometry(26, 0.12, 0.22), fadeMat(new THREE.MeshStandardMaterial({ color: 0xe6dfd2, roughness: 0.7 })));
+  curb.position.set(0, 0.06, FRONT + 4.45);
+  curb.receiveShadow = true;
+  const road = new THREE.Mesh(new THREE.PlaneGeometry(26, 4), fadeMat(new THREE.MeshStandardMaterial({ map: roadTexture(), roughness: 0.95 })));
+  road.rotation.x = -Math.PI / 2;
+  road.position.set(0, 0.004, FRONT + 6.55);
+  road.receiveShadow = true;
+  scene.add(sidewalk, curb, road);
 
   /* 1. креслення: лінії, що промальовуються */
   const pts = [];
@@ -275,6 +323,17 @@ export async function createBuild3D(canvasEl) {
   const roof = new THREE.Mesh(new THREE.BoxGeometry(W + 0.4, 0.3, D + 0.4), new THREE.MeshStandardMaterial({ color: 0xf1e8d8, roughness: 0.8 }));
   roof.position.y = H + 0.15;
   roof.castShadow = true;
+  const parapetM = new THREE.MeshStandardMaterial({ color: 0xe6dccb, roughness: 0.8 });
+  for (const [w, d, x, z] of [[W + 0.4, 0.14, 0, D / 2 + 0.13], [W + 0.4, 0.14, 0, -D / 2 - 0.13], [0.14, D + 0.4, W / 2 + 0.13, 0], [0.14, D + 0.4, -W / 2 - 0.13, 0]]) {
+    const pp = new THREE.Mesh(new THREE.BoxGeometry(w, 0.28, d), parapetM);
+    pp.position.set(x, H + 0.44, z);
+    pp.castShadow = true;
+    walls.add(pp);
+  }
+  const ac = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.5, 0.7), new THREE.MeshStandardMaterial({ color: 0xc9c6c0, roughness: 0.4, metalness: 0.3 }));
+  ac.position.set(-1.6, H + 0.55, -0.8);
+  ac.castShadow = true;
+  walls.add(ac);
   walls.add(roof);
   walls.scale.y = 0.001;
 
@@ -294,9 +353,27 @@ export async function createBuild3D(canvasEl) {
   facade.add(door);
   const frameMat = new THREE.MeshStandardMaterial({ color: INK, transparent: true, opacity: 0 });
   for (const [w, h, x, y] of [[1.72, 0.08, -1.8, 2.5], [1.72, 0.08, -1.8, 0.7], [1.72, 0.08, 1.8, 2.5], [1.72, 0.08, 1.8, 0.7], [0.08, 2.3, 0.54, 1.1], [0.08, 2.3, -0.54, 1.1], [1.16, 0.08, 0, 2.22]]) {
-    const fr = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.06), frameMat);
-    fr.position.set(x, y, FRONT + 0.03);
+    const fr = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.12), frameMat);
+    fr.position.set(x, y, FRONT + 0.06);
+    fr.castShadow = true;
     facade.add(fr);
+  }
+  const brassMat = new THREE.MeshStandardMaterial({ color: 0xc8a062, metalness: 1, roughness: 0.25, transparent: true, opacity: 0 });
+  const handle = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.7, 10), brassMat);
+  handle.position.set(0.32, 1.1, FRONT + 0.1);
+  facade.add(handle);
+  const boxMat = new THREE.MeshStandardMaterial({ color: 0x5a4030, roughness: 0.8, transparent: true, opacity: 0 });
+  const bloomMats = [new THREE.MeshStandardMaterial({ color: 0x5f8a4a, roughness: 0.9, transparent: true, opacity: 0 }), new THREE.MeshStandardMaterial({ color: 0xe36b8a, roughness: 0.8, transparent: true, opacity: 0 }), new THREE.MeshStandardMaterial({ color: 0xf2d16b, roughness: 0.8, transparent: true, opacity: 0 })];
+  for (const x of [-1.8, 1.8]) {
+    const fb = new THREE.Mesh(new THREE.BoxGeometry(1.7, 0.22, 0.3), boxMat);
+    fb.position.set(x, 0.55, FRONT + 0.17);
+    fb.castShadow = true;
+    facade.add(fb);
+    for (let i = 0; i < 9; i++) {
+      const b = new THREE.Mesh(new THREE.IcosahedronGeometry(0.11 + (i % 3) * 0.02, 0), bloomMats[i % 3 === 0 ? 1 : i % 4 === 0 ? 2 : 0]);
+      b.position.set(x - 0.72 + i * 0.18, 0.72 + (i % 2) * 0.05, FRONT + 0.17 + ((i % 3) - 1) * 0.06);
+      facade.add(b);
+    }
   }
   const awningMat = new THREE.MeshStandardMaterial({ color: 0xf26a1b, roughness: 0.6, transparent: true, opacity: 0 });
   for (const x of [-1.8, 1.8]) {
@@ -419,12 +496,62 @@ export async function createBuild3D(canvasEl) {
   badge.material.opacity = 0;
   scene.add(badge);
 
+  /* конфеті на відкритті */
+  const CONF = 140;
+  const confetti = new THREE.InstancedMesh(new THREE.PlaneGeometry(0.09, 0.15), new THREE.MeshBasicMaterial({ side: THREE.DoubleSide }), CONF);
+  const palette = [0xf26a1b, 0xffc27a, 0xe9dfcf, 0x5f8a4a, 0xe36b8a, 0x3b67a8].map((c) => new THREE.Color(c));
+  const cf = Array.from({ length: CONF }, (_, i) => ({ p: new THREE.Vector3(), v: new THREE.Vector3(), r: new THREE.Euler(), w: new THREE.Vector3(), life: 0 }));
+  const dummy = new THREE.Object3D();
+  for (let i = 0; i < CONF; i++) {
+    confetti.setColorAt(i, palette[i % palette.length]);
+    dummy.scale.setScalar(0); dummy.updateMatrix(); confetti.setMatrixAt(i, dummy.matrix);
+  }
+  scene.add(confetti);
+  function burst() {
+    for (const c of cf) {
+      c.p.set((Math.random() - 0.5) * 0.8, 2.4 + Math.random() * 0.4, FRONT + 0.4);
+      const a = Math.random() * Math.PI * 2;
+      c.v.set(Math.cos(a) * (1 + Math.random() * 2.2), 3 + Math.random() * 3, 1.2 + Math.random() * 2.4);
+      c.r.set(Math.random() * 6, Math.random() * 6, Math.random() * 6);
+      c.w.set(Math.random() * 10 - 5, Math.random() * 10 - 5, Math.random() * 10 - 5);
+      c.life = 2.4 + Math.random() * 0.8;
+    }
+  }
+  function stepConfetti(dt) {
+    let any = false;
+    cf.forEach((c, i) => {
+      if (c.life > 0) {
+        any = true;
+        c.life -= dt;
+        c.v.y -= 6 * dt;
+        c.v.multiplyScalar(1 - dt * 0.9);
+        c.p.addScaledVector(c.v, dt);
+        if (c.p.y < 0.03) { c.p.y = 0.03; c.v.set(0, 0, 0); c.w.set(0, 0, 0); }
+        c.r.x += c.w.x * dt; c.r.y += c.w.y * dt; c.r.z += c.w.z * dt;
+        dummy.position.copy(c.p); dummy.rotation.copy(c.r);
+        dummy.scale.setScalar(Math.min(1, c.life * 2));
+      } else dummy.scale.setScalar(0);
+      dummy.updateMatrix();
+      confetti.setMatrixAt(i, dummy.matrix);
+    });
+    if (any) confetti.instanceMatrix.needsUpdate = true;
+  }
+
+  /* постобробка: світіння неону, вікон і гірлянди */
+  const composer = new EffectComposer(renderer);
+  composer.addPass(new RenderPass(scene, camera));
+  const bloom = new UnrealBloomPass(new THREE.Vector2(512, 512), 0.55, 0.4, 1.0);
+  composer.addPass(bloom);
+  composer.addPass(new OutputPass());
+
   /* розмір і камера */
   function resize() {
     const w = canvasEl.clientWidth, h = canvasEl.clientHeight;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
+    composer.setSize(w, h);
+    bloom.resolution.set(w / 2, h / 2);
     lineMat.resolution.set(w, h);
     dimMat.resolution.set(w, h);
   }
@@ -434,7 +561,8 @@ export async function createBuild3D(canvasEl) {
   const v = [0, 0, 0, 0, 0, 0, 0, 0];
   const cfg = { build: false, terrace: false, flowers: true, garland: false };
   const ex = { terrace: 0, garland: 0, build: 0 };
-  let stage = 0, running = false, raf = 0;
+  let stage = 0, prevStage = 0, running = false, raf = 0;
+  const cam = { r: 16.5, h: 6.4, ty: 1.4 };
   const clock = new THREE.Clock();
   const target = new THREE.Vector3(0, 1.4, 0);
 
@@ -442,7 +570,10 @@ export async function createBuild3D(canvasEl) {
     raf = requestAnimationFrame(frame);
     const dt = Math.min(clock.getDelta(), 0.05);
     const t = clock.elapsedTime;
-    for (let k = 1; k <= 7; k++) v[k] += ((stage >= k ? 1 : 0) - v[k]) * Math.min(1, dt * 2.6);
+    for (let k = 1; k <= 7; k++) v[k] += ((stage >= k ? 1 : 0) - v[k]) * Math.min(1, dt * 4.2);
+    if (stage >= 6 && prevStage < 6) burst();
+    prevStage = stage;
+    stepConfetti(dt);
     const ease = Math.min(1, dt * 4);
     ex.build += ((cfg.build ? 1 : 0) - ex.build) * ease;
     ex.terrace += ((cfg.build && cfg.terrace ? 1 : 0) - ex.terrace) * ease;
@@ -475,7 +606,10 @@ export async function createBuild3D(canvasEl) {
 
     walls.scale.y = Math.max(0.001, v[5]);
     const show = Math.max(0, (v[5] - 0.6) / 0.4);
-    glassMat.opacity = doorMat.opacity = frameMat.opacity = awningMat.opacity = show;
+    glassMat.opacity = doorMat.opacity = frameMat.opacity = awningMat.opacity = brassMat.opacity = boxMat.opacity = show;
+    for (const m of bloomMats) m.opacity = show;
+    for (const m of streetMats) m.opacity = show;
+    grid.material.opacity = 0.45 * (1 - show * 0.85);
     street.scale.setScalar(Math.max(0.001, show));
 
     const flick = stage >= 6 && v[6] < 0.7 ? (Math.sin(t * 50) > 0 ? 1 : 0.3) : 1;
@@ -500,11 +634,16 @@ export async function createBuild3D(canvasEl) {
 
     // камера повільно оглядає макет
     const portrait = camera.aspect < 1;
-    const az = 0.55 + Math.sin(t * 0.22) * 0.38;
-    const r = portrait ? 21 : 16.5;
-    camera.position.set(Math.sin(az) * r, 6.2, Math.cos(az) * r);
+    // на кресленні камера далі, до відкриття під'їжджає до фасаду
+    const close = cfg.build ? 0.6 : Math.max(0, Math.min(1, (v[5] + v[6] + v[7]) / 3));
+    const goal = { r: (portrait ? 21 : 16.5) - close * (portrait ? 3 : 3), h: 6.6 - close * 1.8, ty: 1.4 + close * 0.1 };
+    const k = Math.min(1, dt * 1.6);
+    cam.r += (goal.r - cam.r) * k; cam.h += (goal.h - cam.h) * k; cam.ty += (goal.ty - cam.ty) * k;
+    const az = 0.5 + Math.sin(t * 0.22) * 0.34;
+    camera.position.set(Math.sin(az) * cam.r, cam.h, Math.cos(az) * cam.r);
+    target.y = cam.ty;
     camera.lookAt(target);
-    renderer.render(scene, camera);
+    composer.render();
   }
 
   return {
