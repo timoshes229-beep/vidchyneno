@@ -980,11 +980,12 @@ body.is-ready .scroll-hint { opacity: 1; }
 
 /* ---------- «Про Дмитра»: обкладинка ---------- */
 .about { position: relative; min-height: 100vh; min-height: 100svh; overflow: hidden; display: flex; align-items: flex-end; background: #0e0c0a; color: var(--cream); }
-.about-photo { position: absolute; inset: 0; }
-.about-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; transform: scale(var(--z, 1.18)); transform-origin: 70% 30%; will-change: transform; }
+/* фото цілком, по висоті блоку, праворуч; лівий край розчиняється в темряві */
+.about-photo { position: absolute; top: 0; bottom: 0; right: clamp(0px, 13vw, 240px); aspect-ratio: 853 / 1280; max-width: 62%; -webkit-mask: linear-gradient(90deg, transparent, #000 22%, #000 88%, transparent); mask: linear-gradient(90deg, transparent, #000 22%, #000 88%, transparent); }
+.about-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; transform: scale(var(--z, 1.06)); transform-origin: 50% 40%; will-change: transform; }
 .about::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(90deg, rgba(14, 12, 10, .92) 0%, rgba(14, 12, 10, .7) 38%, rgba(14, 12, 10, 0) 66%), linear-gradient(0deg, rgba(14, 12, 10, .9), transparent 40%);
+  background: linear-gradient(90deg, rgba(14, 12, 10, .85) 0%, rgba(14, 12, 10, .4) 40%, rgba(14, 12, 10, 0) 60%), linear-gradient(0deg, rgba(14, 12, 10, .92), transparent 34%);
 }
 .about-in { position: relative; z-index: 2; width: 100%; max-width: 1440px; margin: 0 auto; padding: clamp(100px, 11vh, 130px) var(--gutter) clamp(28px, 4vh, 44px); }
 .about-kicker { margin-bottom: 6px; font-family: var(--script); font-size: clamp(26px, 2.4vw, 36px); color: var(--lamp); }
@@ -998,27 +999,30 @@ body.is-ready .scroll-hint { opacity: 1; }
 .about-stats b { display: block; font-size: clamp(30px, 3.4vw, 54px); font-weight: 800; letter-spacing: -.04em; line-height: 1; color: var(--lamp); }
 .about-stats span { display: block; max-width: 24ch; margin-top: 8px; font-size: 14px; line-height: 1.4; color: rgba(233, 223, 207, .7); }
 .about-sign {
-  position: absolute; z-index: 3; right: clamp(20px, 6vw, 110px); top: clamp(110px, 16vh, 170px);
+  position: absolute; z-index: 3; right: clamp(12px, 1.4vw, 28px); top: clamp(120px, 17vh, 180px);
   display: flex; flex-direction: column; align-items: center;
-  padding: 12px 22px 13px; border-radius: 12px;
+  padding: 16px 30px 18px; border-radius: 16px;
   background: var(--sign); color: var(--ink);
-  box-shadow: inset 0 0 0 3px var(--sign), inset 0 0 0 5px var(--ink), 0 20px 40px -16px rgba(0, 0, 0, .7);
-  transform-origin: 50% -44px; animation: hang 5.5s ease-in-out infinite;
+  box-shadow: inset 0 0 0 4px var(--sign), inset 0 0 0 7px var(--ink), 0 26px 50px -18px rgba(0, 0, 0, .8);
+  transform-origin: 50% -54px; animation: sway-sign 3.6s ease-in-out infinite;
 }
 .about-sign::before {
-  content: ""; position: absolute; top: -44px; left: 50%; width: 96px; height: 44px; margin-left: -48px;
+  content: ""; position: absolute; top: -54px; left: 50%; width: 120px; height: 54px; margin-left: -60px;
   background:
     linear-gradient(to bottom right, transparent calc(50% - 1px), var(--lamp) 50%, transparent calc(50% + 1px)) left / 50% 100% no-repeat,
     linear-gradient(to bottom left, transparent calc(50% - 1px), var(--lamp) 50%, transparent calc(50% + 1px)) right / 50% 100% no-repeat;
 }
-.about-sign small { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
-.about-sign b { font-size: clamp(17px, 1.5vw, 21px); font-weight: 800; white-space: nowrap; }
+.about-sign small { font-size: 13px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; opacity: .7; }
+.about-sign b { font-size: clamp(22px, 2vw, 30px); font-weight: 900; letter-spacing: -.01em; white-space: nowrap; }
+@keyframes sway-sign { 0%, 100% { transform: rotate(-7deg); } 50% { transform: rotate(7deg); } }
 @media (max-width: 900px) {
-  .about-in { padding-top: 56svh; }
-  .about::after { background: linear-gradient(0deg, rgba(14, 12, 10, .97) 42%, rgba(14, 12, 10, .4) 70%, rgba(14, 12, 10, 0) 85%); }
-  .about-photo img { height: 70%; object-position: 60% 0; }
+  .about-in { padding-top: min(122vw, 560px); }
+  .about::after { background: linear-gradient(0deg, rgba(14, 12, 10, 1) 40%, rgba(14, 12, 10, .35) 62%, rgba(14, 12, 10, 0) 75%); }
+  .about-photo { left: 0; right: 0; bottom: auto; max-width: none; -webkit-mask: none; mask: none; }
   .about-stats { grid-template-columns: 1fr 1fr; }
-  .about-sign { top: 96px; right: 16px; padding: 9px 16px 10px; }
+  .about-sign { top: min(66vw, 300px); right: 12px; padding: 11px 20px 12px; }
+  .about-sign b { font-size: 19px; }
+  .about-sign small { font-size: 11px; }
   .about-cta { width: 100%; justify-content: center; }
 }
 

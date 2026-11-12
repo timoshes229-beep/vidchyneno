@@ -8,6 +8,6 @@ export function initAbout() {
     const r = section.getBoundingClientRect();
     if (r.bottom < 0 || r.top > innerHeight) return;
     const k = Math.min(Math.max(1 - r.bottom / (innerHeight + r.height), 0), 1);
-    img.style.setProperty('--z', (1.18 - k * 0.3).toFixed(3));
+    img.style.setProperty('--z', (1.06 - k * 0.06).toFixed(3));
   };
 }
