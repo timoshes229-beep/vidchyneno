@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400..800&family=Marck+Script&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/main.css?v=202611120008">
+<link rel="stylesheet" href="css/main.css?v=202611122234">
 <script type="importmap">
 { "imports": {
   "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
@@ -152,49 +152,25 @@
 
   <section class="audience" id="audience">
     <div class="audience-head">
-      <h2 class="audience-title">Яка з дверей ваша?</h2>
-      <p class="audience-lead">Наведіть або торкніться, щоб відчинити.</p>
+      <h2 class="audience-title">Яка вивіска про вас?</h2>
+      <p class="audience-lead">Наведіть або торкніться, щоб увімкнути світло.</p>
     </div>
-    <div class="doors">
-      <article class="door-card">
-        <div class="door-inside">
-          <p class="door-num">01</p>
-          <h3 class="door-title">Маю ідею, але без досвіду</h3>
-          <p class="door-text">Ведемо за руку від ідеї до першого гостя: формат, цифри, приміщення, команда. Ви вчитеся, ми робимо.</p>
-          <a class="door-cta" href="#contact" data-intent="Маю ідею, але без досвіду. Хочу відкрити заклад з нуля.">Почати з нуля</a>
-        </div>
-        <button class="door-leaf" type="button" aria-label="Відчинити двері: Маю ідею, але без досвіду">
-          <span class="door-glass" aria-hidden="true"></span>
-          <span class="door-plate">Маю ідею, але без досвіду</span>
-          <span class="door-knob" aria-hidden="true"></span>
-        </button>
-      </article>
-      <article class="door-card">
-        <div class="door-inside">
-          <p class="door-num">02</p>
-          <h3 class="door-title">Маю приміщення</h3>
-          <p class="door-text">Підберемо формат, який заробить саме тут, і запустимо заклад у вашому приміщенні під ключ.</p>
-          <a class="door-cta" href="#contact" data-intent="Маю приміщення, хочу відкрити в ньому заклад.">Обговорити приміщення</a>
-        </div>
-        <button class="door-leaf" type="button" aria-label="Відчинити двері: Маю приміщення">
-          <span class="door-glass" aria-hidden="true"></span>
-          <span class="door-plate">Маю приміщення</span>
-          <span class="door-knob" aria-hidden="true"></span>
-        </button>
-      </article>
-      <article class="door-card">
-        <div class="door-inside">
-          <p class="door-num">03</p>
-          <h3 class="door-title">Заклад працює, але не заробляє</h3>
-          <p class="door-text">Аудит, нове меню й техкарти, ребрендинг і налагоджена робота кухні та зали.</p>
-          <a class="door-cta" href="#contact" data-intent="Мій заклад працює, але не заробляє. Цікавить перезапуск.">Перезапустити заклад</a>
-        </div>
-        <button class="door-leaf" type="button" aria-label="Відчинити двері: Заклад працює, але не заробляє">
-          <span class="door-glass" aria-hidden="true"></span>
-          <span class="door-plate">Заклад працює, але не заробляє</span>
-          <span class="door-knob" aria-hidden="true"></span>
-        </button>
-      </article>
+    <div class="neons">
+      <div class="neon-card" tabindex="0">
+        <p class="neon">Маю ідею</p>
+        <p class="neon-text">Але без досвіду. Ведемо за руку від ідеї до першого гостя: формат, цифри, приміщення, команда.</p>
+        <a class="neon-cta" href="#contact" data-intent="Маю ідею, але без досвіду. Хочу відкрити заклад з нуля.">Почати з нуля</a>
+      </div>
+      <div class="neon-card" tabindex="0">
+        <p class="neon">Маю приміщення</p>
+        <p class="neon-text">Підберемо формат, який заробить саме тут, і запустимо заклад у вашому приміщенні під ключ.</p>
+        <a class="neon-cta" href="#contact" data-intent="Маю приміщення, хочу відкрити в ньому заклад.">Обговорити приміщення</a>
+      </div>
+      <div class="neon-card" tabindex="0">
+        <p class="neon">Хочу перезапуск</p>
+        <p class="neon-text">Заклад працює, але не заробляє: аудит, нове меню, ребрендинг і налагоджена кухня та зала.</p>
+        <a class="neon-cta" href="#contact" data-intent="Мій заклад працює, але не заробляє. Цікавить перезапуск.">Перезапустити заклад</a>
+      </div>
     </div>
   </section>
 
@@ -609,6 +585,6 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script type="module" src="js/main.js?v=202611120008"></script>
+<script type="module" src="js/main.js?v=202611122234"></script>
 </body>
 </html>

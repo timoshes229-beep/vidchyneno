@@ -1,14 +1,14 @@
-import { createHero } from './hero.js?v=202611120008';
-import { initAbout } from './about.js?v=202611120008';
-import { initProcess } from './process.js?v=202611120008';
-import { initCases } from './cases.js?v=202611120008';
-import { initPricing } from './pricing.js?v=202611120008';
-import { initOrder } from './order.js?v=202611120008';
-import { initAudience } from './audience.js?v=202611120008';
-import { initFaq } from './faq.js?v=202611120008';
-import { initContact } from './contact.js?v=202611120008';
-import { initPlace } from './place.js?v=202611120008';
-import { initSound } from './sound.js?v=202611120008';
+import { createHero } from './hero.js?v=202611122234';
+import { initAbout } from './about.js?v=202611122234';
+import { initProcess } from './process.js?v=202611122234';
+import { initCases } from './cases.js?v=202611122234';
+import { initPricing } from './pricing.js?v=202611122234';
+import { initOrder } from './order.js?v=202611122234';
+import { initAudience } from './audience.js?v=202611122234';
+import { initFaq } from './faq.js?v=202611122234';
+import { initContact } from './contact.js?v=202611122234';
+import { initPlace } from './place.js?v=202611122234';
+import { initSound } from './sound.js?v=202611122234';
 
 const $ = (s) => document.querySelector(s);
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
