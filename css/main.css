@@ -876,10 +876,11 @@ body.is-ready .scroll-hint { opacity: 1; }
 .field-choice input:focus-visible + span { outline: 2px solid var(--sign); outline-offset: 3px; }
 .booking-error { min-height: 22px; margin: 12px 0 4px; font-size: 14px; color: #b0361f; }
 .booking-submit { width: 100%; }
+.booking-consent { margin-top: 12px; font-size: 12.5px; line-height: 1.45; text-align: center; color: rgba(21, 17, 14, .5); }
 .booking-done { padding: 12px 0 4px; }
 .booking-done-title { font-size: clamp(26px, 2.6vw, 38px); font-weight: 700; letter-spacing: -.035em; margin-bottom: 8px; }
 .booking-done-text { font-size: 16px; color: rgba(21, 17, 14, .7); }
-.booking.is-sent .booking-fields, .booking.is-sent .booking-submit, .booking.is-sent .booking-error { display: none; }
+.booking.is-sent .booking-fields, .booking.is-sent .booking-submit, .booking.is-sent .booking-consent, .booking.is-sent .booking-error { display: none; }
 
 .site-footer {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px;
