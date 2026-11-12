@@ -1,6 +1,5 @@
-import { CONTACTS, FORM_ENDPOINT } from './config.js?v=202611122239';
-import { sfx } from './sound.js?v=202611122239';
-import { initPhone, phone } from './phone.js?v=202611122239';
+import { CONTACTS, FORM_ENDPOINT } from './config.js?v=202611122251';
+import { initPhone, phone } from './phone.js?v=202611122251';
 
 const esc = (v) => String(v || '').replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
 
@@ -35,7 +34,7 @@ export function initContact() {
   const sign = document.getElementById('finalSign');
   const form = document.getElementById('booking');
   if (!form) return;
-  sign?.addEventListener('click', () => { sign.classList.toggle('is-open'); sfx.flip(); });
+  sign?.addEventListener('click', () => { sign.classList.toggle('is-open'); });
 
   // площа з калькулятора переходить у заявку
   const area = document.getElementById('bookingArea');
@@ -97,8 +96,7 @@ export function initContact() {
         </div>`;
       form.classList.add('is-sent');
       done.hidden = false;
-      sfx.printer();
-      setTimeout(() => { sign?.classList.add('is-open'); sfx.flip(); }, 900);
+      setTimeout(() => { sign?.classList.add('is-open'); }, 900);
     } catch {
       error.textContent = 'Не вдалося надіслати заявку. Спробуйте ще раз або зателефонуйте Дмитру.';
     } finally {

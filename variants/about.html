@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Варіанти блоку «Про Дмитра»</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400..800&family=Marck+Script&display=swap" rel="stylesheet">
+<style>
+:root { --night: #141a24; --cream: #e9dfcf; --paper: #f4ece0; --ink: #15110e; --sign: #f26a1b; --lamp: #ffc27a; --ease: cubic-bezier(.16, 1, .3, 1); --font: 'Montserrat', system-ui, sans-serif; --script: 'Marck Script', cursive; --gutter: clamp(16px, 3.2vw, 48px); }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--night); color: var(--cream); font-family: var(--font); line-height: 1.5; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+.label { position: sticky; top: 0; z-index: 50; padding: 14px var(--gutter); background: rgba(13, 17, 24, .92); backdrop-filter: blur(10px); font-size: 14px; font-weight: 700; color: var(--lamp); }
+.label span { color: rgba(233, 223, 207, .6); font-weight: 500; }
+.btn { display: inline-flex; padding: 16px 26px; border-radius: 999px; font-size: 15px; font-weight: 700; }
+.btn-sign { background: var(--sign); color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
+.btn-ink { background: var(--ink); color: var(--cream); }
+.sign-board { display: inline-flex; flex-direction: column; align-items: center; padding: 10px 18px 12px; border-radius: 10px; background: var(--sign); color: var(--ink); box-shadow: inset 0 0 0 3px var(--sign), inset 0 0 0 5px var(--ink), 0 14px 30px -12px rgba(0, 0, 0, .7); }
+.sign-board small { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
+.sign-board b { font-size: 19px; font-weight: 800; white-space: nowrap; }
+
+/* ---------- А. Обкладинка ---------- */
+.cover { position: relative; min-height: 100svh; overflow: hidden; display: flex; align-items: flex-end; }
+.cover-photo { position: absolute; inset: 0; }
+.cover-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; transform: scale(var(--z, 1.18)); transform-origin: 70% 30%; transition: transform .1s linear; }
+.cover::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(14, 12, 10, .92) 0%, rgba(14, 12, 10, .7) 38%, rgba(14, 12, 10, 0) 66%), linear-gradient(0deg, rgba(14, 12, 10, .9), transparent 40%); }
+.cover-in { position: relative; z-index: 2; width: 100%; padding: clamp(80px, 10vw, 140px) var(--gutter) clamp(30px, 4vw, 50px); }
+.cover-kicker { font-family: var(--script); font-size: clamp(26px, 2.4vw, 36px); color: var(--lamp); margin-bottom: 6px; }
+.cover-title { font-size: clamp(54px, 8.4vw, 150px); font-weight: 800; letter-spacing: -.045em; line-height: .88; max-width: 9ch; }
+.cover-title span { display: block; color: transparent; -webkit-text-stroke: 2px var(--cream); }
+.cover-text { max-width: 44ch; margin-top: clamp(22px, 2.6vw, 34px); font-size: clamp(16px, 1.3vw, 19px); color: rgba(233, 223, 207, .85); }
+.cover-quote { max-width: 40ch; margin-top: 18px; padding-left: 18px; border-left: 3px solid var(--sign); font-size: clamp(16px, 1.25vw, 18px); font-weight: 600; }
+.cover .btn { margin-top: 28px; }
+.cover-stats { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(4, 1fr); margin-top: clamp(40px, 6vw, 80px); border-top: 1px solid rgba(233, 223, 207, .2); }
+.cover-stats div { padding: 20px 20px 0 0; }
+.cover-stats b { display: block; font-size: clamp(30px, 3.4vw, 54px); font-weight: 800; letter-spacing: -.04em; line-height: 1; color: var(--lamp); }
+.cover-stats span { display: block; margin-top: 8px; font-size: 14px; line-height: 1.4; color: rgba(233, 223, 207, .7); max-width: 22ch; }
+.cover .sign-board { position: absolute; z-index: 3; right: clamp(20px, 6vw, 110px); top: clamp(90px, 14vh, 150px); transform-origin: 50% -40px; animation: swing 5s ease-in-out infinite; }
+.cover .sign-board::before { content: ""; position: absolute; top: -40px; left: 50%; width: 86px; height: 40px; margin-left: -43px; background: linear-gradient(to bottom right, transparent calc(50% - 1px), var(--lamp) 50%, transparent calc(50% + 1px)) left / 50% 100% no-repeat, linear-gradient(to bottom left, transparent calc(50% - 1px), var(--lamp) 50%, transparent calc(50% + 1px)) right / 50% 100% no-repeat; }
+@keyframes swing { 0%, 100% { transform: rotate(-2.5deg); } 50% { transform: rotate(2.5deg); } }
+
+/* ---------- Б. Кітель з підписами ---------- */
+.anno { background: var(--paper); color: var(--ink); padding: clamp(70px, 9vw, 130px) var(--gutter); overflow: hidden; }
+.anno-head { max-width: 1240px; margin: 0 auto clamp(30px, 4vw, 50px); display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; }
+.anno-title { font-size: clamp(38px, 4.6vw, 76px); font-weight: 800; letter-spacing: -.04em; line-height: .95; }
+.anno-lead { max-width: 40ch; font-size: 17px; color: rgba(21, 17, 14, .7); }
+.anno-stage { position: relative; max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 1fr minmax(0, 520px) 1fr; align-items: center; }
+.anno-photo { position: relative; grid-column: 2; aspect-ratio: 853 / 1100; border-radius: 260px 260px 24px 24px; overflow: hidden; background: #2b2723; box-shadow: 0 50px 80px -50px rgba(0, 0, 0, .6); }
+.anno-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
+.dot { position: absolute; z-index: 3; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; background: var(--sign); color: var(--ink); box-shadow: 0 0 0 5px rgba(242, 106, 27, .3); display: grid; place-items: center; font-size: 13px; font-weight: 800; transform: scale(0); transition: transform .6s var(--ease); }
+.dot::after { content: ""; position: absolute; inset: -5px; border-radius: 50%; border: 2px solid var(--sign); animation: ping 2.4s ease-out infinite; }
+@keyframes ping { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(2); opacity: 0; } }
+.notes { position: absolute; inset: 0; pointer-events: none; }
+.note { position: absolute; width: min(27%, 300px); padding-top: 14px; border-top: 2px solid var(--ink); opacity: 0; transform: translateY(14px); transition: opacity .7s var(--ease), transform .9s var(--ease); }
+.note i { font-style: normal; display: inline-grid; place-items: center; width: 24px; height: 24px; margin-bottom: 10px; border-radius: 50%; background: var(--sign); font-size: 12px; font-weight: 800; }
+.note b { display: block; font-size: clamp(24px, 2.4vw, 36px); font-weight: 800; letter-spacing: -.035em; line-height: 1; margin-bottom: 8px; }
+.note p { font-size: 15px; line-height: 1.45; color: rgba(21, 17, 14, .75); }
+.note:nth-child(1) { left: 0; top: 6%; }
+.note:nth-child(2) { left: 0; top: 52%; }
+.note:nth-child(3) { right: 0; top: 14%; }
+.note:nth-child(4) { right: 0; top: 60%; }
+.anno.is-in .dot { transform: scale(1); }
+.anno.is-in .note { opacity: 1; transform: none; }
+.anno .dot:nth-of-type(2), .anno .note:nth-child(2) { transition-delay: .25s; }
+.anno .dot:nth-of-type(3), .anno .note:nth-child(3) { transition-delay: .5s; }
+.anno .dot:nth-of-type(4), .anno .note:nth-child(4) { transition-delay: .75s; }
+.anno-foot { max-width: 760px; margin: clamp(40px, 5vw, 70px) auto 0; text-align: center; }
+.anno-foot p { font-size: clamp(19px, 1.7vw, 24px); font-weight: 600; letter-spacing: -.015em; line-height: 1.4; }
+.anno-foot cite { display: block; margin: 14px 0 26px; font-family: var(--script); font-style: normal; font-size: 30px; color: var(--sign); }
+
+/* ---------- В. Шлях ---------- */
+.path { background: var(--paper); color: var(--ink); }
+.path-grid { display: grid; grid-template-columns: 1fr 1fr; }
+.path-photos { position: sticky; top: 48px; height: calc(100svh - 48px); overflow: hidden; background: #2b2723; }
+.path-photos img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.08); transition: opacity 1s, transform 1.6s var(--ease); }
+.path-photos img.is-on { opacity: 1; transform: none; }
+.path-year { position: absolute; z-index: 2; left: clamp(20px, 3vw, 40px); bottom: clamp(16px, 3vw, 36px); font-size: clamp(80px, 11vw, 190px); font-weight: 800; letter-spacing: -.06em; line-height: .8; color: var(--cream); text-shadow: 0 10px 40px rgba(0, 0, 0, .5); }
+.path-steps { padding: 0 var(--gutter) 0 clamp(36px, 6vw, 100px); }
+.path-intro { min-height: 70svh; display: flex; flex-direction: column; justify-content: center; padding: 80px 0 20px; }
+.path-intro h2 { font-size: clamp(38px, 4vw, 66px); font-weight: 800; letter-spacing: -.04em; line-height: .95; max-width: 13ch; margin-bottom: 18px; }
+.path-intro p { max-width: 38ch; font-size: 18px; color: rgba(21, 17, 14, .72); }
+.step { min-height: 72svh; display: flex; flex-direction: column; justify-content: center; max-width: 34em; opacity: .25; transition: opacity .6s; }
+.step.is-on { opacity: 1; }
+.step-when { font-family: var(--script); font-size: 30px; color: var(--sign); }
+.step h3 { margin: 4px 0 12px; font-size: clamp(28px, 2.8vw, 44px); font-weight: 800; letter-spacing: -.035em; line-height: 1.02; }
+.step p { font-size: 17px; line-height: 1.55; color: rgba(21, 17, 14, .78); }
+.step .btn { align-self: flex-start; margin-top: 26px; }
+.path-m { display: none; }
+
+@media (max-width: 860px) {
+  .cover-in { padding-top: 58svh; }
+  .cover::after { background: linear-gradient(0deg, rgba(14, 12, 10, .97) 42%, rgba(14, 12, 10, .4) 70%, rgba(14, 12, 10, 0) 85%); }
+  .cover-photo img { object-position: 60% 0; height: 70%; }
+  .cover-stats { grid-template-columns: 1fr 1fr; }
+  .cover .sign-board { top: 90px; right: 16px; transform: scale(.85); }
+  .cover .btn { width: 100%; justify-content: center; }
+
+  .anno-stage { display: block; }
+  .anno-photo { max-width: 420px; margin: 0 auto; }
+  .notes { position: static; margin-top: 30px; display: grid; gap: 26px; }
+  .note { position: static; width: auto; }
+
+  .path-grid { grid-template-columns: 1fr; }
+  .path-photos { display: none; }
+  .path-steps { padding: 0 var(--gutter); }
+  .path-intro { min-height: 0; padding: 70px 0 10px; }
+  .step { min-height: 0; padding: 26px 0; opacity: 1; border-top: 1px solid rgba(21, 17, 14, .15); }
+  .path-m { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 16px; margin-bottom: 18px; }
+  .step .btn { width: 100%; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition-duration: .01ms !important; } }
+</style>
+</head>
+<body>
+
+<p class="label">Варіант А · <span>Обкладинка журналу</span></p>
+<section class="cover" id="cover">
+  <div class="cover-photo"><img src="../assets/photos/dima-portrait.jpg" alt="Дмитро Барсук у білому кухарському кітелі"></div>
+  <div class="sign-board"><small>Шеф</small><b>Дмитро Барсук</b></div>
+  <div class="cover-in">
+    <p class="cover-kicker">Хто відчиняє двері</p>
+    <h2 class="cover-title">12 років <span>біля плити</span></h2>
+    <p class="cover-text">Тому знаю, скільки коштує кожна помилка: на кухні, у залі, у кошторисі. Пройшов шлях від кухаря до бренд-шефа мережі та власника ресторану. Тепер відкриваю заклади для інших.</p>
+    <p class="cover-quote">«Я відкриваю заклад не заради відкриття, а заради репутації».</p>
+    <a class="btn btn-sign" href="#">Поговорити з Дмитром</a>
+    <div class="cover-stats">
+      <div><b>20+</b><span>закладів відкрито й перезапущено</span></div>
+      <div><b>9 точок</b><span>мережі Red Cat Pub і Pivobank</span></div>
+      <div><b>2+ роки</b><span>працює власний Grey Stone</span></div>
+      <div><b>Технолог</b><span>за дипломом, практика за кордоном</span></div>
+    </div>
+  </div>
+</section>
+
+<p class="label">Варіант Б · <span>Фото з підписами, як у журналі</span></p>
+<section class="anno" id="anno">
+  <div class="anno-head">
+    <h2 class="anno-title">Шеф, який відкриває<br>заклади</h2>
+    <p class="anno-lead">Дмитро Барсук пройшов шлях від кухаря до бренд-шефа мережі та власника ресторану.</p>
+  </div>
+  <div class="anno-stage">
+    <div class="anno-photo">
+      <img src="../assets/photos/dima-portrait.jpg" alt="Дмитро Барсук у білому кухарському кітелі">
+      <span class="dot" style="left: 49%; top: 22%">1</span>
+      <span class="dot" style="left: 56%; top: 82%">2</span>
+      <span class="dot" style="left: 68%; top: 56%">3</span>
+      <span class="dot" style="left: 28%; top: 76%">4</span>
+    </div>
+    <div class="notes">
+      <div class="note"><i>1</i><b>12 років</b><p>шеф-кухарем, у громадському харчуванні з 2012 року</p></div>
+      <div class="note"><i>2</i><b>9 точок</b><p>мережі Red Cat Pub і Pivobank під контролем, понад 20 кухарів у команді</p></div>
+      <div class="note"><i>3</i><b>Технолог</b><p>диплом технолога харчової промисловості та закордонна практика</p></div>
+      <div class="note"><i>4</i><b>20+ закладів</b><p>відкрито й перезапущено від Харкова до Кіровоградщини</p></div>
+    </div>
+  </div>
+  <div class="anno-foot">
+    <p>«Я відкриваю заклад не заради відкриття, а заради репутації. І з великою душею, бо люблю те, що роблю».</p>
+    <cite>Дмитро Барсук</cite>
+    <a class="btn btn-ink" href="#">Поговорити з Дмитром</a>
+  </div>
+</section>
+
+<p class="label">Варіант В · <span>Шлях Дмитра, фото змінюються під час прокрутки</span></p>
+<section class="path" id="path">
+  <div class="path-grid">
+    <div class="path-photos">
+      <img class="is-on" src="../assets/photos/dima-portrait.jpg" alt="" style="object-position: 50% 15%">
+      <img src="../assets/photos/case-redcat-opening.jpg" alt="">
+      <img src="../assets/photos/case-greystone-facade.jpg" alt="">
+      <img src="../assets/photos/dima-portrait.jpg" alt="" style="object-position: 50% 15%">
+      <span class="path-year" id="pathYear">2012</span>
+    </div>
+    <div class="path-steps">
+      <div class="path-intro">
+        <h2>Дванадцять років біля плити</h2>
+        <p>Тому знаю, скільки коштує кожна помилка: на кухні, у залі, у кошторисі.</p>
+      </div>
+      <article class="step" data-year="2012">
+        <img class="path-m" src="../assets/photos/dima-portrait.jpg" alt="" style="object-position: 50% 15%">
+        <p class="step-when">Початок</p>
+        <h3>Перша кухня</h3>
+        <p>Диплом технолога харчової промисловості, закордонна практика і роки біля плити: від кухаря до шефа.</p>
+      </article>
+      <article class="step" data-year="9">
+        <img class="path-m" src="../assets/photos/case-redcat-opening.jpg" alt="">
+        <p class="step-when">Мережа</p>
+        <h3>Бренд-шеф Red Cat Pub і Pivobank</h3>
+        <p>Оновив усю мережу «Пивобанк» і два паби в Харкові, контролював 9 точок і керував командою з понад 20 кухарів.</p>
+      </article>
+      <article class="step" data-year="2+">
+        <img class="path-m" src="../assets/photos/case-greystone-facade.jpg" alt="">
+        <p class="step-when">Свій заклад</p>
+        <h3>Grey Stone</h3>
+        <p>Відкрив ресторан з нуля і вже понад два роки керує ним. Знає бізнес не лише з кухні, а й з боку власника.</p>
+      </article>
+      <article class="step" data-year="20+">
+        <img class="path-m" src="../assets/photos/dima-portrait.jpg" alt="" style="object-position: 50% 15%">
+        <p class="step-when">Сьогодні</p>
+        <h3>Відкриває заклади для інших</h3>
+        <p>Понад 20 закладів відкрито й перезапущено від Харкова до Кіровоградщини. «Я відкриваю заклад не заради відкриття, а заради репутації».</p>
+        <a class="btn btn-ink" href="#">Поговорити з Дмитром</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<script>
+// А: фото повільно віддаляється, поки блок прокручується
+const cover = document.getElementById('cover');
+const coverImg = cover.querySelector('.cover-photo img');
+function zoom() {
+  const r = cover.getBoundingClientRect();
+  const k = Math.min(Math.max(1 - r.bottom / (innerHeight + r.height), 0), 1);
+  coverImg.style.setProperty('--z', (1.18 - k * 0.3).toFixed(3));
+}
+addEventListener('scroll', zoom, { passive: true });
+zoom();
+
+// Б: точки й підписи з'являються, коли блок у кадрі
+new IntersectionObserver((e, io) => {
+  if (e[0].isIntersecting) { document.getElementById('anno').classList.add('is-in'); io.disconnect(); }
+}, { threshold: 0.3 }).observe(document.querySelector('.anno-stage'));
+
+// В: кожен крок вмикає своє фото й велику цифру
+const photos = [...document.querySelectorAll('.path-photos img')];
+const steps = [...document.querySelectorAll('.step')];
+const year = document.getElementById('pathYear');
+const stepIO = new IntersectionObserver((entries) => {
+  for (const e of entries) {
+    if (!e.isIntersecting) continue;
+    const i = steps.indexOf(e.target);
+    steps.forEach((s, j) => s.classList.toggle('is-on', j === i));
+    photos.forEach((p, j) => p.classList.toggle('is-on', j === i));
+    year.textContent = e.target.dataset.year;
+  }
+}, { rootMargin: '-45% 0px -45% 0px' });
+steps.forEach((s) => stepIO.observe(s));
+</script>
+</body>
+</html>

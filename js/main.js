@@ -1,14 +1,13 @@
-import { createHero } from './hero.js?v=202611122239';
-import { initAbout } from './about.js?v=202611122239';
-import { initProcess } from './process.js?v=202611122239';
-import { initCases } from './cases.js?v=202611122239';
-import { initPricing } from './pricing.js?v=202611122239';
-import { initOrder } from './order.js?v=202611122239';
-import { initAudience } from './audience.js?v=202611122239';
-import { initFaq } from './faq.js?v=202611122239';
-import { initContact } from './contact.js?v=202611122239';
-import { initPlace } from './place.js?v=202611122239';
-import { initSound } from './sound.js?v=202611122239';
+import { createHero } from './hero.js?v=202611122251';
+import { initAbout } from './about.js?v=202611122251';
+import { initProcess } from './process.js?v=202611122251';
+import { initCases } from './cases.js?v=202611122251';
+import { initPricing } from './pricing.js?v=202611122251';
+import { initOrder } from './order.js?v=202611122251';
+import { initAudience } from './audience.js?v=202611122251';
+import { initFaq } from './faq.js?v=202611122251';
+import { initContact } from './contact.js?v=202611122251';
+import { initPlace } from './place.js?v=202611122251';
 
 const $ = (s) => document.querySelector(s);
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -21,7 +20,6 @@ const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
 const lenis = window.Lenis && !reduceMotion ? new window.Lenis({ lerp: 0.085, prevent: (node) => !!node.closest?.('.iti__dropdown-content, .iti__country-list, .chat-feed') }) : null;
 lenis?.stop();
 
-const sound = initSound();
 
 /* ---------- 3D-сцена ---------- */
 const heroEl = $('#hero');
@@ -48,7 +46,6 @@ const heroReady = createHero(canvasEl)
     });
     h.start();
     initPlace(h);
-    h.onDoor(() => sound.bell());
   })
   .catch((err) => {
     console.warn('WebGL недоступний, показуємо фото', err);
@@ -79,7 +76,6 @@ tickLoader();
 
 function openUp() {
   opened = true;
-  sound.key();
   loader.classList.add('is-turning');
   setTimeout(() => {
     loader.classList.add('is-done');
