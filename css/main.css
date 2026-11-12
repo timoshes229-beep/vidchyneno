@@ -246,151 +246,7 @@ body.is-ready .scroll-hint { opacity: 1; }
 .scroll-hint-bar { width: 1px; height: 46px; background: linear-gradient(var(--lamp), transparent); transform-origin: top; animation: drip 2.2s var(--ease-out) infinite; }
 @keyframes drip { 0% { transform: scaleY(0); } 60% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
 
-.hero-veil { position: absolute; inset: 0; background: var(--cream); opacity: 0; pointer-events: none; }
-
-/* ---------- про Дмитра ---------- */
-.about {
-  position: relative;
-  overflow: hidden;
-  padding: clamp(90px, 12vw, 180px) var(--gutter) clamp(40px, 6vw, 90px);
-  background: var(--cream);
-  color: var(--ink);
-}
-.about-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  gap: clamp(36px, 7vw, 120px);
-  align-items: end;
-  max-width: 1360px;
-  margin: 0 auto;
-}
-.about-photo { position: relative; }
-.about-photo-frame {
-  aspect-ratio: 3 / 4;
-  overflow: hidden;
-  border-radius: 999px 999px 20px 20px;
-  background: #2b2723;
-}
-.about-photo-frame img {
-  display: block;
-  width: 100%; height: 118%;
-  object-fit: cover; object-position: 50% 0%;
-  transform: translate3d(0, var(--py, -4%), 0);
-  filter: sepia(.1) saturate(.92) contrast(1.04);
-}
-.about-sign {
-  position: absolute; right: -6%; bottom: 7%;
-  padding: 8px 18px 10px;
-  border-radius: 12px;
-  background: var(--sign);
-  color: var(--ink);
-  font-family: var(--script);
-  font-size: clamp(26px, 2.6vw, 38px);
-  line-height: 1;
-  transform: rotate(-5deg);
-  box-shadow: 0 16px 36px -16px rgba(120, 50, 10, .7);
-}
-.about-title {
-  max-width: 13ch;
-  margin-bottom: clamp(26px, 3vw, 46px);
-  font-size: clamp(40px, 5.2vw, 88px);
-  font-weight: 700;
-  line-height: .95;
-  letter-spacing: -.035em;
-}
-.about-statement {
-  max-width: 34ch;
-  font-size: clamp(20px, 1.9vw, 29px);
-  font-weight: 400;
-  line-height: 1.38;
-  letter-spacing: -.015em;
-}
-.about-statement .word { opacity: .16; transition: opacity .35s; }
-.about-statement .word.is-on { opacity: 1; }
-.about-quote {
-  max-width: 46ch;
-  margin-top: clamp(30px, 3.4vw, 52px);
-  padding-left: 22px;
-  border-left: 2px solid var(--sign);
-  font-size: 16px;
-  line-height: 1.6;
-  color: rgba(21, 17, 14, .7);
-}
-
-/* кухонна рейка з чеками */
-.rail { position: relative; max-width: 1360px; margin: clamp(80px, 10vw, 150px) auto 0; }
-.rail-bar {
-  position: relative; z-index: 2;
-  height: 14px;
-  border-radius: 7px;
-  background: linear-gradient(#f7f7f5, #b4b4b0 42%, #74746f 58%, #d6d6d2);
-  box-shadow: 0 10px 20px -12px rgba(0, 0, 0, .55);
-}
-.tickets {
-  list-style: none;
-  display: flex; justify-content: space-between; gap: clamp(14px, 1.8vw, 26px);
-  margin-top: -7px;
-  padding: 0 clamp(6px, 1vw, 18px) 50px;
-}
-.ticket {
-  position: relative;
-  flex: 1 1 0; min-width: 0; max-width: 260px;
-  padding: 28px 20px 34px;
-  background: #fcf9f3;
-  box-shadow: 0 22px 34px -22px rgba(50, 30, 10, .55);
-  transform-origin: 50% 0;
-  transform: rotate(var(--r, 0deg));
-  transition: transform .7s var(--ease-out), opacity .7s var(--ease-out);
-  -webkit-mask: linear-gradient(#000 0 0) top / 100% calc(100% - 9px) no-repeat, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / 14px 9px repeat-x;
-  mask: linear-gradient(#000 0 0) top / 100% calc(100% - 9px) no-repeat, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / 14px 9px repeat-x;
-}
-.rail:not(.is-in) .ticket { transform: translate3d(0, -40px, 0) rotate(calc(var(--r, 0deg) * 4)); opacity: 0; }
-.rail.is-in:not(.is-settled) .ticket { transition-delay: calc(var(--i, 0) * 110ms); }
-.ticket:hover { transform: translate3d(0, 8px, 0) rotate(0deg); }
-.ticket::after {
-  content: "Готово";
-  position: absolute; right: 14px; bottom: 26px;
-  padding: 3px 9px;
-  border: 2px solid var(--sign);
-  border-radius: 6px;
-  color: var(--sign);
-  font-size: 13px; font-weight: 700;
-  opacity: 0;
-  transform: rotate(-12deg) scale(1.7);
-  transition: opacity .25s, transform .45s var(--ease-out);
-}
-.ticket:hover::after { opacity: 1; transform: rotate(-12deg) scale(1); }
-.ticket-head {
-  display: flex; justify-content: space-between;
-  margin-bottom: 18px; padding-bottom: 12px;
-  border-bottom: 1.5px dashed rgba(21, 17, 14, .25);
-  font-size: 12px;
-  color: rgba(21, 17, 14, .5);
-  font-variant-numeric: tabular-nums;
-}
-.ticket-big {
-  display: block;
-  margin-bottom: 12px;
-  font-size: clamp(30px, 2.8vw, 44px);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -.04em;
-}
-.ticket-text { display: block; font-size: 14.5px; line-height: 1.45; color: rgba(21, 17, 14, .78); }
-
-@media (max-width: 900px) {
-  .about-grid { grid-template-columns: 1fr; align-items: start; }
-  .about-photo { width: min(78%, 380px); }
-  .about-sign { right: -14%; }
-  .tickets {
-    justify-content: flex-start;
-    overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
-    margin-left: calc(var(--gutter) * -1); margin-right: calc(var(--gutter) * -1);
-    padding-left: var(--gutter); padding-right: var(--gutter);
-  }
-  .tickets::-webkit-scrollbar { display: none; }
-  .ticket { flex: 0 0 min(64vw, 240px); scroll-snap-align: center; }
-}
+.hero-veil { position: absolute; inset: 0; background: #0e0c0a; opacity: 0; pointer-events: none; }
 
 /* ---------- меню запуску ---------- */
 .services {
@@ -941,7 +797,6 @@ body.is-ready .scroll-hint { opacity: 1; }
 
 /* ---------- правки: фото курсів, етапи по кліку, заголовки в один рядок ---------- */
 
-.about-title { max-width: none; margin: 0 auto clamp(36px, 5vw, 70px); max-width: 1360px; }
 .pricing-title, .pricing-lead, .contact-title, .contact-lead { max-width: 1280px; margin-left: auto; margin-right: auto; }
 .pricing-lead, .contact-lead { margin-bottom: clamp(36px, 5vw, 64px); }
 
@@ -1123,61 +978,51 @@ body.is-ready .scroll-hint { opacity: 1; }
 }
 .kt-total { padding-right: 112px; }
 
-/* ---------- «Про Дмитра»: фото на пів блоку ---------- */
-.about { padding: 0 0 clamp(50px, 7vw, 100px); }
-.about-split { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; min-height: 100svh; }
-.about-photo { position: relative; margin: 0; overflow: hidden; background: #2b2723; }
-.about-photo img {
-  position: absolute; left: 0; top: 0;
-  width: 100%; height: 112%;
-  object-fit: cover; object-position: 50% 12%;
-  transform: translate3d(0, var(--py, -4%), 0);
-  filter: sepia(.08) saturate(.95) contrast(1.05);
-}
-.about-photo::after {
+/* ---------- «Про Дмитра»: обкладинка ---------- */
+.about { position: relative; min-height: 100vh; min-height: 100svh; overflow: hidden; display: flex; align-items: flex-end; background: #0e0c0a; color: var(--cream); }
+.about-photo { position: absolute; inset: 0; }
+.about-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; transform: scale(var(--z, 1.18)); transform-origin: 70% 30%; will-change: transform; }
+.about::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(to top, rgba(20, 17, 14, .45), transparent 35%);
+  background: linear-gradient(90deg, rgba(14, 12, 10, .92) 0%, rgba(14, 12, 10, .7) 38%, rgba(14, 12, 10, 0) 66%), linear-gradient(0deg, rgba(14, 12, 10, .9), transparent 40%);
 }
-.chef-sign {
-  position: absolute; z-index: 1;
-  left: clamp(20px, 4vw, 60px); bottom: clamp(28px, 6vw, 80px);
+.about-in { position: relative; z-index: 2; width: 100%; max-width: 1440px; margin: 0 auto; padding: clamp(100px, 11vh, 130px) var(--gutter) clamp(28px, 4vh, 44px); }
+.about-kicker { margin-bottom: 6px; font-family: var(--script); font-size: clamp(26px, 2.4vw, 36px); color: var(--lamp); }
+.about-title { max-width: 9ch; font-size: clamp(54px, min(8vw, 13.5vh), 140px); font-weight: 800; letter-spacing: -.045em; line-height: .88; }
+.about-title span { display: block; color: var(--lamp); }
+.about-text { max-width: 44ch; margin-top: clamp(18px, 2.6vh, 30px); font-size: clamp(16px, 1.3vw, 19px); color: rgba(233, 223, 207, .85); }
+.about-quote { max-width: 44ch; margin-top: 18px; padding-left: 18px; border-left: 3px solid var(--sign); font-size: clamp(16px, 1.25vw, 18px); font-weight: 600; line-height: 1.5; }
+.about-cta { margin-top: clamp(20px, 3vh, 28px); }
+.about-stats { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); margin-top: clamp(32px, 5vh, 64px); border-top: 1px solid rgba(233, 223, 207, .2); }
+.about-stats li { padding: 20px 20px 0 0; }
+.about-stats b { display: block; font-size: clamp(30px, 3.4vw, 54px); font-weight: 800; letter-spacing: -.04em; line-height: 1; color: var(--lamp); }
+.about-stats span { display: block; max-width: 24ch; margin-top: 8px; font-size: 14px; line-height: 1.4; color: rgba(233, 223, 207, .7); }
+.about-sign {
+  position: absolute; z-index: 3; right: clamp(20px, 6vw, 110px); top: clamp(110px, 16vh, 170px);
   display: flex; flex-direction: column; align-items: center;
-  transform-origin: 50% 0;
-  animation: hang 5.5s ease-in-out infinite;
-}
-.chef-cord {
-  position: relative;
-  width: 120px; height: 46px;
-  background:
-    linear-gradient(to bottom right, transparent calc(50% - 1px), rgba(233, 223, 207, .7) 50%, transparent calc(50% + 1px)) left / 50% 100% no-repeat,
-    linear-gradient(to bottom left, transparent calc(50% - 1px), rgba(233, 223, 207, .7) 50%, transparent calc(50% + 1px)) right / 50% 100% no-repeat;
-}
-.chef-cord::before { content: ""; position: absolute; top: -5px; left: 50%; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: #c8a062; }
-.chef-board {
-  display: grid; gap: 2px; text-align: center;
-  padding: 14px 26px 15px;
-  border-radius: 16px;
+  padding: 12px 22px 13px; border-radius: 12px;
   background: var(--sign); color: var(--ink);
-  box-shadow: inset 0 0 0 4px var(--sign), inset 0 0 0 6px var(--ink), 0 24px 50px -20px rgba(0, 0, 0, .7);
+  box-shadow: inset 0 0 0 3px var(--sign), inset 0 0 0 5px var(--ink), 0 20px 40px -16px rgba(0, 0, 0, .7);
+  transform-origin: 50% -44px; animation: hang 5.5s ease-in-out infinite;
 }
-.chef-board small { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; opacity: .75; }
-.chef-board b { font-size: clamp(18px, 1.6vw, 24px); font-weight: 800; letter-spacing: -.01em; white-space: nowrap; }
-
-.about-text { align-self: center; max-width: 700px; padding: clamp(60px, 8vw, 120px) var(--gutter) clamp(40px, 5vw, 80px) clamp(36px, 6vw, 100px); }
-.about-text .about-title { max-width: 20ch; margin: 0 0 clamp(22px, 2.6vw, 34px); font-size: clamp(34px, 3.2vw, 56px); }
-.about-text .about-statement { max-width: 38ch; font-size: clamp(17px, 1.35vw, 20px); line-height: 1.55; color: var(--ink); margin-bottom: 14px; }
-.about-text .about-quote { margin-top: clamp(22px, 2.6vw, 34px); }
-.about-quote cite { display: block; margin-top: 10px; font-style: normal; font-size: 13.5px; font-weight: 600; color: rgba(21, 17, 14, .55); }
-.about-cta { margin-top: clamp(24px, 3vw, 36px); }
-.about .rail { padding: 0 var(--gutter); margin-top: clamp(50px, 7vw, 100px); }
-
+.about-sign::before {
+  content: ""; position: absolute; top: -44px; left: 50%; width: 96px; height: 44px; margin-left: -48px;
+  background:
+    linear-gradient(to bottom right, transparent calc(50% - 1px), var(--lamp) 50%, transparent calc(50% + 1px)) left / 50% 100% no-repeat,
+    linear-gradient(to bottom left, transparent calc(50% - 1px), var(--lamp) 50%, transparent calc(50% + 1px)) right / 50% 100% no-repeat;
+}
+.about-sign small { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
+.about-sign b { font-size: clamp(17px, 1.5vw, 21px); font-weight: 800; white-space: nowrap; }
 @media (max-width: 900px) {
-  .about-split { grid-template-columns: 1fr; min-height: 0; }
-  .about-photo { width: 100%; height: min(78vh, 560px); }
-  .about-text { padding: 36px var(--gutter) 10px; max-width: none; }
+  .about-in { padding-top: 56svh; }
+  .about::after { background: linear-gradient(0deg, rgba(14, 12, 10, .97) 42%, rgba(14, 12, 10, .4) 70%, rgba(14, 12, 10, 0) 85%); }
+  .about-photo img { height: 70%; object-position: 60% 0; }
+  .about-stats { grid-template-columns: 1fr 1fr; }
+  .about-sign { top: 96px; right: 16px; padding: 9px 16px 10px; }
+  .about-cta { width: 100%; justify-content: center; }
 }
 
-/* ---------- «Яка з дверей ваша?» ---------- */
+/* ---------- «Яка вивіска про вас?» ---------- */
 .audience { padding: clamp(90px, 11vw, 160px) var(--gutter); background: var(--night); color: var(--cream); }
 .audience-head { max-width: 1280px; margin: 0 auto clamp(36px, 4.5vw, 64px); }
 .audience-title { font-size: clamp(38px, 5vw, 80px); font-weight: 800; line-height: .95; letter-spacing: -.035em; margin-bottom: 14px; }

@@ -1,13 +1,13 @@
-import { createHero } from './hero.js?v=202611122251';
-import { initAbout } from './about.js?v=202611122251';
-import { initProcess } from './process.js?v=202611122251';
-import { initCases } from './cases.js?v=202611122251';
-import { initPricing } from './pricing.js?v=202611122251';
-import { initOrder } from './order.js?v=202611122251';
-import { initAudience } from './audience.js?v=202611122251';
-import { initFaq } from './faq.js?v=202611122251';
-import { initContact } from './contact.js?v=202611122251';
-import { initPlace } from './place.js?v=202611122251';
+import { createHero } from './hero.js?v=202611122257';
+import { initAbout } from './about.js?v=202611122257';
+import { initProcess } from './process.js?v=202611122257';
+import { initCases } from './cases.js?v=202611122257';
+import { initPricing } from './pricing.js?v=202611122257';
+import { initOrder } from './order.js?v=202611122257';
+import { initAudience } from './audience.js?v=202611122257';
+import { initFaq } from './faq.js?v=202611122257';
+import { initContact } from './contact.js?v=202611122257';
+import { initPlace } from './place.js?v=202611122257';
 
 const $ = (s) => document.querySelector(s);
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -27,7 +27,7 @@ const copy = $('#heroCopy');
 const veil = $('#heroVeil');
 const canvasEl = $('#scene');
 const header = $('#header');
-const lightSections = [...document.querySelectorAll('.about, .process, .pricing, .faq')];
+const lightSections = [...document.querySelectorAll('.process, .pricing, .faq')];
 let hero = null;
 
 const heroReady = createHero(canvasEl)
