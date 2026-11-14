@@ -942,11 +942,11 @@ body.is-ready .scroll-hint { opacity: 1; }
 .formats-head { max-width: 1280px; margin: 0 auto clamp(20px, 3vw, 40px); display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
 .formats-title { font-size: clamp(38px, 5vw, 80px); font-weight: 800; letter-spacing: -.035em; line-height: .95; }
 .formats-lead { max-width: 40ch; font-size: 17px; color: rgba(233, 223, 207, .68); }
-.formats-grid { list-style: none; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(6, 1fr); gap: clamp(8px, 1.4vw, 20px); }
+.formats-grid { list-style: none; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(10px, 2vw, 32px) clamp(10px, 2vw, 28px); }
 .fmt-card { display: grid; justify-items: center; text-align: center; padding-bottom: 14px; border-radius: 22px; transition: background .4s; }
 .fmt-card img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; transition: transform .7s var(--ease-out); }
-.fmt-card b { margin-top: -6px; font-size: clamp(15px, 1.2vw, 18px); font-weight: 700; }
-.fmt-card span { margin-top: 2px; font-size: 13px; color: rgba(233, 223, 207, .55); }
+.fmt-card b { margin-top: -10px; font-size: clamp(18px, 1.6vw, 24px); font-weight: 800; letter-spacing: -.01em; }
+.fmt-card span { margin-top: 2px; font-size: 14.5px; color: rgba(233, 223, 207, .6); }
 .fmt-card:hover { background: rgba(255, 194, 122, .06); }
 .fmt-card:hover img { transform: translateY(-8px) scale(1.04); }
 .fmt-card:focus-visible { outline: 2px solid var(--lamp); outline-offset: 2px; }
@@ -1012,7 +1012,6 @@ body.is-ready .scroll-hint { opacity: 1; }
 .fr-cta { margin-top: 22px; }
 
 @media (max-width: 900px) {
-  .formats-grid { grid-template-columns: repeat(3, 1fr); }
   .stages, .fr-card { grid-template-columns: 1fr; }
   .stages-pics { width: 100%; max-width: 460px; margin: 0 auto; }
   .fr-pics { width: 100%; max-width: 420px; margin: 0 auto; }
@@ -1021,7 +1020,10 @@ body.is-ready .scroll-hint { opacity: 1; }
   .stages-cta, .fr-cta { width: 100%; }
 }
 @media (max-width: 560px) {
-  .formats-grid { grid-template-columns: repeat(2, 1fr); }
+  /* на телефоні великі картки гортаються пальцем */
+  .formats-grid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 78vw; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin: 0 calc(var(--gutter) * -1); padding: 0 var(--gutter); scroll-padding: 0 var(--gutter); }
+  .formats-grid::-webkit-scrollbar { display: none; }
+  .formats-grid li { scroll-snap-align: start; }
 }
 
 /* ---------- «Яка вивіска про вас?» ---------- */
