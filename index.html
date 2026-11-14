@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400..800&family=Marck+Script&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/main.css?v=202611140918">
+<link rel="stylesheet" href="css/main.css?v=202611141041">
 <script type="importmap">
 { "imports": {
   "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
@@ -64,8 +64,10 @@
   <ul class="menu-list">
     <li><a href="#about">Про Дмитра</a></li>
     <li><a href="#audience">Для кого</a></li>
+    <li><a href="#formats">Формати</a></li>
     <li><a href="#services">Що входить</a></li>
     <li><a href="#process">Як ми працюємо</a></li>
+    <li><a href="#franchise">Франшиза чи свій</a></li>
     <li><a href="#cases">Відкриті заклади</a></li>
     <li><a href="#price">Вартість</a></li>
     <li><a href="#faq">Питання</a></li>
@@ -195,6 +197,40 @@
     </div>
   </section>
 
+  <section class="formats" id="formats">
+    <div class="formats-head">
+      <h2 class="formats-title">Які заклади відчиняємо</h2>
+      <p class="formats-lead">Від кіоску з шаурмою до ресторану. Натисніть на свій формат, і він одразу потрапить у заявку.</p>
+    </div>
+    <ul class="formats-grid">
+        <li><a class="fmt-card" href="#contact" data-format="Кафе або ресторан" data-intent="Цікавить формат: ресторан.">
+          <img src="assets/minis/restaurant.webp" alt="Ресторан: мініатюра закладу" width="640" height="640" loading="lazy" decoding="async">
+          <b>Ресторан</b><span>Повна кухня, зал і бар</span>
+        </a></li>
+        <li><a class="fmt-card" href="#contact" data-format="Кав'ярня" data-intent="Цікавить формат: кав'ярня.">
+          <img src="assets/minis/coffee.webp" alt="Кав'ярня: мініатюра закладу" width="640" height="640" loading="lazy" decoding="async">
+          <b>Кав'ярня</b><span>Кава, десерти й сніданки</span>
+        </a></li>
+        <li><a class="fmt-card" href="#contact" data-format="Піцерія, суші чи бургерна" data-intent="Цікавить формат: піцерія.">
+          <img src="assets/minis/pizza.webp" alt="Піцерія: мініатюра закладу" width="640" height="640" loading="lazy" decoding="async">
+          <b>Піцерія</b><span>Піч, тісто й доставка</span>
+        </a></li>
+        <li><a class="fmt-card" href="#contact" data-format="Піцерія, суші чи бургерна" data-intent="Цікавить формат: бургерна.">
+          <img src="assets/minis/burger.webp" alt="Бургерна: мініатюра закладу" width="640" height="640" loading="lazy" decoding="async">
+          <b>Бургерна</b><span>Гриль і швидка видача</span>
+        </a></li>
+        <li><a class="fmt-card" href="#contact" data-format="Стрітфуд або шаурма" data-intent="Цікавить формат: шаурма й стрітфуд.">
+          <img src="assets/minis/shawarma.webp" alt="Шаурма й стрітфуд: мініатюра закладу" width="640" height="640" loading="lazy" decoding="async">
+          <b>Шаурма й стрітфуд</b><span>Кіоск або острівець</span>
+        </a></li>
+        <li><a class="fmt-card" href="#contact" data-format="Пекарня чи кондитерська" data-intent="Цікавить формат: пекарня.">
+          <img src="assets/minis/bakery.webp" alt="Пекарня: мініатюра закладу" width="640" height="640" loading="lazy" decoding="async">
+          <b>Пекарня</b><span>Випічка й кондитерка</span>
+        </a></li>
+    </ul>
+    <p class="formats-more">А також суші, чебуречні, кондитерські, dark kitchen і ваш власний формат.</p>
+  </section>
+
   <section class="services" id="services">
     <div class="services-intro">
       <h2 class="services-title">Що входить у запуск</h2>
@@ -251,156 +287,64 @@
 
   <section class="process" id="process">
     <div class="process-wrap">
-      <h2 class="process-title">Як ми працюємо</h2>
-      <p class="process-lead">Від першої зустрічі до першого гостя. Дивіться, як народжується заклад, або зберіть свій власний.</p>
-      <div class="build-modes" id="buildModes" role="tablist" aria-label="Режим макета" hidden>
-        <button class="build-mode is-active" type="button" role="tab" aria-selected="true" data-mode="steps">Як ми працюємо</button>
-        <button class="build-mode" type="button" role="tab" aria-selected="false" data-mode="config">Зберіть свій заклад</button>
+      <div class="process-head">
+        <h2 class="process-title">Як ми працюємо</h2>
+        <p class="process-lead">Від ідеї до першого гостя за 1,5–3 місяці. Великі проєкти займають більше часу.</p>
       </div>
-
-      <div class="build">
-        <div class="build-art">
-          <canvas class="build-3d" id="build3d" aria-hidden="true"></canvas>
-          <svg class="build-svg" id="buildSvg" viewBox="0 0 800 520" role="img" aria-label="Ескіз закладу, що добудовується з кожним етапом">
-            <defs>
-              <pattern id="bricks" width="28" height="14" patternUnits="userSpaceOnUse">
-                <path d="M0 13.5h28M14 0v7M0 7h28M0 7v7M28 7v7" stroke="#b36a45" stroke-width="1" fill="none" opacity=".55"/>
-              </pattern>
-              <radialGradient id="warm" cx="50%" cy="35%" r="70%"><stop offset="0" stop-color="#ffe2b0"/><stop offset=".6" stop-color="#ffb35c"/><stop offset="1" stop-color="#c46a2b"/></radialGradient>
-              <radialGradient id="spill" cx="50%" cy="0%" r="100%"><stop offset="0" stop-color="#ffc27a" stop-opacity=".55"/><stop offset="1" stop-color="#ffc27a" stop-opacity="0"/></radialGradient>
-            </defs>
-
-            <!-- 1 зустріч: олівцевий начерк -->
-            <g class="b-step" data-step="1">
-              <path class="draw sketch" pathLength="1" d="M150 470 V150 H650 V470"/>
-              <path class="draw sketch" pathLength="1" d="M130 150 H670 V118 H130 Z"/>
-              <path class="draw sketch" pathLength="1" d="M360 470 V300 H440 V470"/>
-              <path class="draw sketch" pathLength="1" d="M60 470 H740"/>
-              <text class="note" x="560" y="96">ідея</text>
-            </g>
-            <!-- 2 консультація: формат і потік людей -->
-            <g class="b-step" data-step="2">
-              <path class="draw flow" pathLength="1" d="M40 500 C200 482 300 506 380 486"/>
-              <path class="draw flow" pathLength="1" d="M760 502 C620 484 520 506 420 488"/>
-              <circle class="dot" cx="96" cy="494" r="5"/><circle class="dot" cx="700" cy="496" r="5"/><circle class="dot" cx="250" cy="492" r="5"/>
-              <rect class="draw sketch" pathLength="1" x="290" y="218" width="220" height="56" rx="8"/>
-              <text class="note" x="400" y="252" text-anchor="middle">формат?</text>
-            </g>
-            <!-- 3 прорахунок: розміри та цифри -->
-            <g class="b-step" data-step="3">
-              <path class="draw dim" pathLength="1" d="M150 495 H650 M150 488 V502 M650 488 V502"/>
-              <text class="dim-label" x="400" y="514" text-anchor="middle">12 м</text>
-              <path class="draw dim" pathLength="1" d="M110 150 V470 M103 150 H117 M103 470 H117"/>
-              <text class="dim-label" x="96" y="314" text-anchor="end">4,2 м</text>
-              <text class="note calc" x="690" y="200">вкладення</text>
-              <text class="note calc" x="690" y="230">окупність</text>
-            </g>
-            <!-- 4 договір: контур тушшю -->
-            <g class="b-step" data-step="4">
-              <path class="draw ink" pathLength="1" d="M150 470 V150 H650 V470 Z"/>
-              <path class="draw ink" pathLength="1" d="M130 150 H670 V118 H130 Z"/>
-              <path class="draw ink" pathLength="1" d="M360 470 V300 H440 V470"/>
-              <path class="draw ink" pathLength="1" d="M180 420 V260 H330 V420 Z M470 420 V260 H620 V420 Z"/>
-              <path class="draw sign-ink" pathLength="1" d="M560 500 c12 -18 22 -18 18 0 s14 -16 20 -4 s10 -10 22 -2"/>
-            </g>
-            <!-- 5 запуск: стіни, вікна, двері, кухня -->
-            <g class="b-step fill-step" data-step="5">
-              <path d="M150 470 V150 H650 V470 H440 V300 H360 V470 Z M180 420 V260 H330 V420 Z M470 420 V260 H620 V420 Z" fill="url(#bricks)" fill-rule="evenodd"/>
-              <rect x="130" y="118" width="540" height="32" fill="#e9dfcf" stroke="#15110e" stroke-width="2"/>
-              <rect x="180" y="260" width="150" height="160" fill="#2a2420"/><rect x="470" y="260" width="150" height="160" fill="#2a2420"/>
-              <rect x="360" y="300" width="80" height="170" fill="#1d1916" stroke="#15110e" stroke-width="3"/>
-              <line x1="425" y1="360" x2="425" y2="420" stroke="#c8a062" stroke-width="4" stroke-linecap="round"/>
-              <path d="M190 420 h130 v-36 h-130 z M480 420 h130 v-36 h-130 z" fill="#3a2f28"/>
-              <path d="M215 330 h40 v54 h-40 z M520 340 h60 v44 h-60 z" fill="#6f6f6c"/>
-              <rect x="290" y="218" width="220" height="56" rx="8" fill="#15110e"/>
-            </g>
-            <!-- 6 відчинено: світло, вивіска, табличка -->
-            <g class="b-step light-step" data-step="6">
-              <rect x="180" y="260" width="150" height="124" fill="url(#warm)" opacity=".92"/>
-              <rect x="470" y="260" width="150" height="124" fill="url(#warm)" opacity=".92"/>
-              <rect x="364" y="304" width="72" height="166" fill="url(#warm)" opacity=".55"/>
-              <path d="M300 470 L500 470 L560 520 L240 520 Z" fill="url(#spill)"/>
-              <text class="build-neon" id="buildSignText" x="400" y="256" text-anchor="middle">Ваш заклад</text>
-              <path d="M386 318 L400 306 L414 318" stroke="#e9dfcf" stroke-width="1.5" fill="none"/>
-              <rect x="372" y="318" width="56" height="32" rx="6" fill="#f26a1b"/>
-              <text class="build-open" x="400" y="339" text-anchor="middle">ВІДЧИНЕНО</text>
-              <rect x="130" y="150" width="540" height="3" fill="#ffc27a"/>
-            </g>
-            <!-- 7 супровід: перший гість і зелень -->
-            <g class="b-step" data-step="7">
-              <circle cx="478" cy="404" r="11" fill="#15110e"/>
-              <path d="M462 470 V430 q0 -14 16 -14 q16 0 16 14 V470 Z" fill="#15110e"/>
-              <path d="M330 470 v-22 h22 v22 z M448 470 v-22 h22 v22 z" fill="#7a5a3a"/>
-              <path d="M341 448 c-14 -24 -2 -40 0 -40 c2 0 14 16 0 40 M459 448 c-14 -24 -2 -40 0 -40 c2 0 14 16 0 40" fill="#5f8a4a"/>
-              <g class="badge-30"><circle cx="700" cy="380" r="40" fill="#f26a1b"/><text x="700" y="378" text-anchor="middle">30</text><text x="700" y="398" text-anchor="middle" class="small">днів поруч</text></g>
-            </g>
-          </svg>
+      <div class="stages">
+        <div class="stages-pics" id="stagePics">
+          <img src="assets/minis/stage-1.webp" alt="" width="900" height="900" class="is-on" decoding="async">
+          <img src="assets/minis/stage-2.webp" alt="" width="900" height="900" loading="lazy" decoding="async">
+          <img src="assets/minis/stage-3.webp" alt="" width="900" height="900" loading="lazy" decoding="async">
+          <img src="assets/minis/stage-4.webp" alt="" width="900" height="900" loading="lazy" decoding="async">
+          <img src="assets/minis/stage-5.webp" alt="" width="900" height="900" loading="lazy" decoding="async">
+          <img src="assets/minis/stage-6.webp" alt="" width="900" height="900" loading="lazy" decoding="async">
         </div>
-        <div class="build-info" aria-live="polite">
-          <p class="build-when" id="buildWhen">День 1</p>
-          <h3 class="build-name" id="buildName">Зустріч</h3>
-          <p class="build-text" id="buildText">Знайомимось, слухаємо вашу ідею, бюджет і очікування. Це безкоштовно.</p>
-          <div class="build-nav">
-            <button class="btn btn-line" type="button" id="buildPrev"><span>Назад</span></button>
-            <button class="btn btn-ink" type="button" id="buildNext"><span>Далі</span></button>
+        <div class="stages-info">
+          <ol class="stages-track" id="stageTrack">
+            <li><button class="stage-dot" type="button" data-when="Тиждень 1" data-title="Зустріч і прорахунок" data-text="Слухаємо ідею, дивимось приміщення й рахуємо вкладення та окупність. Цифри ви бачите ще до старту робіт." aria-label="Етап 1: Зустріч і прорахунок"></button></li>
+            <li><button class="stage-dot" type="button" data-when="Тижні 2–4" data-title="Концепція й ремонт" data-text="Назва, концепція й дизайн. Ремонт іде під нашим контролем, щоб вийшло як на проєкті." aria-label="Етап 2: Концепція й ремонт"></button></li>
+            <li><button class="stage-dot" type="button" data-when="Тижні 4–7" data-title="Обладнання" data-text="Підбираємо обладнання під ваше меню й постачальників. Монтуємо кухню так, щоб кухарям було зручно." aria-label="Етап 3: Обладнання"></button></li>
+            <li><button class="stage-dot" type="button" data-when="Тижні 6–9" data-title="Меню й техкарти" data-text="Дмитро складає меню й техкарти, щоб кожна страва виходила однаковою, хто б не стояв біля плити." aria-label="Етап 4: Меню й техкарти"></button></li>
+            <li><button class="stage-dot" type="button" data-when="Тижні 8–10" data-title="Команда" data-text="Підбираємо людей і навчаємо до відкриття: кухню працювати за техкартами, зал зустрічати гостей." aria-label="Етап 5: Команда"></button></li>
+            <li><button class="stage-dot" type="button" data-when="Тижні 6–12" data-title="Відчинено" data-text="Перший гість. Дмитро на місці, а потім ще місяць поруч, поки все не запрацює стабільно." aria-label="Етап 6: Відчинено"></button></li>
+          </ol>
+          <div class="stages-text" id="stageText" aria-live="polite">
+            <p class="stage-when" id="stageWhen">Тиждень 1</p>
+            <p class="stage-num" id="stageNum">01</p>
+            <h3 class="stage-title" id="stageTitle">Зустріч і прорахунок</h3>
+            <p class="stage-text" id="stageBody">Слухаємо ідею, дивимось приміщення й рахуємо вкладення та окупність. Цифри ви бачите ще до старту робіт.</p>
           </div>
-          <a class="btn btn-sign magnetic build-cta" href="#contact"><span>Записатися на зустріч</span></a>
-        </div>
-        <div class="build-config" id="buildConfig" hidden>
-          <label class="cfg-name">
-            <span>Назва</span>
-            <input id="cfgName" maxlength="26" placeholder="Як назвете свій заклад?" autocomplete="off">
-          </label>
-          <div class="cfg-row">
-            <span class="cfg-label">Формат</span>
-            <div class="cfg-options" data-cfg="format">
-              <button type="button" data-value="restaurant">Ресторан</button>
-              <button type="button" data-value="coffee">Кав'ярня</button>
-              <button type="button" data-value="pizza">Піцерія</button>
-              <button type="button" data-value="burger">Бургерна</button>
-            </div>
-          </div>
-          <div class="cfg-row">
-            <span class="cfg-label">Фасад</span>
-            <div class="cfg-options" data-cfg="facade">
-              <button type="button" data-value="brick" class="is-active">Цегла</button>
-              <button type="button" data-value="plaster">Штукатурка</button>
-              <button type="button" data-value="dark">Темний</button>
-            </div>
-          </div>
-          <div class="cfg-row">
-            <span class="cfg-label">Козирки</span>
-            <div class="cfg-options cfg-swatches" data-cfg="awning">
-              <button type="button" data-value="#f26a1b" class="is-active" aria-label="Помаранчеві" style="--sw: #f26a1b"></button>
-              <button type="button" data-value="#3f6b45" aria-label="Зелені" style="--sw: #3f6b45"></button>
-              <button type="button" data-value="#7a2430" aria-label="Бордові" style="--sw: #7a2430"></button>
-              <button type="button" data-value="#1f1b18" aria-label="Чорні" style="--sw: #1f1b18"></button>
-              <button type="button" data-value="#e9dfcf" aria-label="Кремові" style="--sw: #e9dfcf"></button>
-            </div>
-          </div>
-          <div class="cfg-row">
-            <span class="cfg-label">Додати</span>
-            <div class="cfg-options cfg-multi" data-cfg="extras">
-              <button type="button" data-value="terrace" aria-pressed="false">Тераса</button>
-              <button type="button" data-value="flowers" aria-pressed="true" class="is-active">Квіти</button>
-              <button type="button" data-value="garland" aria-pressed="false">Гірлянда</button>
-            </div>
-          </div>
-          <button class="btn btn-ink cfg-open" type="button" id="cfgOpen"><span>Відкрити заклад</span></button>
-          <a class="btn btn-sign magnetic cfg-want" id="cfgWant" href="#contact"><span>Хочу такий заклад</span></a>
+          <a class="btn btn-sign magnetic stages-cta" href="#contact"><span>Записатися на зустріч</span></a>
         </div>
       </div>
+    </div>
+  </section>
 
-      <ol class="build-steps" id="buildSteps">
-          <li><button class="build-step is-active" type="button" data-when="День 1" data-text="Знайомимось, слухаємо вашу ідею, бюджет і очікування. Це безкоштовно." aria-pressed="true"><span>01</span>Зустріч</button></li>
-          <li><button class="build-step" type="button" data-when="Тиждень 1" data-text="Обираємо формат і перевіряємо місце: хто тут ходить і скільки готовий платити." aria-pressed="false"><span>02</span>Консультація</button></li>
-          <li><button class="build-step" type="button" data-when="Тиждень 2" data-text="Рахуємо вкладення й окупність. Ви бачите цифри ще до старту робіт." aria-pressed="false"><span>03</span>Прорахунок</button></li>
-          <li><button class="build-step" type="button" data-when="Тиждень 2" data-text="Фіксуємо обсяг робіт, терміни й вартість." aria-pressed="false"><span>04</span>Договір</button></li>
-          <li><button class="build-step" type="button" data-when="Тижні 3–10" data-text="Ремонт, обладнання, меню й техкарти, команда, документи." aria-pressed="false"><span>05</span>Запуск</button></li>
-          <li><button class="build-step" type="button" data-when="Тиждень 6–12" data-text="Вмикаємо світло й зустрічаємо першого гостя." aria-pressed="false"><span>06</span>Відчинено</button></li>
-          <li><button class="build-step" type="button" data-when="+30 днів" data-text="Місяць поруч: коригуємо меню й процеси, поки все не запрацює стабільно." aria-pressed="false"><span>07</span>Супровід</button></li>
-      </ol>
-      <p class="process-note">Орієнтовно від договору до відкриття минає 1,5–3 місяці. Великі проєкти займають більше часу.</p>
+  <section class="franchise" id="franchise">
+    <div class="fr-card">
+      <div class="fr-pics">
+        <img class="fr-chain" src="assets/minis/franchise.webp" alt="Безлика точка франшизи з замком на дверях" width="800" height="800" loading="lazy" decoding="async">
+        <img class="fr-own" src="assets/minis/own.webp" alt="Власний затишний заклад з помаранчевими дверима" width="800" height="800" loading="lazy" decoding="async">
+      </div>
+      <div class="fr-body">
+        <h2 class="fr-title">Франшиза чи свій заклад?</h2>
+        <p class="fr-hint">Переверніть табличку й подивіться різницю.</p>
+        <button class="fr-flip" id="frFlip" type="button" aria-pressed="false" aria-label="Перемкнути: франшиза чи свій заклад">
+          <span class="fr-flip-in">
+            <span class="fr-face fr-face-a"><b>ФРАНШИЗА</b><small>точка мережі № 0417</small></span>
+            <span class="fr-face fr-face-b"><b>ВІДЧИНЕНО</b><small>ваш власний заклад</small></span>
+          </span>
+        </button>
+        <dl class="fr-rows">
+          <div class="fr-row"><dt>Назва й меню</dt><dd><span class="v-chain">Чужі, як у сотні інших точок</span><span class="v-own">Ваші, придумані під ваших гостей</span></dd></div>
+          <div class="fr-row"><dt>Щомісяця</dt><dd><span class="v-chain">Роялті й маркетинговий збір мережі</span><span class="v-own">Нічого. Прибуток лишається вам</span></dd></div>
+          <div class="fr-row"><dt>Закупівлі</dt><dd><span class="v-chain">Тільки у постачальників мережі</span><span class="v-own">Там, де вигідно вам</span></dd></div>
+          <div class="fr-row"><dt>Хто запускає</dt><dd><span class="v-chain">Менеджер франшизи, часто дистанційно</span><span class="v-own">Шеф, який сам відкрив і тримає ресторан</span></dd></div>
+          <div class="fr-row"><dt>Зміни</dt><dd><span class="v-chain">Тільки з дозволу мережі</span><span class="v-own">Коли вирішите самі</span></dd></div>
+        </dl>
+        <a class="btn btn-sign magnetic fr-cta" href="#contact" data-intent="Хочу свій заклад замість франшизи."><span>Хочу свій заклад</span></a>
+      </div>
     </div>
   </section>
 
@@ -608,6 +552,6 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script type="module" src="js/main.js?v=202611140918"></script>
+<script type="module" src="js/main.js?v=202611141041"></script>
 </body>
 </html>

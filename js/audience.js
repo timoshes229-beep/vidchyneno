@@ -27,3 +27,31 @@ export function initAudience() {
     for (const c of cards) io.observe(c);
   }
 }
+
+// Вибір переходить у заявку: формат у список, побажання в коментар, якщо людина ще нічого не писала
+function toBooking({ format, intent }) {
+  const form = document.getElementById('booking');
+  if (!form) return;
+  if (format) form.elements.format.value = format;
+  const comment = form.elements.comment;
+  if (intent && comment && !comment.dataset.touched) comment.value = intent;
+}
+
+// «Які заклади відчиняємо»
+export function initFormats() {
+  for (const card of document.querySelectorAll('.fmt-card')) {
+    card.addEventListener('click', () => toBooking(card.dataset));
+  }
+}
+
+// «Франшиза чи свій заклад?»: табличка перевертається
+export function initFranchise() {
+  const section = document.getElementById('franchise');
+  const flip = document.getElementById('frFlip');
+  if (!section || !flip) return;
+  flip.addEventListener('click', () => {
+    const own = section.classList.toggle('is-own');
+    flip.setAttribute('aria-pressed', String(own));
+  });
+  section.querySelector('.fr-cta')?.addEventListener('click', (e) => toBooking(e.currentTarget.dataset));
+}

@@ -1,13 +1,13 @@
-import { createHero } from './hero.js?v=202611140918';
-import { initAbout } from './about.js?v=202611140918';
-import { initProcess } from './process.js?v=202611140918';
-import { initCases } from './cases.js?v=202611140918';
-import { initPricing } from './pricing.js?v=202611140918';
-import { initOrder } from './order.js?v=202611140918';
-import { initAudience } from './audience.js?v=202611140918';
-import { initFaq } from './faq.js?v=202611140918';
-import { initContact } from './contact.js?v=202611140918';
-import { initPlace } from './place.js?v=202611140918';
+import { createHero } from './hero.js?v=202611141041';
+import { initAbout } from './about.js?v=202611141041';
+import { initProcess } from './process.js?v=202611141041';
+import { initCases } from './cases.js?v=202611141041';
+import { initPricing } from './pricing.js?v=202611141041';
+import { initOrder } from './order.js?v=202611141041';
+import { initAudience, initFormats, initFranchise } from './audience.js?v=202611141041';
+import { initFaq } from './faq.js?v=202611141041';
+import { initContact } from './contact.js?v=202611141041';
+import { initPlace } from './place.js?v=202611141041';
 
 const $ = (s) => document.querySelector(s);
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -27,7 +27,7 @@ const copy = $('#heroCopy');
 const veil = $('#heroVeil');
 const canvasEl = $('#scene');
 const header = $('#header');
-const lightSections = [...document.querySelectorAll('.process, .pricing, .faq')];
+const lightSections = [...document.querySelectorAll('.pricing, .faq')];
 let hero = null;
 
 const heroReady = createHero(canvasEl)
@@ -122,6 +122,8 @@ const updateCases = initCases();
 initPricing();
 initOrder(!reduceMotion);
 initAudience();
+initFormats();
+initFranchise();
 initFaq();
 initContact();
 
