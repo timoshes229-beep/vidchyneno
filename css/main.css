@@ -914,7 +914,7 @@ body.is-ready .scroll-hint { opacity: 1; }
 .kitchen-head { max-width: 1440px; margin: 0 auto clamp(30px, 4vw, 54px); padding: 0 var(--gutter); display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; flex-wrap: wrap; }
 .kitchen-title { font-size: clamp(38px, 5vw, 80px); font-weight: 800; letter-spacing: -.035em; line-height: .95; white-space: nowrap; }
 .kitchen-lead { max-width: 42ch; font-size: 17px; line-height: 1.5; color: rgba(233, 223, 207, .68); }
-.kitchen-track { display: flex; width: max-content; animation: kitchen-drift 40s linear infinite; }
+.kitchen-track { display: flex; width: max-content; animation: kitchen-drift 25s linear infinite; }
 .kitchen-strip:hover .kitchen-track { animation-play-state: paused; }
 @keyframes kitchen-drift { to { transform: translateX(-50%); } }
 .kitchen-list { list-style: none; display: flex; gap: clamp(14px, 1.6vw, 24px); padding-right: clamp(14px, 1.6vw, 24px); }

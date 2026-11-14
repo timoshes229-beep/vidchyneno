@@ -1,6 +1,6 @@
 // «Як ми працюємо»: етапи в мініатюрах гортаються самі, щойно блок у кадрі
-const STEP_MS = 3000;
-const LAST_MS = 4200;
+const STEP_MS = 2000;
+const LAST_MS = 3200;
 
 export function initProcess() {
   const section = document.getElementById('process');
