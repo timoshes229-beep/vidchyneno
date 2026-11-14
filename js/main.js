@@ -1,13 +1,13 @@
-import { createHero } from './hero.js?v=202611141054';
-import { initAbout } from './about.js?v=202611141054';
-import { initProcess } from './process.js?v=202611141054';
-import { initCases } from './cases.js?v=202611141054';
-import { initPricing } from './pricing.js?v=202611141054';
-import { initOrder } from './order.js?v=202611141054';
-import { initAudience, initFormats, initFranchise } from './audience.js?v=202611141054';
-import { initFaq } from './faq.js?v=202611141054';
-import { initContact } from './contact.js?v=202611141054';
-import { initPlace } from './place.js?v=202611141054';
+import { createHero } from './hero.js?v=202611141100';
+import { initAbout } from './about.js?v=202611141100';
+import { initProcess } from './process.js?v=202611141100';
+import { initCases } from './cases.js?v=202611141100';
+import { initPricing } from './pricing.js?v=202611141100';
+import { initOrder } from './order.js?v=202611141100';
+import { initAudience, initFormats, initFranchise } from './audience.js?v=202611141100';
+import { initFaq } from './faq.js?v=202611141100';
+import { initContact } from './contact.js?v=202611141100';
+import { initPlace } from './place.js?v=202611141100';
 
 const $ = (s) => document.querySelector(s);
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -27,7 +27,8 @@ const copy = $('#heroCopy');
 const veil = $('#heroVeil');
 const canvasEl = $('#scene');
 const header = $('#header');
-const lightSections = [...document.querySelectorAll('.pricing, .faq')];
+// світлих блоків зараз немає; шапка стає темною над блоком із data-light
+const lightSections = [...document.querySelectorAll('[data-light]')];
 let hero = null;
 
 const heroReady = createHero(canvasEl)
@@ -91,6 +92,7 @@ function openUp() {
 let heroVisible = true;
 const tgFloat = $('.tg-float');
 const contactEl = $('#contact');
+const busyEls = [...document.querySelectorAll('#price, #faq')];
 function updateHero() {
   const rect = heroEl.getBoundingClientRect();
   const total = heroEl.offsetHeight - innerHeight;
@@ -106,8 +108,10 @@ function updateHero() {
   header.classList.toggle('is-light', overLight && !menu.classList.contains('is-open'));
 
   // кнопка Telegram з'являється після першого екрана й ховається біля форми заявки
+  // і над повзунком цін та чатом, щоб не закривала кнопки
   const c = contactEl.getBoundingClientRect();
-  tgFloat?.classList.toggle('is-on', rect.bottom < innerHeight * 0.5 && c.top > innerHeight * 0.85 && !menu.classList.contains('is-open'));
+  const busy = busyEls.some((el) => { const r = el.getBoundingClientRect(); return r.top < innerHeight && r.bottom > innerHeight - 120; });
+  tgFloat?.classList.toggle('is-on', rect.bottom < innerHeight * 0.5 && c.top > innerHeight * 0.85 && !busy && !menu.classList.contains('is-open'));
 
   const visible = rect.bottom > 0;
   if (visible !== heroVisible) {
