@@ -147,11 +147,11 @@ img { display: block; max-width: 100%; }
 <section class="styles">
   <h2 class="styles-title">Яка архітектура ближча?</h2>
   <div class="styles-grid">
-    <figure><img class="fade" src="img/f-restaurant.webp" alt=""><figcaption><b>Класика</b><span>цегла, черепиця, гірлянди. Зараз у перегляді</span></figcaption></figure>
+    <figure><img class="fade" src="img/c-restaurant.webp" alt=""><figcaption><b>Класика</b><span>цегла, черепиця, гірлянди. Зараз у перегляді</span></figcaption></figure>
     <figure><img class="fade" src="img/m-glass.webp" alt=""><figcaption><b>Сучасне скло</b><span>скляний павільйон, бетон, дерев'яний навіс</span></figcaption></figure>
     <figure><img class="fade" src="img/m-scandi.webp" alt=""><figcaption><b>Скандинавія</b><span>світле дерево, білі стіни, заокруглені вікна</span></figcaption></figure>
-    <figure><img class="fade" src="img/m-loft.webp" alt=""><figcaption><b>Лофт</b><span>чорна сталь, скло, відкрита кухня, тераса на даху</span></figcaption></figure>
-    <figure><img class="fade" src="img/m-orange.webp" alt=""><figcaption><b>Фірмовий «Відчинено»</b><span>графіт і помаранчеві двері, як наша вивіска</span></figcaption></figure>
+    <figure><img class="fade" src="img/l-restaurant.webp" alt=""><figcaption><b>Лофт</b><span>чорна сталь, скло, відкрита кухня, тераса на даху</span></figcaption></figure>
+    <figure><img class="fade" src="img/o-restaurant.webp" alt=""><figcaption><b>Фірмовий «Відчинено»</b><span>графіт і помаранчеві двері, як наша вивіска</span></figcaption></figure>
   </div>
 </section>
 
@@ -171,10 +171,10 @@ img { display: block; max-width: 100%; }
   </div>
   <div class="stage">
     <div class="styles-pick" id="stylePick" role="group" aria-label="Стиль архітектури">
-      <button class="sp is-on" data-s="classic">Класика</button>
-      <button class="sp" data-s="glass">Сучасне скло</button>
-      <button class="sp" data-s="orange">Фірмовий</button>
-      <button class="sp" data-s="loft">Лофт</button>
+      <button class="sp is-on" data-s="c">Класика</button>
+      <button class="sp" data-s="g">Сучасне скло</button>
+      <button class="sp" data-s="o">Фірмовий</button>
+      <button class="sp" data-s="l">Лофт</button>
     </div>
     <div class="stage-main" id="stageMain">
       <div class="tag" aria-hidden="true"><div class="tag-board"><small>Відчинено</small><b id="tagName">Ваш заклад</b></div></div>
@@ -189,12 +189,12 @@ img { display: block; max-width: 100%; }
   <div class="build-head"><h2 class="build-title">Від ідеї до першого гостя</h2></div>
   <div class="build-grid">
     <div class="build-pics" id="buildPics">
-      <img class="fade is-on" src="img/s1.webp" alt="">
-      <img class="fade" src="img/s2.webp" alt="">
-      <img class="fade" src="img/s3.webp" alt="">
-      <img class="fade" src="img/s4.webp" alt="">
-      <img class="fade" src="img/s5.webp" alt="">
-      <img class="fade" src="img/s6.webp" alt="">
+      <img class="fade is-on" src="img/c-s1.webp" alt="">
+      <img class="fade" src="img/c-s2.webp" alt="">
+      <img class="fade" src="img/c-s3.webp" alt="">
+      <img class="fade" src="img/c-s4.webp" alt="">
+      <img class="fade" src="img/c-s5.webp" alt="">
+      <img class="fade" src="img/c-s6.webp" alt="">
     </div>
     <div>
       <div class="track" id="track"><span class="track-fill" id="trackFill"></span></div>
@@ -213,7 +213,7 @@ img { display: block; max-width: 100%; }
   <div class="fr-card">
     <div class="fr-pics">
       <img class="fade fr-chain" src="img/franchise.webp" alt="Безлика точка франшизи">
-      <img class="fade fr-own" src="img/own.webp" alt="Власний затишний заклад">
+      <img class="fade fr-own" id="frOwn" src="img/c-own.webp" alt="Власний затишний заклад">
     </div>
     <div>
       <h2 class="fr-title">Франшиза чи свій заклад?</h2>
@@ -238,12 +238,14 @@ img { display: block; max-width: 100%; }
 <script>
 // 1. Стиль і формати: картинки для кожного стилю; поки людина не обрала сама, формати гортаються
 const NAMES = { restaurant: 'Ресторан', coffee: "Кав'ярня", pizza: 'Піцерія', burger: 'Бургерна', shawarma: 'Шаурма', bakery: 'Пекарня' };
-const SETS = {
-  classic: { restaurant: 'f-restaurant', coffee: 'f-coffee', pizza: 'f-pizza', burger: 'f-burger', shawarma: 'f-shawarma', bakery: 'f-bakery' },
-  glass: { restaurant: 'g-restaurant', coffee: 'g-coffee' },
-  orange: { restaurant: 'm-orange' },
-  loft: { restaurant: 'm-loft' },
+// які картинки вже намальовані в кожному стилі; бракує — показуємо класику
+const HAVE = {
+  c: { f: ['restaurant', 'coffee', 'pizza', 'burger', 'shawarma', 'bakery'], s: [1, 2, 3, 4, 5, 6], own: true },
+  g: { f: ['restaurant', 'coffee'], s: [], own: false },
+  o: { f: ['restaurant'], s: [], own: false },
+  l: { f: ['restaurant'], s: [], own: false },
 };
+const SETS = Object.fromEntries(Object.entries(HAVE).map(([st, h]) => [st, Object.fromEntries(h.f.map((k) => [k, `${st}-${k}`]))]));
 const stageMain = document.getElementById('stageMain');
 const fmtBox = document.getElementById('formats');
 const note = document.getElementById('styleNote');
@@ -265,7 +267,12 @@ function setStyle(st) {
     b.addEventListener('click', () => { auto = false; pick(i); });
     fmtBox.appendChild(b); return b;
   });
-  note.textContent = keys.length < 6 ? 'Решту форматів у цьому стилі домалюю, щойно оновиться ліміт генерації.' : '';
+  const h = HAVE[st];
+  const missing = keys.length < 6 || h.s.length < 6 || !h.own;
+  note.textContent = missing ? 'Частину картинок у цьому стилі ще домальовую. Де їх немає, поки стоїть класика.' : '';
+  // стиль міняє й етапи, і «свій заклад» у франшизі
+  document.querySelectorAll('#buildPics img').forEach((im, i) => { im.src = `img/${h.s.includes(i + 1) ? st : 'c'}-s${i + 1}.webp`; });
+  document.getElementById('frOwn').src = `img/${h.own ? st : 'c'}-own.webp`;
   pick(0);
 }
 function pick(i) {
@@ -277,7 +284,7 @@ document.querySelectorAll('.sp').forEach((b) => b.addEventListener('click', () =
   document.querySelectorAll('.sp').forEach((x) => x.classList.toggle('is-on', x === b));
   setStyle(b.dataset.s);
 }));
-setStyle('classic');
+setStyle('c');
 setInterval(() => { if (auto && formats.length > 1) pick((fi + 1) % formats.length); }, 3200);
 const nameIn = document.getElementById('name');
 const tagName = document.getElementById('tagName');
