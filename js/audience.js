@@ -39,7 +39,7 @@ function toBooking({ format, intent }) {
 
 // «Які заклади відчиняємо»
 export function initFormats() {
-  for (const card of document.querySelectorAll('.fmt-card')) {
+  for (const card of document.querySelectorAll('.fmt-card, .fmt-chip')) {
     card.addEventListener('click', () => toBooking(card.dataset));
   }
 }

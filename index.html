@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400..800&family=Marck+Script&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/main.css?v=202611141349">
+<link rel="stylesheet" href="css/main.css?v=202611141351">
 <script type="importmap">
 { "imports": {
   "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
@@ -205,30 +205,40 @@
     <ul class="formats-grid">
         <li><a class="fmt-card" href="#contact" data-format="Кафе або ресторан" data-intent="Цікавить формат: ресторан.">
           <img src="assets/minis/restaurant.webp" alt="Ресторан: мініатюра закладу" width="640" height="640" loading="lazy" decoding="async">
-          <b>Ресторан</b><span>Повна кухня, зал і бар</span>
+          <b>Ресторан</b><span>Повна кухня, зал і бар</span><em class="fmt-cta">Обговорити ресторан</em>
         </a></li>
         <li><a class="fmt-card" href="#contact" data-format="Кав'ярня" data-intent="Цікавить формат: кав'ярня.">
           <img src="assets/minis/coffee.webp" alt="Кав'ярня: мініатюра закладу" width="640" height="640" loading="lazy" decoding="async">
-          <b>Кав'ярня</b><span>Кава, десерти й сніданки</span>
+          <b>Кав'ярня</b><span>Кава, десерти й сніданки</span><em class="fmt-cta">Обговорити кав'ярню</em>
         </a></li>
         <li><a class="fmt-card" href="#contact" data-format="Піцерія, суші чи бургерна" data-intent="Цікавить формат: піцерія.">
           <img src="assets/minis/pizza.webp" alt="Піцерія: мініатюра закладу" width="640" height="640" loading="lazy" decoding="async">
-          <b>Піцерія</b><span>Піч, тісто й доставка</span>
+          <b>Піцерія</b><span>Піч, тісто й доставка</span><em class="fmt-cta">Обговорити піцерію</em>
         </a></li>
         <li><a class="fmt-card" href="#contact" data-format="Піцерія, суші чи бургерна" data-intent="Цікавить формат: бургерна.">
           <img src="assets/minis/burger.webp" alt="Бургерна: мініатюра закладу" width="640" height="640" loading="lazy" decoding="async">
-          <b>Бургерна</b><span>Гриль і швидка видача</span>
+          <b>Бургерна</b><span>Гриль і швидка видача</span><em class="fmt-cta">Обговорити бургерну</em>
         </a></li>
         <li><a class="fmt-card" href="#contact" data-format="Стрітфуд або шаурма" data-intent="Цікавить формат: шаурма й стрітфуд.">
           <img src="assets/minis/shawarma.webp" alt="Шаурма й стрітфуд: мініатюра закладу" width="640" height="640" loading="lazy" decoding="async">
-          <b>Шаурма й стрітфуд</b><span>Кіоск або острівець</span>
+          <b>Шаурма й стрітфуд</b><span>Кіоск або острівець</span><em class="fmt-cta">Обговорити стрітфуд</em>
         </a></li>
         <li><a class="fmt-card" href="#contact" data-format="Пекарня чи кондитерська" data-intent="Цікавить формат: пекарня.">
           <img src="assets/minis/bakery.webp" alt="Пекарня: мініатюра закладу" width="640" height="640" loading="lazy" decoding="async">
-          <b>Пекарня</b><span>Випічка й кондитерка</span>
+          <b>Пекарня</b><span>Випічка й кондитерка</span><em class="fmt-cta">Обговорити пекарню</em>
         </a></li>
     </ul>
-    <p class="formats-more">А також суші, чебуречні, кондитерські, dark kitchen і ваш власний формат.</p>
+    <div class="formats-more">
+      <p>Інші формати теж відкриваємо:</p>
+      <div class="fmt-chips">
+      <a class="fmt-chip" href="#contact" data-format="Піцерія, суші чи бургерна" data-intent="Цікавить формат: суші.">Суші</a>
+      <a class="fmt-chip" href="#contact" data-format="Стрітфуд або шаурма" data-intent="Цікавить формат: чебуречна.">Чебуречна</a>
+      <a class="fmt-chip" href="#contact" data-format="Пекарня чи кондитерська" data-intent="Цікавить формат: кондитерська.">Кондитерська</a>
+      <a class="fmt-chip" href="#contact" data-format="Dark kitchen" data-intent="Цікавить формат: dark kitchen, заклад тільки на доставку.">Dark kitchen</a>
+      <a class="fmt-chip" href="#contact" data-format="Кафе або ресторан" data-intent="Цікавить формат: кафе біля дому або при ЖК.">Кафе біля дому</a>
+      <a class="fmt-chip fmt-chip-own" href="#contact" data-format="" data-intent="Маю власну ідею формату, хочу її обговорити.">Свій формат</a>
+      </div>
+    </div>
   </section>
 
   <section class="services" id="services">
@@ -554,6 +564,6 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script type="module" src="js/main.js?v=202611141349"></script>
+<script type="module" src="js/main.js?v=202611141351"></script>
 </body>
 </html>
