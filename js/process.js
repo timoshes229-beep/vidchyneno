@@ -35,7 +35,7 @@ export function initProcess() {
     box.classList.add('is-out');
     setTimeout(() => {
       when.textContent = d.when;
-      num.textContent = String(i + 1).padStart(2, '0');
+      num.innerHTML = `${String(i + 1).padStart(2, '0')}<span>/ ${String(dots.length).padStart(2, '0')}</span>`;
       title.textContent = d.title;
       body.textContent = d.text;
       box.classList.remove('is-out');

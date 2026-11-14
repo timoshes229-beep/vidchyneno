@@ -978,7 +978,8 @@ body.is-ready .scroll-hint { opacity: 1; }
 .stages-text > * { transition: opacity .35s, transform .55s var(--ease-out); }
 .stages-text.is-out > * { opacity: 0; transform: translateY(10px); }
 .stage-when { font-family: var(--script); font-size: 30px; line-height: 1.2; color: var(--lamp); }
-.stage-num { font-size: clamp(64px, 7vw, 120px); font-weight: 900; letter-spacing: -.06em; line-height: .85; color: transparent; -webkit-text-stroke: 2px var(--sign); }
+.stage-num { display: flex; align-items: baseline; gap: 10px; font-size: clamp(60px, 6.4vw, 104px); font-weight: 800; letter-spacing: -.05em; line-height: .9; color: var(--sign); font-variant-numeric: tabular-nums; }
+.stage-num span { font-size: .3em; font-weight: 700; letter-spacing: 0; color: rgba(233, 223, 207, .4); }
 .stage-title { margin-top: 14px; font-size: clamp(26px, 2.8vw, 44px); font-weight: 800; letter-spacing: -.035em; line-height: 1.04; }
 .stage-text { max-width: 40ch; min-height: 4.65em; margin-top: 12px; font-size: 17px; line-height: 1.55; color: rgba(233, 223, 207, .78); }
 .stages-cta { margin-top: clamp(20px, 3vw, 32px); }
