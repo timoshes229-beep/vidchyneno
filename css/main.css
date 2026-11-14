@@ -7,7 +7,9 @@
   --sign: #f26a1b;
   --ink: #15110e;
 
-  --font: 'Montserrat', system-ui, sans-serif;
+  --font: 'Onest', system-ui, sans-serif;
+  /* заголовки, цифри й вивіски: широкий шрифт, схожий на літери з вивіски */
+  --display: 'Unbounded', 'Onest', system-ui, sans-serif;
   --script: 'Marck Script', cursive;
 
   --gutter: clamp(16px, 3.2vw, 48px);
@@ -190,7 +192,7 @@ body.is-loading .site-header { opacity: 0; transform: translateY(-20px); }
 .hero-copy a { pointer-events: auto; }
 
 .hero-title {
-  font-size: clamp(40px, 4.9vw, 96px);
+  font-size: clamp(34px, 4vw, 80px);
   font-weight: 800;
   line-height: .9;
   letter-spacing: -.035em;
@@ -705,7 +707,7 @@ body.is-ready .scroll-hint { opacity: 1; }
 
 /* ---------- планшет ---------- */
 @media (max-width: 1100px) and (min-width: 761px) {
-  .hero-title { font-size: clamp(36px, 5.2vw, 64px); }
+  .hero-title { font-size: clamp(30px, 4.2vw, 54px); }
   .scroll-hint { display: none; }
 }
 
@@ -715,7 +717,7 @@ body.is-ready .scroll-hint { opacity: 1; }
   .header-link { display: none; }
   .hero { height: 340vh; }
   .hero-copy { top: calc(var(--door-bottom) + 22px); display: flex; flex-direction: column; gap: 18px; padding: 0 var(--gutter); }
-  .hero-title { font-size: clamp(38px, 11.4vw, 60px); }
+  .hero-title { font-size: clamp(30px, 9vw, 48px); }
   .hero-word { position: static; transform: none; display: block; }
   .hero-word-left { text-align: left; }
   .hero-word-right { padding-left: 1.1em; }
@@ -868,7 +870,7 @@ body.is-ready .scroll-hint { opacity: 1; }
   .hero-stats span { font-size: 10.5px; white-space: normal; }
 }
 @media (max-width: 760px) and (max-height: 720px) {
-  .hero-title { font-size: clamp(32px, 9.4vw, 42px); }
+  .hero-title { font-size: clamp(26px, 7.6vw, 36px); }
   .hero-copy { gap: 10px; }
   .place { gap: 6px; padding: 8px; }
   .place-name input { padding: 10px 12px; font-size: 19px; }
@@ -1179,3 +1181,12 @@ body.is-ready .scroll-hint { opacity: 1; }
 .iti__country { padding: 10px 14px; font-size: 15px; }
 .iti__country.iti__highlight { background: rgba(242, 106, 27, .12); }
 .iti__dial-code { color: rgba(21, 17, 14, .55); }
+
+/* ---------- шрифт заголовків ---------- */
+h1, h2, h3,
+.brand-sign, .hero-stats b, .about-stats b, .stage-num, .receipt-head, .receipt-lines dd,
+.fr-face b, .about-sign b, .tag-board b, .plan-area, .area-label b, .fmt-card b, .chat-who b {
+  font-family: var(--display);
+  letter-spacing: -.03em;
+}
+.receipt-gift dd { font-family: var(--script); letter-spacing: 0; }

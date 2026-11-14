@@ -126,9 +126,9 @@ function signTexture(open) {
   g.fillStyle = fg;
   g.textAlign = 'center'; g.textBaseline = 'middle';
   const word = open ? 'ВІДЧИНЕНО' : 'ЗАЧИНЕНО';
-  fitFont(g, word, 800, 'Montserrat', W - 200, 170);
+  fitFont(g, word, 700, 'Unbounded', W - 200, 150);
   g.fillText(word, W / 2, H / 2 - 30);
-  g.font = '500 44px Montserrat';
+  g.font = '500 42px Onest';
   g.globalAlpha = 0.85;
   g.fillText(open ? 'від ідеї до першого гостя' : 'але вже зовсім скоро', W / 2, H / 2 + 100);
   return tex(c);
@@ -313,8 +313,8 @@ function windowTexture(format, seed) {
 
 export async function createHero(canvasEl) {
   await Promise.all([
-    document.fonts.load('800 100px Montserrat', 'ВІДЧИНЕНОЗАЧ'),
-    document.fonts.load('500 40px Montserrat', 'від ідеї до першого гостя але вже зовсім скоро'),
+    document.fonts.load('700 100px Unbounded', 'ВІДЧИНЕНОЗАЧ'),
+    document.fonts.load('500 40px Onest', 'від ідеї до першого гостя але вже зовсім скоро'),
     document.fonts.load('400 100px "Marck Script"', 'Ласкаво просимо'),
   ]).catch(() => {});
 
