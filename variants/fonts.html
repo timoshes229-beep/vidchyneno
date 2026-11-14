@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Варіанти шрифту</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400..900&family=Unbounded:wght@400..900&family=Onest:wght@400..800&family=Geologica:wght@300..900&family=Dela+Gothic+One&family=Golos+Text:wght@400..800&family=Yeseva+One&family=Marck+Script&display=swap" rel="stylesheet">
+<style>
+:root { --bg: #0e0b08; --cream: #e9dfcf; --ink: #15110e; --sign: #f26a1b; --lamp: #ffc27a; --gutter: clamp(16px, 3.2vw, 48px); }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--cream); font-family: 'Montserrat', sans-serif; }
+.label { position: sticky; top: 0; z-index: 5; padding: 12px var(--gutter); background: rgba(10, 8, 6, .92); backdrop-filter: blur(10px); font: 700 14px 'Montserrat', sans-serif; color: var(--lamp); }
+.label span { color: rgba(233, 223, 207, .6); font-weight: 500; }
+.v { padding: clamp(50px, 7vw, 100px) var(--gutter); border-bottom: 1px solid rgba(233, 223, 207, .08); }
+.v-in { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(24px, 5vw, 80px); align-items: end; }
+.h1 { font-family: var(--h); font-weight: var(--hw); font-size: clamp(46px, 7vw, 112px); line-height: .95; letter-spacing: var(--ls, -.035em); }
+.h1 span { display: block; color: var(--sign); }
+.kicker { margin-bottom: 10px; font-family: 'Marck Script', cursive; font-size: 28px; color: var(--lamp); }
+.h2 { margin-top: 30px; font-family: var(--h); font-weight: var(--hw); font-size: clamp(30px, 3.6vw, 56px); line-height: 1; letter-spacing: var(--ls, -.035em); }
+.h2 small { display: block; margin-top: 8px; font-size: .45em; color: var(--sign); }
+.text { font-family: var(--b); font-size: 17px; line-height: 1.55; color: rgba(233, 223, 207, .82); }
+.stats { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 26px; margin-top: 24px; }
+.stats b { display: block; font-family: var(--h); font-weight: var(--hw); font-size: 30px; color: var(--lamp); letter-spacing: var(--ls, -.03em); }
+.stats span { font-family: var(--b); font-size: 13px; color: rgba(233, 223, 207, .6); }
+.btn { display: inline-flex; margin-top: 26px; padding: 16px 26px; border-radius: 999px; background: var(--sign); color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); font-family: var(--b); font-weight: 700; font-size: 15px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.chips i { font-style: normal; padding: 9px 15px; border-radius: 999px; box-shadow: inset 0 0 0 1px rgba(233, 223, 207, .25); font-family: var(--b); font-size: 14px; font-weight: 600; }
+.note { margin-top: 22px; font-family: 'Montserrat', sans-serif; font-size: 14px; line-height: 1.5; color: rgba(233, 223, 207, .55); max-width: 46ch; }
+@media (max-width: 860px) { .v-in { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<p class="label">Зараз · <span>Montserrat</span></p>
+<section class="v" style="--h: 'Montserrat'; --hw: 800; --b: 'Montserrat'">
+  <div class="v-in">
+    <div>
+      <p class="kicker">Хто відчиняє двері</p>
+      <h2 class="h1">Від ідеї <span>до першого гостя</span></h2>
+      <p class="h2">12 років біля плити<small>20+ відкритих закладів</small></p>
+    </div>
+    <div>
+      <p class="text">Дмитро Барсук відкриває кафе, ресторани та стрітфуд під ключ по всій Україні. Меню й техкарти, команда, ремонт і перший гість.</p>
+      <ul class="stats"><li><b>20+</b><span>закладів</span></li><li><b>з 2012</b><span>у ресторанах</span></li><li><b>1,5–3 міс.</b><span>до відкриття</span></li></ul>
+      <div class="chips"><i>Кав'ярня</i><i>Піцерія</i><i>Ґриль-бар</i><i>Їдальня</i></div>
+      <a class="btn" href="#">Обговорити заклад</a>
+      <p class="note">Охайний і читабельний, але ним користується половина сайтів у нашому конкурсі.</p>
+    </div>
+  </div>
+</section>
+
+<p class="label">Варіант 1 · <span>Unbounded + Onest</span></p>
+<section class="v" style="--h: 'Unbounded'; --hw: 700; --b: 'Onest'; --ls: -.04em">
+  <div class="v-in">
+    <div>
+      <p class="kicker">Хто відчиняє двері</p>
+      <h2 class="h1">Від ідеї <span>до першого гостя</span></h2>
+      <p class="h2">12 років біля плити<small>20+ відкритих закладів</small></p>
+    </div>
+    <div>
+      <p class="text">Дмитро Барсук відкриває кафе, ресторани та стрітфуд під ключ по всій Україні. Меню й техкарти, команда, ремонт і перший гість.</p>
+      <ul class="stats"><li><b>20+</b><span>закладів</span></li><li><b>з 2012</b><span>у ресторанах</span></li><li><b>1,5–3 міс.</b><span>до відкриття</span></li></ul>
+      <div class="chips"><i>Кав'ярня</i><i>Піцерія</i><i>Ґриль-бар</i><i>Їдальня</i></div>
+      <a class="btn" href="#">Обговорити заклад</a>
+      <p class="note">Широкий, округлий і сучасний, схожий на вивіску. Сильно вирізняє заголовки. Текст в Onest дуже легко читається.</p>
+    </div>
+  </div>
+</section>
+
+<p class="label">Варіант 2 · <span>Geologica</span></p>
+<section class="v" style="--h: 'Geologica'; --hw: 800; --b: 'Geologica'; --ls: -.03em">
+  <div class="v-in">
+    <div>
+      <p class="kicker">Хто відчиняє двері</p>
+      <h2 class="h1">Від ідеї <span>до першого гостя</span></h2>
+      <p class="h2">12 років біля плити<small>20+ відкритих закладів</small></p>
+    </div>
+    <div>
+      <p class="text">Дмитро Барсук відкриває кафе, ресторани та стрітфуд під ключ по всій Україні. Меню й техкарти, команда, ремонт і перший гість.</p>
+      <ul class="stats"><li><b>20+</b><span>закладів</span></li><li><b>з 2012</b><span>у ресторанах</span></li><li><b>1,5–3 міс.</b><span>до відкриття</span></li></ul>
+      <div class="chips"><i>Кав'ярня</i><i>Піцерія</i><i>Ґриль-бар</i><i>Їдальня</i></div>
+      <a class="btn" href="#">Обговорити заклад</a>
+      <p class="note">Сучасний гротеск із характером: трохи зрізані кути. Спокійніший за перший, але не такий звичний, як Montserrat.</p>
+    </div>
+  </div>
+</section>
+
+<p class="label">Варіант 3 · <span>Dela Gothic One + Golos Text</span></p>
+<section class="v" style="--h: 'Dela Gothic One'; --hw: 400; --b: 'Golos Text'; --ls: -.01em">
+  <div class="v-in">
+    <div>
+      <p class="kicker">Хто відчиняє двері</p>
+      <h2 class="h1">Від ідеї <span>до першого гостя</span></h2>
+      <p class="h2">12 років біля плити<small>20+ відкритих закладів</small></p>
+    </div>
+    <div>
+      <p class="text">Дмитро Барсук відкриває кафе, ресторани та стрітфуд під ключ по всій Україні. Меню й техкарти, команда, ремонт і перший гість.</p>
+      <ul class="stats"><li><b>20+</b><span>закладів</span></li><li><b>з 2012</b><span>у ресторанах</span></li><li><b>1,5–3 міс.</b><span>до відкриття</span></li></ul>
+      <div class="chips"><i>Кав'ярня</i><i>Піцерія</i><i>Ґриль-бар</i><i>Їдальня</i></div>
+      <a class="btn" href="#">Обговорити заклад</a>
+      <p class="note">Жирний, як афіша або вивіска стрітфуду. Дуже помітний і зухвалий, підходить, якщо хочеться енергії.</p>
+    </div>
+  </div>
+</section>
+
+<p class="label">Варіант 4 · <span>Yeseva One + Montserrat</span></p>
+<section class="v" style="--h: 'Yeseva One'; --hw: 400; --b: 'Montserrat'; --ls: -.01em">
+  <div class="v-in">
+    <div>
+      <p class="kicker">Хто відчиняє двері</p>
+      <h2 class="h1">Від ідеї <span>до першого гостя</span></h2>
+      <p class="h2">12 років біля плити<small>20+ відкритих закладів</small></p>
+    </div>
+    <div>
+      <p class="text">Дмитро Барсук відкриває кафе, ресторани та стрітфуд під ключ по всій Україні. Меню й техкарти, команда, ремонт і перший гість.</p>
+      <ul class="stats"><li><b>20+</b><span>закладів</span></li><li><b>з 2012</b><span>у ресторанах</span></li><li><b>1,5–3 міс.</b><span>до відкриття</span></li></ul>
+      <div class="chips"><i>Кав'ярня</i><i>Піцерія</i><i>Ґриль-бар</i><i>Їдальня</i></div>
+      <a class="btn" href="#">Обговорити заклад</a>
+      <p class="note">Ресторанна класика із засічками, як у меню гарного закладу. Елегантно, але менш сучасно.</p>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
