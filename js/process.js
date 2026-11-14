@@ -1,11 +1,8 @@
-// «Як ми працюємо»: етапи в мініатюрах гортаються самі, щойно блок у кадрі
-const STEP_MS = 2000;
-const LAST_MS = 3200;
-
-export function initProcess() {
+// «Як ми працюємо»: блок прилипає до екрана, а етапи змінюються, поки людина гортає
+export function initProcess(lenis) {
   const section = document.getElementById('process');
   const dots = [...document.querySelectorAll('.stage-dot')];
-  if (!section || !dots.length) return;
+  if (!section || !dots.length) return () => {};
   const pics = [...document.querySelectorAll('#stagePics img')];
   const track = document.getElementById('stageTrack');
   const box = document.getElementById('stageText');
@@ -13,12 +10,19 @@ export function initProcess() {
   const num = document.getElementById('stageNum');
   const title = document.getElementById('stageTitle');
   const body = document.getElementById('stageBody');
+  const total = String(dots.length).padStart(2, '0');
 
-  let current = 0;
-  let playing = true;
-  let timer;
+  let current = -1;
+  let swap;
+
+  function fill(i) {
+    const a = dots[0].getBoundingClientRect();
+    const b = dots[i].getBoundingClientRect();
+    track.style.setProperty('--fill', `${b.left - a.left}px`);
+  }
 
   function show(i) {
+    if (i === current) return;
     current = i;
     pics.forEach((p, j) => p.classList.toggle('is-on', j === i));
     dots.forEach((d, j) => {
@@ -26,46 +30,41 @@ export function initProcess() {
       d.classList.toggle('is-on', j === i);
       d.setAttribute('aria-current', j === i ? 'step' : 'false');
     });
-    // помаранчева лінія доходить до поточної точки
-    const a = dots[0].getBoundingClientRect();
-    const b = dots[i].getBoundingClientRect();
-    track.style.setProperty('--fill', `${b.left - a.left}px`);
+    fill(i);
 
     const d = dots[i].dataset;
     box.classList.add('is-out');
-    setTimeout(() => {
+    clearTimeout(swap);
+    swap = setTimeout(() => {
       when.textContent = d.when;
-      num.innerHTML = `${String(i + 1).padStart(2, '0')}<span>/ ${String(dots.length).padStart(2, '0')}</span>`;
+      num.innerHTML = `${String(i + 1).padStart(2, '0')}<span>/ ${total}</span>`;
       title.textContent = d.title;
       body.textContent = d.text;
       box.classList.remove('is-out');
-    }, 220);
+    }, 110);
   }
 
-  function tick() {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      if (!playing) return;
-      show((current + 1) % dots.length);
-      tick();
-    }, current === dots.length - 1 ? LAST_MS : STEP_MS);
-  }
+  // скільки прокручено всередині блоку: від 0 до 1
+  const progress = () => {
+    const r = section.getBoundingClientRect();
+    const run = r.height - innerHeight;
+    return run > 0 ? Math.min(Math.max(-r.top / run, 0), 1) : 0;
+  };
 
-  // клік по етапу зупиняє автопоказ
-  dots.forEach((d, i) => d.addEventListener('click', () => { playing = false; clearTimeout(timer); show(i); }));
+  // клік по етапу прокручує до місця, де він показується
+  dots.forEach((d, i) => d.addEventListener('click', () => {
+    const run = section.offsetHeight - innerHeight;
+    const top = section.offsetTop + ((i + 0.5) / dots.length) * run;
+    if (lenis) lenis.scrollTo(top, { duration: 0.9 });
+    else scrollTo({ top, behavior: 'smooth' });
+  }));
 
-  // щоразу, коли людина заходить у блок, показ починається з першого етапу
-  let fresh = true;
-  new IntersectionObserver(([e]) => {
-    if (!e.isIntersecting) { fresh = true; clearTimeout(timer); return; }
-    if (e.intersectionRatio >= 0.45 && fresh) {
-      fresh = false;
-      playing = true;
-      show(0);
-      tick();
-    }
-  }, { threshold: [0, 0.45] }).observe(section.querySelector('.stages'));
-
-  addEventListener('resize', () => show(current));
+  addEventListener('resize', () => { if (current >= 0) fill(current); });
   show(0);
+
+  return function update() {
+    const r = section.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > innerHeight) return;
+    show(Math.min(dots.length - 1, Math.floor(progress() * dots.length)));
+  };
 }

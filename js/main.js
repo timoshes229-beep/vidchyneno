@@ -1,13 +1,13 @@
-import { createHero } from './hero.js?v=202611141403';
-import { initAbout } from './about.js?v=202611141403';
-import { initProcess } from './process.js?v=202611141403';
-import { initCases } from './cases.js?v=202611141403';
-import { initPricing } from './pricing.js?v=202611141403';
-import { initOrder } from './order.js?v=202611141403';
-import { initAudience, initFormats, initFranchise } from './audience.js?v=202611141403';
-import { initFaq } from './faq.js?v=202611141403';
-import { initContact } from './contact.js?v=202611141403';
-import { initPlace } from './place.js?v=202611141403';
+import { createHero } from './hero.js?v=202611141412';
+import { initAbout } from './about.js?v=202611141412';
+import { initProcess } from './process.js?v=202611141412';
+import { initCases } from './cases.js?v=202611141412';
+import { initPricing } from './pricing.js?v=202611141412';
+import { initOrder } from './order.js?v=202611141412';
+import { initAudience, initFormats, initFranchise } from './audience.js?v=202611141412';
+import { initFaq } from './faq.js?v=202611141412';
+import { initContact } from './contact.js?v=202611141412';
+import { initPlace } from './place.js?v=202611141412';
 
 const $ = (s) => document.querySelector(s);
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -124,7 +124,7 @@ function updateHero() {
 }
 
 const updateAbout = initAbout();
-initProcess();
+const updateProcess = initProcess(lenis);
 const updateCases = initCases();
 initPricing();
 initOrder(!reduceMotion);
@@ -139,6 +139,7 @@ function raf(t) {
   updateHero();
   updateAbout();
   updateCases();
+  updateProcess();
   requestAnimationFrame(raf);
 }
 requestAnimationFrame(raf);
