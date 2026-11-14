@@ -835,6 +835,7 @@ export async function createHero(canvasEl) {
       running = false;
       if (state.hover) { state.hover = false; listeners.hover(false); }
     },
-    resume() { if (!running) { running = true; clock.getDelta(); frame(); } },
+    // після повернення на перший екран камера одразу стає на місце, без польоту назад крізь двері
+    resume() { if (!running) { running = true; state.p = state.target; clock.getDelta(); frame(); } },
   };
 }
