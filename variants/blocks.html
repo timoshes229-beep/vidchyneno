@@ -65,6 +65,11 @@ img { display: block; max-width: 100%; }
 .fmt.is-on { background: rgba(255, 194, 122, .1); box-shadow: inset 0 0 0 1.5px var(--lamp); }
 .fmt.is-on span { color: var(--lamp); }
 
+.styles-pick { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 6px; position: relative; z-index: 4; }
+.sp { padding: 8px 14px; border-radius: 999px; font-size: 13.5px; font-weight: 600; box-shadow: inset 0 0 0 1px rgba(233, 223, 207, .25); color: rgba(233, 223, 207, .8); transition: background .3s, color .3s; }
+.sp.is-on { background: var(--lamp); color: var(--ink); box-shadow: none; }
+.style-note { min-height: 20px; margin-top: 6px; font-size: 13px; color: rgba(233, 223, 207, .5); text-align: center; }
+
 /* ================= 2. Етапи ================= */
 .build { padding: clamp(70px, 9vw, 130px) var(--gutter); background: var(--bg); }
 .build-head { max-width: 1280px; margin: 0 auto clamp(20px, 3vw, 40px); }
@@ -165,23 +170,17 @@ img { display: block; max-width: 100%; }
     </ul>
   </div>
   <div class="stage">
+    <div class="styles-pick" id="stylePick" role="group" aria-label="Стиль архітектури">
+      <button class="sp is-on" data-s="classic">Класика</button>
+      <button class="sp" data-s="glass">Сучасне скло</button>
+      <button class="sp" data-s="orange">Фірмовий</button>
+      <button class="sp" data-s="loft">Лофт</button>
+    </div>
     <div class="stage-main" id="stageMain">
-      <img class="fade is-on" src="img/f-restaurant.webp" alt="Ресторан" data-f="restaurant">
-      <img class="fade" src="img/f-coffee.webp" alt="Кав'ярня" data-f="coffee">
-      <img class="fade" src="img/f-pizza.webp" alt="Піцерія" data-f="pizza">
-      <img class="fade" src="img/f-burger.webp" alt="Бургерна" data-f="burger">
-      <img class="fade" src="img/f-shawarma.webp" alt="Шаурма" data-f="shawarma">
-      <img class="fade" src="img/f-bakery.webp" alt="Пекарня" data-f="bakery">
       <div class="tag" aria-hidden="true"><div class="tag-board"><small>Відчинено</small><b id="tagName">Ваш заклад</b></div></div>
     </div>
-    <div class="formats" id="formats">
-      <button class="fmt is-on" data-f="restaurant"><img src="img/f-restaurant-sm.webp" alt=""><span>Ресторан</span></button>
-      <button class="fmt" data-f="coffee"><img src="img/f-coffee-sm.webp" alt=""><span>Кав'ярня</span></button>
-      <button class="fmt" data-f="pizza"><img src="img/f-pizza-sm.webp" alt=""><span>Піцерія</span></button>
-      <button class="fmt" data-f="burger"><img src="img/f-burger-sm.webp" alt=""><span>Бургерна</span></button>
-      <button class="fmt" data-f="shawarma"><img src="img/f-shawarma-sm.webp" alt=""><span>Шаурма</span></button>
-      <button class="fmt" data-f="bakery"><img src="img/f-bakery-sm.webp" alt=""><span>Пекарня</span></button>
-    </div>
+    <div class="formats" id="formats"></div>
+    <p class="style-note" id="styleNote"></p>
   </div>
 </section>
 
@@ -237,17 +236,49 @@ img { display: block; max-width: 100%; }
 </section>
 
 <script>
-// 1. Формати: клік перемикає мініатюру, поки людина не обрала сама, вони гортаються самі
-const formats = [...document.querySelectorAll('.fmt')];
-const bigs = [...document.querySelectorAll('#stageMain img')];
-let fi = 0, auto = true;
+// 1. Стиль і формати: картинки для кожного стилю; поки людина не обрала сама, формати гортаються
+const NAMES = { restaurant: 'Ресторан', coffee: "Кав'ярня", pizza: 'Піцерія', burger: 'Бургерна', shawarma: 'Шаурма', bakery: 'Пекарня' };
+const SETS = {
+  classic: { restaurant: 'f-restaurant', coffee: 'f-coffee', pizza: 'f-pizza', burger: 'f-burger', shawarma: 'f-shawarma', bakery: 'f-bakery' },
+  glass: { restaurant: 'g-restaurant', coffee: 'g-coffee' },
+  orange: { restaurant: 'm-orange' },
+  loft: { restaurant: 'm-loft' },
+};
+const stageMain = document.getElementById('stageMain');
+const fmtBox = document.getElementById('formats');
+const note = document.getElementById('styleNote');
+let bigs = [], formats = [], fi = 0, auto = true;
+function setStyle(st) {
+  bigs.forEach((im) => im.remove());
+  fmtBox.innerHTML = '';
+  const set = SETS[st];
+  const keys = Object.keys(set);
+  bigs = keys.map((k) => {
+    const im = document.createElement('img');
+    im.className = 'fade'; im.src = `img/${set[k]}.webp`; im.alt = NAMES[k]; im.dataset.f = k;
+    stageMain.insertBefore(im, stageMain.firstChild); return im;
+  });
+  formats = keys.map((k, i) => {
+    const b = document.createElement('button');
+    b.className = 'fmt'; b.dataset.f = k;
+    b.innerHTML = `<img src="img/${set[k]}-sm.webp" alt=""><span>${NAMES[k]}</span>`;
+    b.addEventListener('click', () => { auto = false; pick(i); });
+    fmtBox.appendChild(b); return b;
+  });
+  note.textContent = keys.length < 6 ? 'Решту форматів у цьому стилі домалюю, щойно оновиться ліміт генерації.' : '';
+  pick(0);
+}
 function pick(i) {
   fi = i;
   formats.forEach((b, j) => b.classList.toggle('is-on', j === i));
-  bigs.forEach((im) => im.classList.toggle('is-on', im.dataset.f === formats[i].dataset.f));
+  requestAnimationFrame(() => bigs.forEach((im) => im.classList.toggle('is-on', im.dataset.f === formats[i].dataset.f)));
 }
-formats.forEach((b, i) => b.addEventListener('click', () => { auto = false; pick(i); }));
-setInterval(() => { if (auto) pick((fi + 1) % formats.length); }, 3200);
+document.querySelectorAll('.sp').forEach((b) => b.addEventListener('click', () => {
+  document.querySelectorAll('.sp').forEach((x) => x.classList.toggle('is-on', x === b));
+  setStyle(b.dataset.s);
+}));
+setStyle('classic');
+setInterval(() => { if (auto && formats.length > 1) pick((fi + 1) % formats.length); }, 3200);
 const nameIn = document.getElementById('name');
 const tagName = document.getElementById('tagName');
 nameIn.addEventListener('input', () => { tagName.textContent = nameIn.value.trim() || 'Ваш заклад'; });
