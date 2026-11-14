@@ -1,13 +1,13 @@
-import { createHero } from './hero.js?v=202611122305';
-import { initAbout } from './about.js?v=202611122305';
-import { initProcess } from './process.js?v=202611122305';
-import { initCases } from './cases.js?v=202611122305';
-import { initPricing } from './pricing.js?v=202611122305';
-import { initOrder } from './order.js?v=202611122305';
-import { initAudience } from './audience.js?v=202611122305';
-import { initFaq } from './faq.js?v=202611122305';
-import { initContact } from './contact.js?v=202611122305';
-import { initPlace } from './place.js?v=202611122305';
+import { createHero } from './hero.js?v=202611140915';
+import { initAbout } from './about.js?v=202611140915';
+import { initProcess } from './process.js?v=202611140915';
+import { initCases } from './cases.js?v=202611140915';
+import { initPricing } from './pricing.js?v=202611140915';
+import { initOrder } from './order.js?v=202611140915';
+import { initAudience } from './audience.js?v=202611140915';
+import { initFaq } from './faq.js?v=202611140915';
+import { initContact } from './contact.js?v=202611140915';
+import { initPlace } from './place.js?v=202611140915';
 
 const $ = (s) => document.querySelector(s);
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -89,6 +89,8 @@ function openUp() {
 
 /* ---------- прогрес скролу першого екрана ---------- */
 let heroVisible = true;
+const tgFloat = $('.tg-float');
+const contactEl = $('#contact');
 function updateHero() {
   const rect = heroEl.getBoundingClientRect();
   const total = heroEl.offsetHeight - innerHeight;
@@ -102,6 +104,10 @@ function updateHero() {
 
   const overLight = lightSections.some((el) => { const r = el.getBoundingClientRect(); return r.top < 40 && r.bottom > 40; });
   header.classList.toggle('is-light', overLight && !menu.classList.contains('is-open'));
+
+  // кнопка Telegram з'являється після першого екрана й ховається біля форми заявки
+  const c = contactEl.getBoundingClientRect();
+  tgFloat?.classList.toggle('is-on', rect.bottom < innerHeight * 0.5 && c.top > innerHeight * 0.85 && !menu.classList.contains('is-open'));
 
   const visible = rect.bottom > 0;
   if (visible !== heroVisible) {

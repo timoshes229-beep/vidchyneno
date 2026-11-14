@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400..800&family=Marck+Script&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/main.css?v=202611122305">
+<link rel="stylesheet" href="css/main.css?v=202611140915">
 <script type="importmap">
 { "imports": {
   "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
@@ -75,6 +75,10 @@
 </div>
 
 <main id="top">
+  <a class="tg-float" data-contact="telegram" href="#contact" target="_blank" rel="noopener" aria-label="Написати Дмитру в Telegram">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.4 4.2 2.9 11.3c-1.3.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.8.8.4 0 .6-.2.9-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.4-1.5ZM8.9 14l9-5.7c.4-.3.8-.1.5.2l-7.4 6.7-.3 3.2L8.9 14Z"/></svg>
+  </a>
+
   <section class="hero" id="hero">
     <div class="hero-stage">
       <canvas class="hero-canvas" id="scene" aria-hidden="true"></canvas>
@@ -86,7 +90,15 @@
           <span class="hero-word hero-word-right"><span class="mask"><span>до першого</span></span><span class="mask"><span>гостя</span></span></span>
         </h1>
         <div class="hero-foot">
-          <p class="hero-lead">Дмитро Барсук відкриває кафе, ресторани та стрітфуд під ключ. Дванадцять років шеф-кухарем, понад двадцять запущених закладів по всій Україні.</p>
+          <div class="hero-intro">
+            <p class="hero-lead">Дмитро Барсук відкриває кафе, ресторани та стрітфуд під ключ по всій Україні.</p>
+            <ul class="hero-stats" aria-label="Коротко про досвід">
+              <li><b>20+</b><span>закладів</span></li>
+              <li><b>з 2012</b><span>у ресторанах</span></li>
+              <li><b>1,5–3 міс.</b><span>до відкриття</span></li>
+              <li><b>1 міс.</b><span>супроводу</span></li>
+            </ul>
+          </div>
           <form class="place" id="place" autocomplete="off">
             <label class="place-name">
               <span class="visually-hidden">Назва вашого закладу</span>
@@ -564,6 +576,6 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script type="module" src="js/main.js?v=202611122305"></script>
+<script type="module" src="js/main.js?v=202611140915"></script>
 </body>
 </html>
