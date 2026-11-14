@@ -886,14 +886,15 @@ body.is-ready .scroll-hint { opacity: 1; }
   content: ""; position: absolute; inset: 0; pointer-events: none;
   background: linear-gradient(90deg, rgba(14, 12, 10, .85) 0%, rgba(14, 12, 10, .4) 40%, rgba(14, 12, 10, 0) 60%), linear-gradient(0deg, rgba(14, 12, 10, .92), transparent 34%);
 }
-.about-in { position: relative; z-index: 2; width: 100%; max-width: 1440px; margin: 0 auto; padding: clamp(100px, 11vh, 130px) var(--gutter) clamp(28px, 4vh, 44px); }
+.about-in { position: relative; z-index: 2; width: 100%; max-width: 1440px; margin: 0 auto; padding: clamp(88px, 10vh, 120px) var(--gutter) clamp(24px, 3.5vh, 40px); }
 .about-kicker { margin-bottom: 6px; font-family: var(--script); font-size: clamp(26px, 2.4vw, 36px); color: var(--lamp); }
-.about-title { max-width: 9ch; font-size: clamp(54px, min(8vw, 13.5vh), 140px); font-weight: 800; letter-spacing: -.045em; line-height: .88; }
+.about-title { max-width: 9ch; font-size: clamp(50px, min(7.6vw, 12vh), 132px); font-weight: 800; letter-spacing: -.045em; line-height: .88; }
 .about-title span { display: block; color: var(--lamp); }
+.about-title small { display: block; margin-top: .35em; font-size: .36em; letter-spacing: -.02em; color: var(--sign); }
 .about-text { max-width: 44ch; margin-top: clamp(18px, 2.6vh, 30px); font-size: clamp(16px, 1.3vw, 19px); color: rgba(233, 223, 207, .85); }
 .about-quote { max-width: 44ch; margin-top: 18px; padding-left: 18px; border-left: 3px solid var(--sign); font-size: clamp(16px, 1.25vw, 18px); font-weight: 600; line-height: 1.5; }
 .about-cta { margin-top: clamp(20px, 3vh, 28px); }
-.about-stats { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); margin-top: clamp(32px, 5vh, 64px); border-top: 1px solid rgba(233, 223, 207, .2); }
+.about-stats { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); margin-top: clamp(24px, 3.5vh, 52px); border-top: 1px solid rgba(233, 223, 207, .2); }
 .about-stats li { padding: 20px 20px 0 0; }
 .about-stats b { display: block; font-size: clamp(30px, 3.4vw, 54px); font-weight: 800; letter-spacing: -.04em; line-height: 1; color: var(--lamp); }
 .about-stats span { display: block; max-width: 24ch; margin-top: 8px; font-size: 14px; line-height: 1.4; color: rgba(233, 223, 207, .7); }
