@@ -788,8 +788,17 @@ body.is-ready .scroll-hint { opacity: 1; }
 .place-format.is-active { background: var(--lamp); color: var(--ink); box-shadow: none; }
 .place-hint { padding: 0 4px; font-size: 12.5px; color: rgba(233, 223, 207, .5); }
 
+/* поле з назвою стоїть рівно по центру екрана, під дверима */
+@media (min-width: 761px) {
+  .hero-foot { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: end; }
+  .hero-foot > .place { justify-self: center; }
+  .hero-foot > .hero-actions { justify-self: end; }
+}
 @media (max-width: 1280px) and (min-width: 761px) {
-  .hero-foot { flex-wrap: wrap; }
+  .hero-foot { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "place place" "intro actions"; row-gap: 18px; }
+  .hero-foot > .place { grid-area: place; }
+  .hero-foot > .hero-intro { grid-area: intro; }
+  .hero-foot > .hero-actions { grid-area: actions; }
   .hero-lead { display: none; }
 }
 @media (max-width: 760px) {

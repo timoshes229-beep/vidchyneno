@@ -1,13 +1,13 @@
-import { createHero } from './hero.js?v=202611141133';
-import { initAbout } from './about.js?v=202611141133';
-import { initProcess } from './process.js?v=202611141133';
-import { initCases } from './cases.js?v=202611141133';
-import { initPricing } from './pricing.js?v=202611141133';
-import { initOrder } from './order.js?v=202611141133';
-import { initAudience, initFormats, initFranchise } from './audience.js?v=202611141133';
-import { initFaq } from './faq.js?v=202611141133';
-import { initContact } from './contact.js?v=202611141133';
-import { initPlace } from './place.js?v=202611141133';
+import { createHero } from './hero.js?v=202611141347';
+import { initAbout } from './about.js?v=202611141347';
+import { initProcess } from './process.js?v=202611141347';
+import { initCases } from './cases.js?v=202611141347';
+import { initPricing } from './pricing.js?v=202611141347';
+import { initOrder } from './order.js?v=202611141347';
+import { initAudience, initFormats, initFranchise } from './audience.js?v=202611141347';
+import { initFaq } from './faq.js?v=202611141347';
+import { initContact } from './contact.js?v=202611141347';
+import { initPlace } from './place.js?v=202611141347';
 
 const $ = (s) => document.querySelector(s);
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -17,6 +17,9 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 /* ---------- плавний скрол ---------- */
+// після оновлення сторінки починаємо з першого екрана, а не з місця, де людина була
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+if (!location.hash) scrollTo(0, 0);
 const lenis = window.Lenis && !reduceMotion ? new window.Lenis({ lerp: 0.085, prevent: (node) => !!node.closest?.('.iti__dropdown-content, .iti__country-list, .chat-feed') }) : null;
 lenis?.stop();
 
@@ -165,11 +168,13 @@ document.addEventListener('click', (e) => {
   const a = e.target.closest('a[href^="#"]');
   if (!a) return;
   const id = a.getAttribute('href');
-  const el = id === '#top' ? document.body : document.querySelector(id);
-  if (!el) return;
+  const el = id === '#top' ? 0 : document.querySelector(id);
+  if (el === null) return;
   e.preventDefault();
   setMenu(false);
-  lenis ? lenis.scrollTo(el, { duration: 1.6 }) : el.scrollIntoView({ behavior: 'smooth' });
+  if (lenis) lenis.scrollTo(el, { duration: 1.6 });
+  else if (el === 0) scrollTo({ top: 0, behavior: 'smooth' });
+  else el.scrollIntoView({ behavior: 'smooth' });
 });
 
 /* ---------- курсор і магнітні кнопки ---------- */

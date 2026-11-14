@@ -585,13 +585,70 @@ export async function createHero(canvasEl) {
   barLed.position.set(2.12, SILL + 1.08, -5.6);
   room.add(barLed);
 
-  // столики
+
+
+  // люди в залі: справжня анімована фігура підвантажується, коли сцена вже показана
+  const mixers = [];
+  const actors = [];
+  async function loadPeople() {
+    const [{ GLTFLoader }, { clone }] = await Promise.all([
+      import('three/addons/loaders/GLTFLoader.js'),
+      import('three/addons/utils/SkeletonUtils.js'),
+    ]);
+    const gltf = await new GLTFLoader().loadAsync('https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/examples/models/gltf/Xbot.glb');
+    const clip = (n) => gltf.animations.find((c) => c.name === n);
+    const make = (x, z, ry, body, joints, anim = 'idle') => {
+      const f = clone(gltf.scene);
+      f.position.set(x, SILL, z);
+      f.rotation.y = ry;
+      f.traverse((o) => {
+        if (!o.isMesh) return;
+        o.frustumCulled = false;
+        const joint = o.material.name.includes('Joints');
+        o.material = new THREE.MeshStandardMaterial({ color: joint ? joints : body, roughness: joint ? 0.55 : 0.85, metalness: 0, envMapIntensity: 0.05 });
+      });
+      room.add(f);
+      const mixer = new THREE.AnimationMixer(f);
+      const action = mixer.clipAction(clip(anim));
+      action.play();
+      action.time = Math.random() * clip(anim).duration;
+      mixers.push(mixer);
+      return f;
+    };
+    // приглушені кольори одягу, щоб фігури не пересвічувались під лампами
+    const outfits = [0x7a3a1c, 0x2a3c4a, 0x8a7a62, 0x434d2e, 0x5e3346, 0x5a2418, 0x7c6228, 0x363c46];
+    let oi = 0;
+    const guest = (x, z, ry, anim) => make(x, z, ry, outfits[oi++ % outfits.length], 0x2a2420, anim);
+    // гості біля високих столиків, обличчям до столика
+    for (const [x, z] of [[-1.9, -3], [-1.9, -6]]) {
+      guest(x - 0.62, z, Math.PI / 2, 'idle');
+      guest(x + 0.62, z, -Math.PI / 2, oi % 3 ? 'idle' : 'agree');
+    }
+    guest(-1.9, -9 + 0.62, Math.PI, 'headShake');
+    // біля бару
+    guest(1.7, -4.4, Math.PI / 2, 'idle');
+    guest(1.7, -6.8, Math.PI / 2, 'agree');
+    // бармен за стійкою
+    make(3.5, -5.4, -Math.PI / 2, 0x1d1915, 0x9a4416, 'idle');
+    // офіціант у білому ходить між столиками й розвертається
+    const waiter = make(-0.95, -4, 0, 0xb8b0a2, 0x15110e, 'walk');
+    actors.push((t) => {
+      const a = t * 0.3;
+      waiter.position.z = -5.6 + Math.sin(a) * 3.2;
+      const target = Math.cos(a) > 0 ? 0 : Math.PI;
+      waiter.rotation.y += (target - waiter.rotation.y) * 0.08;
+    });
+  }
+  // на слабких телефонах людей не вантажимо, щоб сцена не гальмувала
+  if (!WEAK) setTimeout(() => loadPeople().catch((e) => console.warn('Люди в залі не завантажились', e)), 1500);
+
+  // столики високі, барні: гості стоять поруч
   for (const [x, z] of [[-1.9, -3], [-1.9, -6], [-1.9, -9], [0.2, -7.6]]) {
-    const top = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.42, 0.04, 32), wood);
-    top.position.set(x, SILL + 0.76, z);
+    const top = new THREE.Mesh(new THREE.CylinderGeometry(0.36, 0.36, 0.04, 32), wood);
+    top.position.set(x, SILL + 1.05, z);
     room.add(top);
-    const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.74, 12), metal);
-    leg.position.set(x, SILL + 0.38, z);
+    const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 1.03, 12), metal);
+    leg.position.set(x, SILL + 0.52, z);
     room.add(leg);
   }
 
@@ -759,6 +816,9 @@ export async function createHero(canvasEl) {
     dust.material.opacity = L * (0.35 + open * 0.4);
     frontMat.emissiveIntensity = L * 0.16;
     backMat.emissiveIntensity = L * 0.12;
+
+    for (const m of mixers) m.update(dt);
+    for (const a of actors) a(t);
 
     if (open > 0.08 && !state.belled) { state.belled = true; listeners.door(); }
     if (open < 0.02) state.belled = false;
