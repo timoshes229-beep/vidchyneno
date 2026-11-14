@@ -22,6 +22,15 @@ img { display: block; max-width: 100%; }
 /* картинки на темному тлі: краї розчиняються */
 .fade { -webkit-mask: radial-gradient(closest-side, #000 72%, transparent 100%); mask: radial-gradient(closest-side, #000 72%, transparent 100%); }
 
+.styles { padding: clamp(50px, 6vw, 90px) var(--gutter); }
+.styles-title { max-width: 1400px; margin: 0 auto 30px; font-size: clamp(32px, 4vw, 60px); font-weight: 800; letter-spacing: -.035em; line-height: 1; }
+.styles-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+.styles-grid figure { display: grid; gap: 8px; }
+.styles-grid img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+.styles-grid b { display: block; font-size: 17px; }
+.styles-grid span { display: block; font-size: 13.5px; line-height: 1.4; color: rgba(233, 223, 207, .6); }
+@media (max-width: 860px) { .styles-grid { grid-template-columns: 1fr 1fr; } .styles-grid figure:first-child { grid-column: 1 / -1; } }
+
 /* ================= 1. Перший екран ================= */
 .hero { position: relative; min-height: calc(100svh - 44px); display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); align-items: center; gap: clamp(20px, 3vw, 50px); padding: clamp(30px, 5vw, 70px) var(--gutter) clamp(24px, 3vw, 40px); background: radial-gradient(60% 60% at 70% 45%, rgba(255, 150, 70, .12), transparent 70%), var(--bg); }
 .hero-title { font-size: clamp(44px, 5.6vw, 96px); font-weight: 900; letter-spacing: -.045em; line-height: .92; }
@@ -128,6 +137,18 @@ img { display: block; max-width: 100%; }
 </style>
 </head>
 <body>
+
+<p class="label">Стиль мініатюр · <span>та сама ідея в різній архітектурі</span></p>
+<section class="styles">
+  <h2 class="styles-title">Яка архітектура ближча?</h2>
+  <div class="styles-grid">
+    <figure><img class="fade" src="img/f-restaurant.webp" alt=""><figcaption><b>Класика</b><span>цегла, черепиця, гірлянди. Зараз у перегляді</span></figcaption></figure>
+    <figure><img class="fade" src="img/m-glass.webp" alt=""><figcaption><b>Сучасне скло</b><span>скляний павільйон, бетон, дерев'яний навіс</span></figcaption></figure>
+    <figure><img class="fade" src="img/m-scandi.webp" alt=""><figcaption><b>Скандинавія</b><span>світле дерево, білі стіни, заокруглені вікна</span></figcaption></figure>
+    <figure><img class="fade" src="img/m-loft.webp" alt=""><figcaption><b>Лофт</b><span>чорна сталь, скло, відкрита кухня, тераса на даху</span></figcaption></figure>
+    <figure><img class="fade" src="img/m-orange.webp" alt=""><figcaption><b>Фірмовий «Відчинено»</b><span>графіт і помаранчеві двері, як наша вивіска</span></figcaption></figure>
+  </div>
+</section>
 
 <p class="label">Перший екран · <span>мініатюри закладів, вивіска з назвою клієнта</span></p>
 <section class="hero">
