@@ -926,26 +926,26 @@ body.is-ready .scroll-hint { opacity: 1; }
 }
 
 /* ---------- «З кухні Дмитра» ---------- */
-.kitchen { padding: clamp(70px, 9vw, 130px) 0; background: #0e0c0a; color: var(--cream); overflow: hidden; }
+.kitchen { padding: clamp(50px, 6vw, 90px) 0; background: #0e0c0a; color: var(--cream); overflow: hidden; }
 .kitchen-head { max-width: 1440px; margin: 0 auto clamp(30px, 4vw, 54px); padding: 0 var(--gutter); display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; flex-wrap: wrap; }
-.kitchen-title { font-size: clamp(38px, 5vw, 80px); font-weight: 800; letter-spacing: -.035em; line-height: .95; white-space: nowrap; }
+.kitchen-title { font-size: clamp(32px, 4vw, 64px); font-weight: 800; letter-spacing: -.035em; line-height: .95; white-space: nowrap; }
 .kitchen-lead { max-width: 42ch; font-size: 17px; line-height: 1.5; color: rgba(233, 223, 207, .68); }
 .kitchen-track { display: flex; width: max-content; animation: kitchen-drift 25s linear infinite; }
 .kitchen-strip:hover .kitchen-track { animation-play-state: paused; }
 @keyframes kitchen-drift { to { transform: translateX(-50%); } }
 .kitchen-list { list-style: none; display: flex; gap: clamp(14px, 1.6vw, 24px); padding-right: clamp(14px, 1.6vw, 24px); }
-.kitchen-list li { width: clamp(220px, 19vw, 300px); }
+.kitchen-list li { width: clamp(190px, 15vw, 240px); }
 .kitchen-list img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 18px; background: #2b2723; transition: transform .8s var(--ease-out); }
 .kitchen-list li:hover img { transform: scale(1.03); }
 .kitchen-list b { display: block; margin-top: 14px; font-size: 17px; font-weight: 700; letter-spacing: -.01em; }
-.kitchen-list span { display: block; margin-top: 2px; font-size: 13.5px; color: rgba(233, 223, 207, .55); }
+.kitchen-list span { display: block; margin-top: 4px; font-size: 13.5px; line-height: 1.4; color: rgba(233, 223, 207, .55); }
 /* на телефоні стрічку гортають пальцем */
 @media (hover: none), (max-width: 900px), (prefers-reduced-motion: reduce) {
   .kitchen-strip { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 0 var(--gutter); scroll-padding: 0 var(--gutter); }
   .kitchen-strip::-webkit-scrollbar { display: none; }
   .kitchen-track { animation: none; }
   .kitchen-list[aria-hidden] { display: none; }
-  .kitchen-list li { width: min(64vw, 260px); scroll-snap-align: start; }
+  .kitchen-list li { width: min(56vw, 220px); scroll-snap-align: start; }
 }
 @media (max-width: 760px) { .kitchen-title { white-space: normal; } }
 
