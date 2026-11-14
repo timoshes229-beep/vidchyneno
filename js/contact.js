@@ -1,5 +1,5 @@
-import { CONTACTS, FORM_ENDPOINT } from './config.js?v=202611140915';
-import { initPhone, phone } from './phone.js?v=202611140915';
+import { CONTACTS, FORM_ENDPOINT } from './config.js?v=202611140918';
+import { initPhone, phone } from './phone.js?v=202611140918';
 
 const esc = (v) => String(v || '').replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
 
@@ -40,6 +40,8 @@ export function initContact() {
   const area = document.getElementById('bookingArea');
   document.getElementById('receiptCta')?.addEventListener('click', () => {
     if (document.body.dataset.area) area.value = document.body.dataset.area;
+    const comment = form.elements.comment;
+    if (comment && !comment.dataset.touched && !comment.value) comment.value = 'Хочу прогноз прибутку й окупності для свого закладу.';
   });
 
   initPhone();

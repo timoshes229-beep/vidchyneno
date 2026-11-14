@@ -1,13 +1,13 @@
-import { createHero } from './hero.js?v=202611140915';
-import { initAbout } from './about.js?v=202611140915';
-import { initProcess } from './process.js?v=202611140915';
-import { initCases } from './cases.js?v=202611140915';
-import { initPricing } from './pricing.js?v=202611140915';
-import { initOrder } from './order.js?v=202611140915';
-import { initAudience } from './audience.js?v=202611140915';
-import { initFaq } from './faq.js?v=202611140915';
-import { initContact } from './contact.js?v=202611140915';
-import { initPlace } from './place.js?v=202611140915';
+import { createHero } from './hero.js?v=202611140918';
+import { initAbout } from './about.js?v=202611140918';
+import { initProcess } from './process.js?v=202611140918';
+import { initCases } from './cases.js?v=202611140918';
+import { initPricing } from './pricing.js?v=202611140918';
+import { initOrder } from './order.js?v=202611140918';
+import { initAudience } from './audience.js?v=202611140918';
+import { initFaq } from './faq.js?v=202611140918';
+import { initContact } from './contact.js?v=202611140918';
+import { initPlace } from './place.js?v=202611140918';
 
 const $ = (s) => document.querySelector(s);
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));

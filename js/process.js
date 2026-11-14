@@ -1,5 +1,5 @@
-import { createBuild3D } from './process3d.js?v=202611140915';
-import { place, updatePlace } from './place.js?v=202611140915';
+import { createBuild3D } from './process3d.js?v=202611140918';
+import { place, updatePlace } from './place.js?v=202611140918';
 
 // «Як ми працюємо»: заклад будується етап за етапом, сам або по кліку
 const STEP_MS = 1900;
