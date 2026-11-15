@@ -677,8 +677,11 @@ export async function createHero(canvasEl) {
     ]);
   }
 
+  let sizeW = 0, sizeH = 0;
   function resize() {
     const w = canvasEl.clientWidth, h = canvasEl.clientHeight;
+    if (!w || !h) return;
+    sizeW = w; sizeH = h;
     renderer.setSize(w, h, false);
     composer.setSize(w, h);
     bloom.resolution.set(w / (WEAK || lowPower ? 3 : 2), h / (WEAK || lowPower ? 3 : 2));
@@ -727,6 +730,8 @@ export async function createHero(canvasEl) {
   function frame() {
     if (!running) return;
     requestAnimationFrame(frame);
+    // розмір міг змінитися, поки сцена стояла на паузі: тоді камера бере не ту траєкторію
+    if (canvasEl.clientWidth !== sizeW || canvasEl.clientHeight !== sizeH) resize();
     const dt = Math.min(clock.getDelta(), 0.05);
     const t = clock.elapsedTime;
 
@@ -838,6 +843,6 @@ export async function createHero(canvasEl) {
       if (state.hover) { state.hover = false; listeners.hover(false); }
     },
     // після повернення на перший екран камера одразу стає на місце, без польоту назад крізь двері
-    resume() { if (!running) { running = true; state.p = state.target; clock.getDelta(); frame(); } },
+    resume() { if (!running) { running = true; resize(); state.p = state.target; clock.getDelta(); frame(); } },
   };
 }
