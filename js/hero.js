@@ -710,7 +710,8 @@ export async function createHero(canvasEl) {
   addEventListener('pointermove', (e) => {
     const r = canvasEl.getBoundingClientRect();
     ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
-    state.mouse.set(ndc.x, ndc.y);
+    // коли сцена поза екраном, координати виходять величезні й камера пірнає під землю
+    state.mouse.set(clamp(ndc.x, -1, 1), clamp(ndc.y, -1, 1));
   });
   canvasEl.addEventListener('click', () => {
     if (!state.hover) return;
