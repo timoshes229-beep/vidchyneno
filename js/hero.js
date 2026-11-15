@@ -821,6 +821,8 @@ export async function createHero(canvasEl) {
   return {
     start() { clock.start(); frame(); },
     setProgress(v) { state.target = clamp(v); },
+    // миттєво ставить камеру в точку, без польоту
+    jump(v) { state.target = state.p = clamp(v); state.doorPrev = smooth(0.06, 0.5, state.p) * 1.7; },
     lightsOn() { state.lightsTarget = 1; state.lightsStart = clock.elapsedTime; setTimeout(() => { state.flipTarget = 0; state.swingVel += 1.2; }, 650); },
     onHover(fn) { listeners.hover = fn; },
     onDoor(fn) { listeners.door = fn; },

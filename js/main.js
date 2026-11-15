@@ -1,13 +1,13 @@
-import { createHero } from './hero.js?v=202611142113';
-import { initAbout } from './about.js?v=202611142113';
-import { initProcess } from './process.js?v=202611142113';
-import { initCases } from './cases.js?v=202611142113';
-import { initPricing } from './pricing.js?v=202611142113';
-import { initOrder } from './order.js?v=202611142113';
-import { initAudience, initFormats, initFranchise } from './audience.js?v=202611142113';
-import { initFaq } from './faq.js?v=202611142113';
-import { initContact } from './contact.js?v=202611142113';
-import { initPlace } from './place.js?v=202611142113';
+import { createHero } from './hero.js?v=202611151837';
+import { initAbout } from './about.js?v=202611151837';
+import { initProcess } from './process.js?v=202611151837';
+import { initCases } from './cases.js?v=202611151837';
+import { initPricing } from './pricing.js?v=202611151837';
+import { initOrder } from './order.js?v=202611151837';
+import { initAudience, initFormats, initFranchise } from './audience.js?v=202611151837';
+import { initFaq } from './faq.js?v=202611151837';
+import { initContact } from './contact.js?v=202611151837';
+import { initPlace } from './place.js?v=202611151837';
 
 const $ = (s) => document.querySelector(s);
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -174,7 +174,7 @@ document.addEventListener('click', (e) => {
   e.preventDefault();
   setMenu(false);
   // нагору стрибаємо одразу: інакше камера 3D-сцени пролітає весь шлях назад
-  if (el === 0) { lenis ? lenis.scrollTo(0, { immediate: true }) : scrollTo(0, 0); }
+  if (el === 0) { hero?.jump(0); lenis ? lenis.scrollTo(0, { immediate: true }) : scrollTo(0, 0); }
   else if (lenis) lenis.scrollTo(el, { duration: 1.6 });
   else el.scrollIntoView({ behavior: 'smooth' });
 });
