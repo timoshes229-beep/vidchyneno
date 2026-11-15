@@ -963,7 +963,7 @@ body.is-ready .scroll-hint { opacity: 1; }
 .formats-lead { max-width: 40ch; font-size: 17px; color: rgba(233, 223, 207, .68); }
 .formats-grid { list-style: none; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(10px, 2vw, 32px) clamp(10px, 2vw, 28px); }
 .fmt-card { display: grid; justify-items: center; text-align: center; padding-bottom: 14px; border-radius: 22px; transition: background .4s; }
-.fmt-card img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; transition: transform .7s var(--ease-out); }
+.fmt-card img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; -webkit-mask: radial-gradient(closest-side, #000 72%, #0000); mask: radial-gradient(closest-side, #000 72%, #0000); transition: transform .7s var(--ease-out); }
 .fmt-card b { margin-top: -10px; font-size: clamp(18px, 1.6vw, 24px); font-weight: 800; letter-spacing: -.01em; }
 .fmt-card span { margin-top: 2px; font-size: 14.5px; color: rgba(233, 223, 207, .6); }
 .fmt-card:hover { background: rgba(255, 194, 122, .06); }
