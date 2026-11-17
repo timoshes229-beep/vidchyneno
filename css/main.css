@@ -942,13 +942,16 @@ body.is-ready .scroll-hint { opacity: 1; }
 .kitchen-list li:hover img { transform: scale(1.03); }
 .kitchen-list b { display: block; margin-top: 14px; font-size: 17px; font-weight: 700; letter-spacing: -.01em; }
 .kitchen-list span { display: block; margin-top: 4px; font-size: 13.5px; line-height: 1.4; color: rgba(233, 223, 207, .55); }
-/* на телефоні стрічку гортають пальцем */
-@media (hover: none), (max-width: 900px), (prefers-reduced-motion: reduce) {
-  .kitchen-strip { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 0 var(--gutter); scroll-padding: 0 var(--gutter); }
+/* на телефоні стрічка теж їде сама, лише картки менші й трохи повільніше */
+@media (hover: none), (max-width: 900px) {
+  .kitchen-track { animation-duration: 30s; }
+  .kitchen-list li { width: min(56vw, 220px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kitchen-strip { overflow-x: auto; scrollbar-width: none; padding: 0 var(--gutter); }
   .kitchen-strip::-webkit-scrollbar { display: none; }
   .kitchen-track { animation: none; }
   .kitchen-list[aria-hidden] { display: none; }
-  .kitchen-list li { width: min(56vw, 220px); scroll-snap-align: start; }
 }
 @media (max-width: 760px) { .kitchen-title { white-space: normal; } }
 
@@ -981,7 +984,7 @@ body.is-ready .scroll-hint { opacity: 1; }
 
 /* ---------- «Як ми працюємо»: етапи в мініатюрах ---------- */
 /* блок прилипає: на кожен етап припадає трохи менше пів екрана прокрутки */
-.process { height: calc(100vh + 7 * 42vh); height: calc(100svh + 7 * 42svh); background: #0e0b08; color: var(--cream); }
+.process { height: calc(100vh + 7 * 65vh); height: calc(100svh + 7 * 65svh); background: #0e0b08; color: var(--cream); }
 .process-wrap { position: sticky; top: 0; height: 100vh; height: 100svh; max-width: 1280px; margin: 0 auto; padding: clamp(84px, 11vh, 110px) var(--gutter) clamp(20px, 4vh, 40px); display: flex; flex-direction: column; justify-content: center; }
 .process-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: clamp(20px, 3vw, 40px); }
 .process-title { font-size: clamp(38px, 5vw, 80px); font-weight: 800; letter-spacing: -.035em; line-height: .95; }
