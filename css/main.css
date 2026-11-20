@@ -455,7 +455,7 @@ body.is-ready .scroll-hint { opacity: 1; }
   .case, .case-tall, .case-yours { height: auto; width: 80vw; aspect-ratio: 3 / 4; }
 }
 
-/* ---------- вартість: план залу і рахунок ---------- */
+/* ---------- вартість: заклад на подіумі і рахунок ---------- */
 .pricing { padding: clamp(90px, 11vw, 170px) var(--gutter); background: radial-gradient(60% 50% at 25% 55%, rgba(255, 150, 70, .08), transparent 70%), #0e0b08; color: var(--cream); }
 .pricing-grid {
   max-width: 1280px; margin: 0 auto;
@@ -465,49 +465,30 @@ body.is-ready .scroll-hint { opacity: 1; }
 .pricing-title { max-width: 12ch; font-size: clamp(40px, 5vw, 84px); font-weight: 700; line-height: .95; letter-spacing: -.035em; margin-bottom: 20px; }
 .pricing-lead { max-width: 38ch; font-size: 17px; color: rgba(233, 223, 207, .68); margin-bottom: clamp(30px, 4vw, 50px); }
 
-/* вигляд згори: кожна клітинка = 1 м² */
-.plan {
-  position: relative;
-  width: min(100%, 520px); aspect-ratio: 1;
-  margin-bottom: 30px;
-  border-radius: 14px;
-  background-color: #15100c;
-  box-shadow: inset 0 0 0 1px rgba(255, 194, 122, .14);
-  background-image:
-    linear-gradient(rgba(255, 194, 122, .09) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 194, 122, .09) 1px, transparent 1px);
-  background-size: 10% 10%;
-  overflow: hidden;
+/* подіум: з площею на ньому виростає заклад, від кіоску до двоповерхового ресторану */
+.grow { position: relative; width: min(100%, 520px); margin-bottom: 26px; }
+.grow-stage {
+  position: relative; aspect-ratio: 1;
+  transform: scale(calc(.96 + var(--k, .5) * .06));
+  transform-origin: 50% 62%;
+  transition: transform .6s var(--ease-out);
 }
-.plan-room {
-  position: absolute; left: 0; bottom: 0;
-  width: var(--w, 54.8%); height: var(--h, 54.8%);
-  border: 3px solid var(--sign);
-  border-radius: 2px;
-  /* столики в залі: кружечки на підлозі, що світиться */
-  background:
-    radial-gradient(circle, rgba(255, 194, 122, .55) 0 5px, transparent 6px) 0 0 / 54px 54px,
-    radial-gradient(120% 120% at 30% 100%, rgba(255, 170, 90, .32), rgba(242, 106, 27, .1) 70%);
-  box-shadow: 0 0 0 1px rgba(242, 106, 27, .4), 0 0 30px -4px rgba(242, 106, 27, .55), inset 0 0 40px -10px rgba(255, 170, 90, .45);
-  transition: width .7s var(--ease-out), height .7s var(--ease-out);
+.grow-stage img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  -webkit-mask: radial-gradient(closest-side, #000 74%, #0000); mask: radial-gradient(closest-side, #000 74%, #0000);
+  opacity: 0; transform: translateY(14px) scale(.9);
+  transform-origin: 50% 62%;
+  transition: opacity .45s ease, transform .9s var(--ease-out);
 }
-.plan-door {
-  position: absolute; bottom: -3px; left: 18%;
-  width: 22%; max-width: 46px; height: 3px;
-  background: #15100c;
+.grow-stage img.is-on { opacity: 1; transform: none; }
+.grow-tag {
+  position: absolute; left: 0; top: 4px;
+  display: grid; gap: 2px;
 }
-.plan-door::after {
-  content: "";
-  position: absolute; left: 0; bottom: 0;
-  width: 100%; aspect-ratio: 1;
-  border-top: 1.5px dashed rgba(255, 194, 122, .6);
-  border-right: 1.5px dashed rgba(255, 194, 122, .6);
-  border-top-right-radius: 100%;
-}
-.plan-area {
-  position: absolute; right: 12px; top: 8px;
-  font-size: clamp(18px, 2vw, 28px); font-weight: 800; letter-spacing: -.03em; color: var(--lamp);
-  white-space: nowrap;
+.grow-tag b { font-size: clamp(26px, 3vw, 40px); font-weight: 800; letter-spacing: -.03em; color: var(--lamp); white-space: nowrap; }
+.grow-tag span { font-size: 15px; color: rgba(233, 223, 207, .65); }
+@media (prefers-reduced-motion: reduce) {
+  .grow-stage, .grow-stage img { transition: opacity .2s; transform: none; }
 }
 
 .area-label { display: block; font-size: 15px; margin-bottom: 14px; color: rgba(233, 223, 207, .7); }
@@ -569,7 +550,7 @@ body.is-ready .scroll-hint { opacity: 1; }
 
 @media (max-width: 900px) {
   .pricing-grid { grid-template-columns: 1fr; }
-  .plan { width: 100%; }
+  .grow { width: min(100%, 460px); }
 }
 
 /* ---------- контакти: фінальна табличка й заявка ---------- */
@@ -1199,7 +1180,7 @@ body.is-ready .scroll-hint { opacity: 1; }
 /* ---------- шрифт заголовків ---------- */
 h1, h2, h3,
 .brand-sign, .hero-stats b, .about-stats b, .stage-num, .receipt-head, .receipt-lines dd,
-.fr-face b, .about-sign b, .tag-board b, .plan-area, .area-label b, .fmt-card b, .chat-who b {
+.fr-face b, .about-sign b, .tag-board b, .grow-tag b, .area-label b, .fmt-card b, .chat-who b {
   font-family: var(--display);
   letter-spacing: -.03em;
 }

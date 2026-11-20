@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500..800&family=Onest:wght@400..800&family=Marck+Script&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/main.css?v=202611191952">
+<link rel="stylesheet" href="css/main.css?v=202611202144">
 <script type="importmap">
 { "imports": {
   "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
@@ -427,15 +427,19 @@
 
   <section class="pricing" id="price">
     <h2 class="pricing-title">Скільки коштує відкрити заклад</h2>
-    <p class="pricing-lead">Вартість залежить від площі. Посуньте повзунок, і ми одразу надрукуємо рахунок.</p>
+    <p class="pricing-lead">Вартість залежить від площі. Посуньте повзунок: заклад виросте під ваші метри, а рахунок надрукується сам.</p>
     <div class="pricing-grid">
       <div class="pricing-left">
 
-        <div class="plan" aria-hidden="true">
-          <div class="plan-room" id="planRoom">
-            <span class="plan-door"></span>
-            <span class="plan-area" id="planArea">30 м²</span>
+        <div class="grow" id="grow" aria-hidden="true">
+          <div class="grow-stage" id="growStage">
+            <img src="assets/grow/size-1.webp?v=1" alt="" width="800" height="800" loading="lazy" decoding="async">
+            <img src="assets/grow/size-2.webp?v=1" alt="" width="800" height="800" class="is-on" loading="lazy" decoding="async">
+            <img src="assets/grow/size-3.webp?v=1" alt="" width="800" height="800" loading="lazy" decoding="async">
+            <img src="assets/grow/size-4.webp?v=1" alt="" width="800" height="800" loading="lazy" decoding="async">
+            <img src="assets/grow/size-5.webp?v=1" alt="" width="800" height="800" loading="lazy" decoding="async">
           </div>
+          <p class="grow-tag"><b id="planArea">30 м²</b><span id="growName">кав'ярня</span></p>
         </div>
 
         <label class="area-label" for="areaRange">Площа закладу: <b id="areaValue">30 м²</b></label>
@@ -574,6 +578,6 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script type="module" src="js/main.js?v=202611191952"></script>
+<script type="module" src="js/main.js?v=202611202144"></script>
 </body>
 </html>
