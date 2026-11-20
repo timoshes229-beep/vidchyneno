@@ -404,6 +404,11 @@ body.is-ready .scroll-hint { opacity: 1; }
   transform: translate3d(var(--px, 0%), 0, 0);
   filter: brightness(calc(.28 + var(--lit, 0) * .72)) saturate(calc(.25 + var(--lit, 0) * .75));
 }
+.case-video { aspect-ratio: 9 / 16; }
+.case video {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(calc(.28 + var(--lit, 0) * .62)) saturate(calc(.25 + var(--lit, 0) * .6));
+}
 .case::after {
   content: "";
   position: absolute; inset: 0;
@@ -547,6 +552,9 @@ body.is-ready .scroll-hint { opacity: 1; }
 .receipt-note { padding-top: 18px; font-size: 13.5px; line-height: 1.55; color: rgba(21, 17, 14, .62); }
 .receipt-thanks { margin-top: 18px; text-align: center; font-family: var(--script); font-size: 24px; color: rgba(21, 17, 14, .7); }
 .receipt-cta { width: calc(100% - 8px); margin: 22px 4px 0; }
+.receipt-solo { margin: 18px 4px 0; font-size: 15px; line-height: 1.5; color: rgba(233, 223, 207, .68); }
+.receipt-solo a { color: var(--lamp); text-decoration: underline; text-decoration-color: rgba(255, 194, 122, .4); text-underline-offset: 3px; transition: text-decoration-color .3s; }
+.receipt-solo a:hover { text-decoration-color: var(--lamp); }
 
 @media (max-width: 900px) {
   .pricing-grid { grid-template-columns: 1fr; }

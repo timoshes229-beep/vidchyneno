@@ -7,7 +7,18 @@ export function initCases() {
   if (!section || !track) return () => {};
 
   const cards = [...track.querySelectorAll('.case')];
-  const real = cards.filter((c) => !c.classList.contains('case-yours'));
+  const real = cards.filter((c) => !c.classList.contains('case-yours') && !c.classList.contains('case-video'));
+
+  // відео з кухні вантажиться, коли вулиця підходить до екрана, і грає лише поки його видно
+  const video = track.querySelector('.case-video video');
+  if (video && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        if (!video.src) video.src = video.dataset.src;
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) video.play().catch(() => {});
+      } else video.pause();
+    }, { rootMargin: '0px 200px' }).observe(video);
+  }
   const lit = cards.map(() => 0);
   const nowEl = document.getElementById('casesNow');
   document.getElementById('casesAll').textContent = String(real.length).padStart(2, '0');
