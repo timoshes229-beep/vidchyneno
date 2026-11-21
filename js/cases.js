@@ -9,15 +9,24 @@ export function initCases() {
   const cards = [...track.querySelectorAll('.case')];
   const real = cards.filter((c) => !c.classList.contains('case-yours') && !c.classList.contains('case-video'));
 
-  // відео з кухні вантажиться, коли вулиця підходить до екрана, і грає лише поки його видно
+  // відео з кухні: поки його не видно, стоїть кадр-заставка; файл починає вантажитись,
+  // щойно вулиця за екран від нас, і грає лише поки картку видно
   const video = track.querySelector('.case-video video');
   if (video && 'IntersectionObserver' in window) {
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const load = () => {
+      if (video.src) return;
+      video.preload = 'auto';
+      video.src = video.dataset.src;
+      video.load();
+    };
+    new IntersectionObserver(([e], io) => {
+      if (e.isIntersecting) { load(); io.disconnect(); }
+    }, { rootMargin: '150% 0px' }).observe(section);
     new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) {
-        if (!video.src) video.src = video.dataset.src;
-        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) video.play().catch(() => {});
-      } else video.pause();
-    }, { rootMargin: '0px 200px' }).observe(video);
+      if (e.isIntersecting) { load(); if (!still) video.play().catch(() => {}); }
+      else video.pause();
+    }, { rootMargin: '0px 50%' }).observe(video);
   }
   const lit = cards.map(() => 0);
   const nowEl = document.getElementById('casesNow');
