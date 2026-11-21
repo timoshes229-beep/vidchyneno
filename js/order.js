@@ -18,6 +18,42 @@ export function initOrder(animate) {
   const stamp = document.getElementById('ktStamp');
   const cta = document.getElementById('ktCta');
 
+  // етапи як вкладки: відкрита одна група, а чек показує вибір з усіх
+  const tabsEl = document.getElementById('orderTabs');
+  const panels = [...groups.querySelectorAll('.order-group')];
+  const tabs = panels.map((g, i) => {
+    const stage = g.querySelector('.order-stage');
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'order-tab';
+    b.id = `orderTab${i}`;
+    b.setAttribute('role', 'tab');
+    b.setAttribute('aria-controls', `orderPanel${i}`);
+    b.innerHTML = `<span class="order-tab-name">${stage.lastChild.textContent}</span><span class="order-tab-count"></span>`;
+    g.id = `orderPanel${i}`;
+    g.setAttribute('role', 'tabpanel');
+    g.setAttribute('aria-labelledby', b.id);
+    b.addEventListener('click', () => openTab(i));
+    tabsEl.appendChild(b);
+    return b;
+  });
+  function openTab(n) {
+    tabs.forEach((t, i) => {
+      t.classList.toggle('is-active', i === n);
+      t.setAttribute('aria-selected', String(i === n));
+      t.tabIndex = i === n ? 0 : -1;
+    });
+    panels.forEach((g, i) => { g.hidden = i !== n; });
+  }
+  tabsEl.addEventListener('keydown', (e) => {
+    const i = tabs.indexOf(document.activeElement);
+    if (i < 0 || (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft')) return;
+    const n = (i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length;
+    openTab(n);
+    tabs[n].focus();
+  });
+  openTab(0);
+
   function render(fresh = new Set()) {
     const on = items.filter((i) => i.classList.contains('is-on'));
     const all = on.length === items.length;
@@ -39,12 +75,19 @@ export function initOrder(animate) {
       m.setAttribute('aria-pressed', String(active));
     }
     for (const i of items) i.setAttribute('aria-pressed', String(i.classList.contains('is-on')));
+    panels.forEach((g, n) => {
+      const svc = [...g.querySelectorAll('.svc')];
+      const picked = svc.filter((i) => i.classList.contains('is-on')).length;
+      tabs[n].querySelector('.order-tab-count').textContent = `${picked}/${svc.length}`;
+      tabs[n].classList.toggle('is-empty', picked === 0);
+    });
   }
 
   // назва послуги «летить» у чек, якщо чек видно на екрані
   function fly(item) {
     if (!animate) return;
-    const to = list.getBoundingClientRect();
+    // на телефоні список у чеку згорнутий, тож назва летить до лічильника
+    const to = (list.offsetParent ? list : count).getBoundingClientRect();
     if (to.top > innerHeight || to.bottom < 0) return;
     const from = item.querySelector('b').getBoundingClientRect();
     const tag = document.createElement('span');

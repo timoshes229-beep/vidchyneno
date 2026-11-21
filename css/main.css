@@ -287,7 +287,27 @@ body.is-ready .scroll-hint { opacity: 1; }
 .order-modes { display: inline-flex; gap: 6px; padding: 4px; margin-bottom: 30px; border-radius: 999px; background: rgba(233, 223, 207, .07); }
 .order-mode { padding: 11px 20px; border-radius: 999px; font-size: 14.5px; font-weight: 600; color: rgba(233, 223, 207, .75); transition: background .3s, color .3s; }
 .order-mode.is-active { background: var(--cream); color: var(--ink); }
-.order-groups { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 3vw, 44px) clamp(24px, 3vw, 40px); }
+.order-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 18px; }
+.order-tab {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 4px;
+  padding: 14px 16px; border-radius: 12px;
+  text-align: left;
+  background: rgba(233, 223, 207, .05);
+  box-shadow: inset 0 0 0 1px rgba(233, 223, 207, .1);
+  transition: background .3s, box-shadow .3s, transform .2s;
+}
+.order-tab:hover { background: rgba(233, 223, 207, .09); }
+.order-tab:active { transform: scale(.98); }
+.order-tab:focus-visible { outline: 2px solid var(--sign); outline-offset: 3px; }
+.order-tab-name { font-size: 15px; font-weight: 700; letter-spacing: -.01em; color: var(--cream); }
+.order-tab-count { font-size: 13px; color: var(--lamp); font-variant-numeric: tabular-nums; }
+.order-tab.is-empty .order-tab-count { color: rgba(233, 223, 207, .4); }
+.order-tab.is-active { background: rgba(242, 106, 27, .14); box-shadow: inset 0 0 0 1.5px var(--sign); }
+.order-groups { display: block; }
+.order-group { display: grid; grid-template-columns: 1fr 1fr; column-gap: clamp(24px, 3vw, 40px); animation: tab-in .45s var(--ease-out); }
+.order-group[hidden] { display: none; }
+.order-group .order-stage { display: none; }
+@keyframes tab-in { from { opacity: 0; transform: translateY(8px); } }
 .order-stage { display: flex; align-items: baseline; gap: 12px; margin-bottom: 10px; font-size: 13px; font-weight: 600; letter-spacing: .02em; color: var(--lamp); }
 .order-stage span { font-variant-numeric: tabular-nums; color: rgba(233, 223, 207, .45); }
 .svc {
@@ -369,6 +389,16 @@ body.is-ready .scroll-hint { opacity: 1; }
 @media (max-width: 1000px) {
   .order { grid-template-columns: 1fr; }
   .order-ticket-wrap { position: static; }
+}
+@media (max-width: 760px) {
+  /* вкладки їдуть рядком убік, послуги в одну колонку, чек згорнутий до підсумку */
+  .order-tabs { display: flex; overflow-x: auto; margin: 0 calc(-1 * var(--gutter)) 14px; padding: 2px var(--gutter); scrollbar-width: none; }
+  .order-tabs::-webkit-scrollbar { display: none; }
+  .order-tab { flex: 0 0 auto; padding: 12px 14px; }
+  .order-group { grid-template-columns: 1fr; }
+  .kt-list { display: none; }
+  .kt-head { border-bottom: 0; padding-bottom: 0; }
+  .kt-total { margin-top: 14px; padding-right: 110px; }
 }
 @media (max-width: 640px) {
   .order-groups { grid-template-columns: 1fr; }
@@ -1112,67 +1142,6 @@ body.is-ready .scroll-hint { opacity: 1; }
   .neon-card { padding: 22px 12px 26px; }
 }
 
-/* ---------- «Запитайте шефа» ---------- */
-.faq { padding: clamp(90px, 11vw, 160px) var(--gutter); background: #0e0b08; color: var(--cream); }
-.faq-wrap { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(36px, 6vw, 100px); align-items: start; }
-.faq-head { position: sticky; top: 120px; }
-.faq-title { font-size: clamp(38px, 4.6vw, 76px); font-weight: 800; line-height: .95; letter-spacing: -.035em; margin-bottom: 18px; }
-.faq-lead { max-width: 30ch; font-size: 17px; color: rgba(233, 223, 207, .66); }
-.chat {
-  border-radius: 26px;
-  background: #1a1511;
-  box-shadow: 0 50px 90px -50px rgba(0, 0, 0, .8), inset 0 0 0 1px rgba(233, 223, 207, .09);
-  overflow: hidden;
-}
-.chat-top { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid rgba(233, 223, 207, .08); background: #201a15; }
-.chat-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; object-position: 50% 12%; background: #2b2723; }
-.chat-who { display: grid; }
-.chat-who b { font-size: 15.5px; font-weight: 700; }
-.chat-status { font-size: 13px; color: #6cc287; transition: color .3s; }
-.chat-status.is-typing { color: var(--sign); }
-.chat-feed {
-  display: flex; flex-direction: column; gap: 10px;
-  min-height: 150px; max-height: clamp(300px, 46vh, 440px);
-  padding: 20px;
-  overflow-y: auto; overscroll-behavior: contain;
-  background:
-    radial-gradient(circle at 20% 10%, rgba(242, 106, 27, .07), transparent 40%),
-    #15110d;
-}
-.msg {
-  max-width: 82%;
-  padding: 12px 16px;
-  border-radius: 18px;
-  font-size: 15.5px; line-height: 1.5;
-  animation: msg-in .45s var(--ease-out);
-}
-@keyframes msg-in { from { opacity: 0; transform: translateY(10px) scale(.98); } }
-.msg-in { align-self: flex-start; background: #2a231d; color: var(--cream); border-bottom-left-radius: 6px; }
-.msg-out { align-self: flex-end; background: var(--sign); color: var(--ink); font-weight: 600; border-bottom-right-radius: 6px; }
-.msg-typing { display: flex; gap: 5px; padding: 15px 18px; }
-.msg-typing i { width: 7px; height: 7px; border-radius: 50%; background: rgba(233, 223, 207, .5); animation: dot 1s ease-in-out infinite; }
-.msg-typing i:nth-child(2) { animation-delay: .15s; }
-.msg-typing i:nth-child(3) { animation-delay: .3s; }
-@keyframes dot { 0%, 100% { transform: translateY(0); opacity: .5; } 40% { transform: translateY(-4px); opacity: 1; } }
-.chat-questions { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px 20px 20px; border-top: 1px solid rgba(233, 223, 207, .08); }
-.chat-q {
-  padding: 10px 14px;
-  border-radius: 999px;
-  box-shadow: inset 0 0 0 1px rgba(233, 223, 207, .22);
-  color: var(--cream);
-  font-size: 14px; font-weight: 500; text-align: left;
-  transition: background .25s, box-shadow .25s, opacity .3s;
-}
-.chat-q:hover { box-shadow: inset 0 0 0 1px var(--lamp); color: var(--lamp); }
-.chat-q.is-asked { opacity: .45; }
-.chat-q-more { background: var(--sign); color: var(--ink); font-weight: 700; box-shadow: none; }
-.chat-q-more:hover { background: #ff7a2e; color: var(--ink); box-shadow: none; }
-.chat-q:disabled { cursor: wait; }
-@media (max-width: 900px) {
-  .faq-wrap { grid-template-columns: 1fr; }
-  .faq-head { position: static; }
-}
-
 /* ---------- телефон з вибором країни ---------- */
 .field-phone .iti { display: block; width: 100%; }
 .field-phone .iti__selected-country { border-radius: 12px 0 0 12px; }
@@ -1188,8 +1157,32 @@ body.is-ready .scroll-hint { opacity: 1; }
 /* ---------- шрифт заголовків ---------- */
 h1, h2, h3,
 .brand-sign, .hero-stats b, .about-stats b, .stage-num, .receipt-head, .receipt-lines dd,
-.fr-face b, .about-sign b, .tag-board b, .grow-tag b, .area-label b, .fmt-card b, .chat-who b {
+.fr-face b, .about-sign b, .tag-board b, .grow-tag b, .area-label b, .fmt-card b {
   font-family: var(--display);
   letter-spacing: -.03em;
 }
 .receipt-gift dd { font-family: var(--script); letter-spacing: 0; }
+
+/* ---------- одна лінія й один розмір для заголовків, що стоять зліва ---------- */
+/* лівий край усіх блоків збігається з логотипом; франшиза й перший екран мають свою композицію */
+:root { --wrap: calc(1440px - 2 * var(--gutter)); }
+.services-intro, .order, .pricing-grid, .contact-grid,
+.pricing-title, .pricing-lead, .contact-title, .contact-lead,
+.formats-head, .formats-grid, .formats-more, .fr-card,
+.audience-head, .neons, .audience-warn { max-width: var(--wrap); }
+.process-wrap { max-width: 1440px; }
+
+.audience-title, .formats-title, .services-title, .kitchen-title, .process-title,
+.cases-title, .pricing-title, .contact-title {
+  font-size: clamp(34px, 4.4vw, 64px);
+  font-weight: 800; line-height: .98; letter-spacing: -.035em;
+}
+@media (min-width: 901px) {
+  .services-title, .pricing-title, .contact-title { font-size: clamp(34px, 4.4vw, 64px); }
+  .pricing-title, .contact-title { white-space: normal; text-wrap: balance; }
+}
+
+/* ---------- три короткі відповіді біля заявки ---------- */
+.contact-faq { display: grid; gap: 18px; margin-top: clamp(28px, 3vw, 40px); padding-top: clamp(22px, 2.4vw, 30px); border-top: 1.5px dashed rgba(233, 223, 207, .18); }
+.contact-faq dt { font-size: 16px; font-weight: 700; letter-spacing: -.01em; color: var(--cream); margin-bottom: 4px; }
+.contact-faq dd { max-width: 44ch; font-size: 15px; line-height: 1.5; color: rgba(233, 223, 207, .66); }

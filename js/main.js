@@ -1,13 +1,12 @@
-import { createHero } from './hero.js?v=202611210722';
-import { initAbout } from './about.js?v=202611210722';
-import { initProcess } from './process.js?v=202611210722';
-import { initCases } from './cases.js?v=202611210722';
-import { initPricing } from './pricing.js?v=202611210722';
-import { initOrder } from './order.js?v=202611210722';
-import { initAudience, initFormats, initFranchise } from './audience.js?v=202611210722';
-import { initFaq } from './faq.js?v=202611210722';
-import { initContact } from './contact.js?v=202611210722';
-import { initPlace } from './place.js?v=202611210722';
+import { createHero } from './hero.js?v=202611211451';
+import { initAbout } from './about.js?v=202611211451';
+import { initProcess } from './process.js?v=202611211451';
+import { initCases } from './cases.js?v=202611211451';
+import { initPricing } from './pricing.js?v=202611211451';
+import { initOrder } from './order.js?v=202611211451';
+import { initAudience, initFormats, initFranchise } from './audience.js?v=202611211451';
+import { initContact } from './contact.js?v=202611211451';
+import { initPlace } from './place.js?v=202611211451';
 
 const $ = (s) => document.querySelector(s);
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -20,7 +19,7 @@ const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
 // після оновлення сторінки починаємо з першого екрана, а не з місця, де людина була
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 if (!location.hash) scrollTo(0, 0);
-const lenis = window.Lenis && !reduceMotion ? new window.Lenis({ lerp: 0.085, prevent: (node) => !!node.closest?.('.iti__dropdown-content, .iti__country-list, .chat-feed') }) : null;
+const lenis = window.Lenis && !reduceMotion ? new window.Lenis({ lerp: 0.085, prevent: (node) => !!node.closest?.('.iti__dropdown-content, .iti__country-list') }) : null;
 lenis?.stop();
 
 
@@ -95,7 +94,7 @@ function openUp() {
 let heroVisible = true;
 const tgFloat = $('.tg-float');
 const contactEl = $('#contact');
-const busyEls = [...document.querySelectorAll('#price, #faq')];
+const busyEls = [...document.querySelectorAll('#services, #price')];
 function updateHero() {
   const rect = heroEl.getBoundingClientRect();
   const total = heroEl.offsetHeight - innerHeight;
@@ -111,7 +110,7 @@ function updateHero() {
   header.classList.toggle('is-light', overLight && !menu.classList.contains('is-open'));
 
   // кнопка Telegram з'являється після першого екрана й ховається біля форми заявки
-  // і над повзунком цін та чатом, щоб не закривала кнопки
+  // і над чеком послуг та повзунком цін, щоб не закривала кнопки
   const c = contactEl.getBoundingClientRect();
   const busy = busyEls.some((el) => { const r = el.getBoundingClientRect(); return r.top < innerHeight && r.bottom > innerHeight - 120; });
   tgFloat?.classList.toggle('is-on', rect.bottom < innerHeight * 0.5 && c.top > innerHeight * 0.85 && !busy && !menu.classList.contains('is-open'));
@@ -131,7 +130,6 @@ initOrder(!reduceMotion);
 initAudience();
 initFormats();
 initFranchise();
-initFaq();
 initContact();
 
 function raf(t) {
