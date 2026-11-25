@@ -1,13 +1,13 @@
-import { createHero } from './hero.js?v=202611252254';
-import { initAbout } from './about.js?v=202611252254';
-import { initProcess } from './process.js?v=202611252254';
-import { initCases } from './cases.js?v=202611252254';
-import { initPricing } from './pricing.js?v=202611252254';
-import { initOrder } from './order.js?v=202611252254';
-import { initAudience, initFormats, initFranchise } from './audience.js?v=202611252254';
-import { initContact } from './contact.js?v=202611252254';
-import { initPlace } from './place.js?v=202611252254';
-import { initQuick } from './quick.js?v=202611252254';
+import { createHero } from './hero.js?v=202611252306';
+import { initAbout } from './about.js?v=202611252306';
+import { initProcess } from './process.js?v=202611252306';
+import { initCases } from './cases.js?v=202611252306';
+import { initPricing } from './pricing.js?v=202611252306';
+import { initOrder } from './order.js?v=202611252306';
+import { initAudience, initFormats, initFranchise } from './audience.js?v=202611252306';
+import { initContact } from './contact.js?v=202611252306';
+import { initPlace } from './place.js?v=202611252306';
+import { initQuick } from './quick.js?v=202611252306';
 
 const $ = (s) => document.querySelector(s);
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -115,6 +115,9 @@ function updateHero() {
   const c = contactEl.getBoundingClientRect();
   const busy = busyEls.some((el) => { const r = el.getBoundingClientRect(); return r.top < innerHeight && r.bottom > innerHeight - 120; });
   tgFloat?.classList.toggle('is-on', rect.bottom < innerHeight * 0.5 && c.top > innerHeight * 0.85 && !busy && !menu.classList.contains('is-open'));
+
+  // на першому екрані кнопка в шапці зайва: поруч уже є поле для телефону
+  header.classList.toggle('is-hero', rect.top > -innerHeight * 0.3);
 
   const visible = rect.bottom > 0;
   if (visible !== heroVisible) {
