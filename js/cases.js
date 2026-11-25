@@ -35,7 +35,8 @@ export function initCases() {
   let distance = 0;
   function measure() {
     distance = Math.max(0, track.scrollWidth - innerWidth);
-    section.style.height = `${distance + innerHeight * 1.15}px`;
+    // вулиця їде вбік швидше, ніж гортається сторінка: блок коротший і не набридає
+    section.style.height = `${distance * 0.6 + innerHeight * 1.15}px`;
   }
   measure();
   addEventListener('resize', measure);

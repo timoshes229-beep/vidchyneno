@@ -3,6 +3,7 @@
 export const CONTACTS = {
   phone: '',      // наприклад '+380671234567'
   telegram: 'Dima_Brss',
+  viber: '',      // номер для Viber, наприклад '+380671234567'
   instagram: '',  // повне посилання на профіль
   tiktok: '',     // повне посилання на профіль
 };

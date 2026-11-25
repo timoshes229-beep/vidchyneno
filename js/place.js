@@ -50,6 +50,11 @@ export function initPlace(hero) {
       c.setAttribute('aria-pressed', String(on));
     }
     if (signName) signName.textContent = name ? `«${name}»` : 'від ідеї до першого гостя';
+    const neon = document.getElementById('placeNeon');
+    if (neon) {
+      neon.textContent = name || 'Ваш заклад';
+      neon.classList.toggle('is-lit', !!name);
+    }
     const buildSign = document.getElementById('buildSignText');
     if (buildSign) buildSign.textContent = name || 'Ваш заклад';
     if (bookingPlace && !bookingPlace.dataset.touched) bookingPlace.value = name;

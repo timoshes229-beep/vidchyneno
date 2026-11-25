@@ -1254,3 +1254,70 @@ h1, h2, h3,
   .hero-foot > .hero-actions { grid-area: actions; justify-self: end; }
 }
 @media (max-width: 1280px) and (min-width: 761px) { .hero-lead { display: block; } }
+
+/* ---------- заявка: обов'язкові лише ім'я й телефон, решта згорнута ---------- */
+.booking-more { margin-top: 14px; }
+.booking-more summary {
+  display: flex; align-items: center; gap: 10px;
+  min-height: 44px; padding: 0 2px;
+  cursor: pointer; list-style: none;
+  font-size: 15px; font-weight: 600; color: rgba(21, 17, 14, .8);
+}
+.booking-more summary::-webkit-details-marker { display: none; }
+.booking-more summary::before {
+  content: "+"; display: grid; place-items: center;
+  width: 26px; height: 26px; border-radius: 50%;
+  box-shadow: inset 0 0 0 1.5px rgba(21, 17, 14, .3);
+  font-size: 17px; line-height: 1; transition: transform .3s;
+}
+.booking-more[open] summary::before { transform: rotate(45deg); }
+.booking-more summary small { font-size: 13px; font-weight: 400; color: rgba(21, 17, 14, .5); }
+.booking-more summary:hover { color: var(--ink); }
+.booking-more .booking-fields { padding-top: 8px; }
+
+/* ---------- довіра під рахунком ---------- */
+.receipt-trust { list-style: none; display: grid; gap: 8px; margin: 20px 4px 0; }
+.receipt-trust li { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--cream); }
+.receipt-trust li::before {
+  content: ""; flex: 0 0 auto; width: 18px; height: 18px; border-radius: 50%;
+  background: var(--sign) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M5 9.2l2.6 2.6L13 6.4' fill='none' stroke='%2315110e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 100% no-repeat;
+}
+
+/* ---------- телефон: нижня панель «Передзвоніть мені» + Telegram замість однієї круглої кнопки ---------- */
+.m-bar {
+  position: fixed; z-index: 40; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom));
+  display: none; gap: 8px; padding: 6px;
+  border-radius: 20px;
+  background: rgba(17, 13, 10, .82);
+  box-shadow: inset 0 0 0 1px rgba(233, 223, 207, .12), 0 18px 40px -14px rgba(0, 0, 0, .7);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  opacity: 0; transform: translateY(24px); pointer-events: none;
+  transition: opacity .4s, transform .5s var(--ease-out);
+}
+.m-bar.is-on { opacity: 1; transform: none; pointer-events: auto; }
+.m-bar-call { flex: 1; min-height: 50px; }
+.m-bar-tg { flex: 0 0 50px; display: grid; place-items: center; height: 50px; border-radius: 14px; background: #2aabee; color: #fff; }
+.m-bar-tg svg { width: 26px; height: 26px; margin-left: -2px; }
+@media (max-width: 900px) { .m-bar { display: flex; } }
+
+/* ---------- «Як назвете свій заклад?» у блоці форматів: назва світиться неоном ---------- */
+.place-inline {
+  max-width: var(--wrap); width: auto;
+  margin: 0 auto clamp(28px, 3.5vw, 48px);
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr); align-items: center; gap: 12px 28px;
+  padding: 12px 12px 12px 12px;
+}
+.place-neon {
+  font-family: var(--script); font-size: clamp(30px, 3.2vw, 46px); line-height: 1.1;
+  color: rgba(233, 223, 207, .28);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  transition: color .5s, text-shadow .5s;
+}
+.place-neon.is-lit {
+  color: #ffe3bf;
+  text-shadow: 0 0 6px rgba(255, 194, 122, .9), 0 0 18px rgba(242, 106, 27, .8), 0 0 42px rgba(242, 106, 27, .5);
+}
+@media (max-width: 760px) {
+  .place-inline { grid-template-columns: 1fr; }
+  .place-neon { text-align: center; }
+}

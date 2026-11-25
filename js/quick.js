@@ -1,4 +1,4 @@
-import { FORM_ENDPOINT } from './config.js?v=202611252306';
+import { FORM_ENDPOINT } from './config.js?v=202611252319';
 
 // Швидка заявка з першого екрана: лише телефон, Дмитро передзвонить і порахує заклад
 export function initQuick() {

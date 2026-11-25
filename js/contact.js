@@ -1,10 +1,10 @@
-import { CONTACTS, FORM_ENDPOINT } from './config.js?v=202611252306';
-import { initPhone, phone } from './phone.js?v=202611252306';
+import { CONTACTS, FORM_ENDPOINT } from './config.js?v=202611252319';
+import { initPhone, phone } from './phone.js?v=202611252319';
 
 const esc = (v) => String(v || '').replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
 
 function applyContacts() {
-  const { phone, telegram, instagram, tiktok } = CONTACTS;
+  const { phone, telegram, viber, instagram, tiktok } = CONTACTS;
   for (const a of document.querySelectorAll('[data-contact="phone"]')) {
     a.href = phone ? `tel:${phone.replace(/[^\d+]/g, '')}` : '#booking';
   }
@@ -19,6 +19,11 @@ function applyContacts() {
     }
   }
   if (telegram) for (const s of document.querySelectorAll('[data-contact-text="telegram"]')) s.textContent = `@${telegram}`;
+
+  // Viber відкривається за номером; поки номера немає, посилання веде до форми
+  for (const a of document.querySelectorAll('[data-contact="viber"]')) {
+    a.href = viber ? `viber://chat?number=${encodeURIComponent(viber.replace(/[^\d+]/g, ''))}` : '#booking';
+  }
 
   for (const [key, url] of Object.entries({ instagram, tiktok })) {
     for (const a of document.querySelectorAll(`[data-contact="${key}"]`)) {
@@ -40,6 +45,7 @@ export function initContact() {
   const area = document.getElementById('bookingArea');
   document.getElementById('receiptCta')?.addEventListener('click', () => {
     if (document.body.dataset.area) area.value = document.body.dataset.area;
+    form.querySelector('.booking-more').open = true;
     const comment = form.elements.comment;
     if (comment && !comment.dataset.touched && !comment.value) comment.value = 'Хочу прогноз прибутку й окупності для свого закладу.';
   });
@@ -86,7 +92,7 @@ export function initContact() {
         ['Контакт', data.phone],
         ['Формат', data.format || 'ще обираємо'],
         ['Площа', data.area || 'уточнимо'],
-        ['Приміщення', data.premises === 'Є' ? 'вже є' : 'треба знайти'],
+        ['Приміщення', data.premises === 'Є' ? 'вже є' : data.premises ? 'треба знайти' : 'уточнимо'],
       ];
       done.innerHTML = `
         <div class="order-ticket">

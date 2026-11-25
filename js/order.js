@@ -126,6 +126,7 @@ export function initOrder(animate) {
     if (!comment || comment.dataset.touched) return;
     const on = items.filter((i) => i.classList.contains('is-on')).map((i) => i.querySelector('b').textContent);
     comment.value = on.length === items.length ? 'Цікавить запуск під ключ.' : on.length ? `Цікавить: ${on.join(', ')}.` : '';
+    comment.closest('details')?.setAttribute('open', '');
   });
   document.getElementById('booking')?.elements.comment?.addEventListener('input', (e) => { e.target.dataset.touched = '1'; });
 

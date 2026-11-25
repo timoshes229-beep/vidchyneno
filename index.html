@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500..800&family=Onest:wght@400..800&family=Marck+Script&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/main.css?v=202611252306">
+<link rel="stylesheet" href="css/main.css?v=202611252319">
 <script type="importmap">
 { "imports": {
   "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
@@ -76,9 +76,12 @@
 </div>
 
 <main id="top">
-  <a class="tg-float" data-contact="telegram" href="#contact" target="_blank" rel="noopener" aria-label="Написати Дмитру в Telegram">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.4 4.2 2.9 11.3c-1.3.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.8.8.4 0 .6-.2.9-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.4-1.5ZM8.9 14l9-5.7c.4-.3.8-.1.5.2l-7.4 6.7-.3 3.2L8.9 14Z"/></svg>
-  </a>
+  <div class="m-bar">
+    <a class="btn btn-sign m-bar-call" href="#contact"><span>Передзвоніть мені</span></a>
+    <a class="m-bar-tg" data-contact="telegram" href="#contact" target="_blank" rel="noopener" aria-label="Написати Дмитру в Telegram">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.4 4.2 2.9 11.3c-1.3.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.8.8.4 0 .6-.2.9-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.4-1.5ZM8.9 14l9-5.7c.4-.3.8-.1.5.2l-7.4 6.7-.3 3.2L8.9 14Z"/></svg>
+    </a>
+  </div>
 
   <section class="hero" id="hero">
     <div class="hero-stage">
@@ -99,19 +102,6 @@
               <li><b>1,5–3 міс.</b><span>до відкриття</span></li>
             </ul>
           </div>
-          <form class="place" id="place" autocomplete="off">
-            <label class="place-name">
-              <span class="visually-hidden">Назва вашого закладу</span>
-              <input id="placeName" name="placeName" maxlength="26" placeholder="Як назвете свій заклад?" enterkeyhint="done">
-            </label>
-            <div class="place-formats" role="group" aria-label="Формат закладу">
-              <button class="place-format is-active" type="button" data-format="restaurant" aria-pressed="true">Ресторан</button>
-              <button class="place-format" type="button" data-format="coffee" aria-pressed="false">Кав'ярня</button>
-              <button class="place-format" type="button" data-format="pizza" aria-pressed="false">Піцерія</button>
-              <button class="place-format" type="button" data-format="burger" aria-pressed="false">Бургерна</button>
-            </div>
-            <p class="place-hint">Назва засвітиться на вивісці. Гортайте вниз, і двері відчиняться.</p>
-          </form>
           <form class="quick hero-actions" id="quick" novalidate>
             <div class="quick-row">
               <label class="quick-field">
@@ -186,6 +176,13 @@
       <h2 class="formats-title">Які заклади відчиняємо</h2>
       <p class="formats-lead">Від кіоску з шаурмою до ресторану. Натисніть на свій формат, і він одразу потрапить у заявку.</p>
     </div>
+    <form class="place place-inline" id="place" autocomplete="off">
+      <label class="place-name">
+        <span class="visually-hidden">Назва вашого закладу</span>
+        <input id="placeName" name="placeName" maxlength="26" placeholder="Як назвете свій заклад?" enterkeyhint="done">
+      </label>
+      <p class="place-neon" id="placeNeon" aria-live="polite">Ваш заклад</p>
+    </form>
     <ul class="formats-grid">
         <li><a class="fmt-card" href="#contact" data-format="Кафе або ресторан" data-intent="Цікавить формат: ресторан.">
           <img src="assets/minis/restaurant.webp?v=3" alt="Ресторан: мініатюра закладу" width="640" height="640" loading="lazy" decoding="async">
@@ -479,6 +476,11 @@
           <p class="receipt-thanks">Дякуємо, що завітали</p>
         </div>
         <a class="btn btn-sign magnetic receipt-cta" id="receiptCta" href="#contact"><span>Порахувати прибуток і окупність</span></a>
+        <ul class="receipt-trust">
+          <li>Працюємо за договором</li>
+          <li>Одна відповідальна людина на весь проєкт</li>
+          <li>Ціна відома до старту</li>
+        </ul>
         <p class="receipt-solo">Не потрібен запуск під ключ? Можна взяти окремо: <a href="#contact">меню й техкарти, аудит або перезапуск закладу</a>.</p>
       </div>
     </div>
@@ -493,6 +495,7 @@
         <div class="contact-links">
           <a class="contact-link" data-contact="phone" href="#"><small>Телефон</small><span data-contact-text="phone">Передзвонимо вам</span></a>
           <a class="contact-link" data-contact="telegram" href="#" target="_blank" rel="noopener"><small>Telegram</small><span data-contact-text="telegram">Написати Дмитру</span></a>
+          <a class="contact-link" data-contact="viber" href="#"><small>Viber</small><span>Написати у Viber</span></a>
         </div>
 
         <button class="final-sign" id="finalSign" type="button" aria-label="Перевернути табличку">
@@ -522,37 +525,42 @@
             <span>Телефон</span>
             <input name="phone" id="bookingPhone" type="tel" inputmode="tel" autocomplete="tel" required>
           </label>
-          <label class="field field-wide">
-            <span>Назва закладу, якщо вже придумали</span>
-            <input name="place" id="bookingPlace">
-          </label>
-          <label class="field">
-            <span>Який заклад плануєте</span>
-            <select name="format">
-              <option value="">Ще не визначився</option>
-              <option>Кав'ярня</option>
-              <option>Стрітфуд або шаурма</option>
-              <option>Піцерія, суші чи бургерна</option>
-              <option>Кафе або ресторан</option>
-              <option>Пекарня чи кондитерська</option>
-              <option>Dark kitchen</option>
-              <option>Перезапуск закладу, що вже працює</option>
-            </select>
-          </label>
-          <label class="field">
-            <span>Площа</span>
-            <input name="area" id="bookingArea" placeholder="Наприклад, 35 м²">
-          </label>
-          <fieldset class="field field-choice">
-            <legend>Приміщення</legend>
-            <label><input type="radio" name="premises" value="Є" checked><span>Вже є</span></label>
-            <label><input type="radio" name="premises" value="Шукаємо"><span>Треба знайти</span></label>
-          </fieldset>
-          <label class="field field-wide">
-            <span>Коментар</span>
-            <textarea name="comment" rows="3" placeholder="Місто, бюджет, ідея, усе що вважаєте важливим"></textarea>
-          </label>
         </div>
+        <details class="booking-more">
+          <summary>Розповісти більше про заклад <small>необов'язково</small></summary>
+          <div class="booking-fields">
+            <label class="field field-wide">
+              <span>Назва закладу, якщо вже придумали</span>
+              <input name="place" id="bookingPlace">
+            </label>
+            <label class="field">
+              <span>Який заклад плануєте</span>
+              <select name="format">
+                <option value="">Ще не визначився</option>
+                <option>Кав'ярня</option>
+                <option>Стрітфуд або шаурма</option>
+                <option>Піцерія, суші чи бургерна</option>
+                <option>Кафе або ресторан</option>
+                <option>Пекарня чи кондитерська</option>
+                <option>Dark kitchen</option>
+                <option>Перезапуск закладу, що вже працює</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Площа</span>
+              <input name="area" id="bookingArea" placeholder="Наприклад, 35 м²">
+            </label>
+            <fieldset class="field field-choice">
+              <legend>Приміщення</legend>
+              <label><input type="radio" name="premises" value="Є"><span>Вже є</span></label>
+              <label><input type="radio" name="premises" value="Шукаємо"><span>Треба знайти</span></label>
+            </fieldset>
+            <label class="field field-wide">
+              <span>Коментар</span>
+              <textarea name="comment" rows="3" placeholder="Місто, бюджет, ідея, усе що вважаєте важливим"></textarea>
+            </label>
+          </div>
+        </details>
         <p class="booking-error" id="bookingError" role="alert"></p>
         <button class="btn btn-sign booking-submit" type="submit"><span>Надіслати заявку</span></button>
         <p class="booking-consent">Натискаючи кнопку, ви погоджуєтесь, що Дмитро зв’яжеться з вами за вказаними контактами. Дані не передаються третім особам.</p>
@@ -573,6 +581,6 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script type="module" src="js/main.js?v=202611252306"></script>
+<script type="module" src="js/main.js?v=202611252319"></script>
 </body>
 </html>
