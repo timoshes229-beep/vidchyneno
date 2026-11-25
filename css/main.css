@@ -1321,3 +1321,11 @@ h1, h2, h3,
   .place-inline { grid-template-columns: 1fr; }
   .place-neon { text-align: center; }
 }
+
+/* три відповіді стоять під формою: колонки однакової висоти */
+.contact-right .contact-faq { margin-top: clamp(28px, 3vw, 40px); }
+@media (min-width: 901px) {
+  .contact-grid { align-items: stretch; }
+  .contact-left { display: flex; flex-direction: column; }
+  .contact-left .final-sign { margin-top: auto; margin-bottom: auto; }
+}

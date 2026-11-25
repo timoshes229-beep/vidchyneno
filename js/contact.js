@@ -1,5 +1,5 @@
-import { CONTACTS, FORM_ENDPOINT } from './config.js?v=202611252319';
-import { initPhone, phone } from './phone.js?v=202611252319';
+import { CONTACTS, FORM_ENDPOINT } from './config.js?v=202611252327';
+import { initPhone, phone } from './phone.js?v=202611252327';
 
 const esc = (v) => String(v || '').replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
 

@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500..800&family=Onest:wght@400..800&family=Marck+Script&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/main.css?v=202611252319">
+<link rel="stylesheet" href="css/main.css?v=202611252327">
 <script type="importmap">
 { "imports": {
   "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
@@ -506,66 +506,68 @@
           </span>
         </button>
 
+      </div>
+
+      <div class="contact-right">
+        <form class="booking" id="booking" novalidate>
+          <p class="booking-head">Заявка на запуск</p>
+          <input class="visually-hidden" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="booking-fields">
+            <label class="field">
+              <span>Ваше ім'я</span>
+              <input name="name" autocomplete="name" required>
+            </label>
+            <label class="field field-phone">
+              <span>Телефон</span>
+              <input name="phone" id="bookingPhone" type="tel" inputmode="tel" autocomplete="tel" required>
+            </label>
+          </div>
+          <details class="booking-more">
+            <summary>Розповісти більше про заклад <small>необов'язково</small></summary>
+            <div class="booking-fields">
+              <label class="field field-wide">
+                <span>Назва закладу, якщо вже придумали</span>
+                <input name="place" id="bookingPlace">
+              </label>
+              <label class="field">
+                <span>Який заклад плануєте</span>
+                <select name="format">
+                  <option value="">Ще не визначився</option>
+                  <option>Кав'ярня</option>
+                  <option>Стрітфуд або шаурма</option>
+                  <option>Піцерія, суші чи бургерна</option>
+                  <option>Кафе або ресторан</option>
+                  <option>Пекарня чи кондитерська</option>
+                  <option>Dark kitchen</option>
+                  <option>Перезапуск закладу, що вже працює</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Площа</span>
+                <input name="area" id="bookingArea" placeholder="Наприклад, 35 м²">
+              </label>
+              <fieldset class="field field-choice">
+                <legend>Приміщення</legend>
+                <label><input type="radio" name="premises" value="Є"><span>Вже є</span></label>
+                <label><input type="radio" name="premises" value="Шукаємо"><span>Треба знайти</span></label>
+              </fieldset>
+              <label class="field field-wide">
+                <span>Коментар</span>
+                <textarea name="comment" rows="3" placeholder="Місто, бюджет, ідея, усе що вважаєте важливим"></textarea>
+              </label>
+            </div>
+          </details>
+          <p class="booking-error" id="bookingError" role="alert"></p>
+          <button class="btn btn-sign booking-submit" type="submit"><span>Надіслати заявку</span></button>
+          <p class="booking-consent">Натискаючи кнопку, ви погоджуєтесь, що Дмитро зв’яжеться з вами за вказаними контактами. Дані не передаються третім особам.</p>
+          <div class="booking-done" id="bookingDone" hidden></div>
+        </form>
         <dl class="contact-faq">
           <div><dt>Немає досвіду в ресторанах?</dt><dd>Більшість клієнтів Дмитра відкривають свій перший заклад. Беремо на себе все й пояснюємо кожен крок.</dd></div>
           <div><dt>А якщо заклад не піде?</dt><dd>Тому починаємо з прорахунку: якщо цифри не сходяться, Дмитро чесно скаже про це ще до ремонту.</dd></div>
           <div><dt>Ви працюєте в моєму місті?</dt><dd>Так, по всій Україні, від Харкова до Кіровоградщини.</dd></div>
         </dl>
       </div>
-
-      <form class="booking" id="booking" novalidate>
-        <p class="booking-head">Заявка на запуск</p>
-        <input class="visually-hidden" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <div class="booking-fields">
-          <label class="field">
-            <span>Ваше ім'я</span>
-            <input name="name" autocomplete="name" required>
-          </label>
-          <label class="field field-phone">
-            <span>Телефон</span>
-            <input name="phone" id="bookingPhone" type="tel" inputmode="tel" autocomplete="tel" required>
-          </label>
-        </div>
-        <details class="booking-more">
-          <summary>Розповісти більше про заклад <small>необов'язково</small></summary>
-          <div class="booking-fields">
-            <label class="field field-wide">
-              <span>Назва закладу, якщо вже придумали</span>
-              <input name="place" id="bookingPlace">
-            </label>
-            <label class="field">
-              <span>Який заклад плануєте</span>
-              <select name="format">
-                <option value="">Ще не визначився</option>
-                <option>Кав'ярня</option>
-                <option>Стрітфуд або шаурма</option>
-                <option>Піцерія, суші чи бургерна</option>
-                <option>Кафе або ресторан</option>
-                <option>Пекарня чи кондитерська</option>
-                <option>Dark kitchen</option>
-                <option>Перезапуск закладу, що вже працює</option>
-              </select>
-            </label>
-            <label class="field">
-              <span>Площа</span>
-              <input name="area" id="bookingArea" placeholder="Наприклад, 35 м²">
-            </label>
-            <fieldset class="field field-choice">
-              <legend>Приміщення</legend>
-              <label><input type="radio" name="premises" value="Є"><span>Вже є</span></label>
-              <label><input type="radio" name="premises" value="Шукаємо"><span>Треба знайти</span></label>
-            </fieldset>
-            <label class="field field-wide">
-              <span>Коментар</span>
-              <textarea name="comment" rows="3" placeholder="Місто, бюджет, ідея, усе що вважаєте важливим"></textarea>
-            </label>
-          </div>
-        </details>
-        <p class="booking-error" id="bookingError" role="alert"></p>
-        <button class="btn btn-sign booking-submit" type="submit"><span>Надіслати заявку</span></button>
-        <p class="booking-consent">Натискаючи кнопку, ви погоджуєтесь, що Дмитро зв’яжеться з вами за вказаними контактами. Дані не передаються третім особам.</p>
-        <div class="booking-done" id="bookingDone" hidden></div>
-      </form>
     </div>
   </section>
 
@@ -581,6 +583,6 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script type="module" src="js/main.js?v=202611252319"></script>
+<script type="module" src="js/main.js?v=202611252327"></script>
 </body>
 </html>
